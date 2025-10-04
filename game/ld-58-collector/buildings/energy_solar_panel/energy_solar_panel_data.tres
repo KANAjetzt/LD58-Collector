@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataBuilding" load_steps=3 format=3 uid="uid://cmxs6eqwyimey"]
+
+[ext_resource type="Script" uid="uid://7q4pd1c1t1ar" path="res://buildings/_building_data.gd" id="1_ppxr1"]
+[ext_resource type="Texture2D" uid="uid://bv001dsmv312m" path="res://buildings/energy_solar_panel/energy_solar_panel.png" id="2_nxaoy"]
+
+[resource]
+script = ExtResource("1_ppxr1")
+id = "energy_solar_panel"
+display_name = "Solar Panel"
+sprites = ExtResource("2_nxaoy")
+metadata/_custom_type_script = "uid://7q4pd1c1t1ar"

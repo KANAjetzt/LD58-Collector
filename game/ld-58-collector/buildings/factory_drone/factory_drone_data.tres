@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataBuilding" load_steps=3 format=3 uid="uid://cwrkagtyxwl1s"]
+
+[ext_resource type="Script" uid="uid://7q4pd1c1t1ar" path="res://buildings/_building_data.gd" id="1_0u0or"]
+[ext_resource type="Texture2D" uid="uid://wjsi1mculi7r" path="res://buildings/factory_drone/factory_drone.png" id="2_s6b0b"]
+
+[resource]
+script = ExtResource("1_0u0or")
+id = "factory_drone"
+display_name = "Drone Factory"
+sprites = ExtResource("2_s6b0b")
+metadata/_custom_type_script = "uid://7q4pd1c1t1ar"

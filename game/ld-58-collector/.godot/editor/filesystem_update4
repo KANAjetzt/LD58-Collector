@@ -1,0 +1,17 @@
+res://main.tscn
+res://buildings/building.gd
+res://addons/phantom_camera/themes/theme.tres
+res://buildings/_building_data.gd
+res://buildings/energy_solar_panel/energy_solar_panel_data.tres
+res://buildings/factory_battery/factory_battery_data.tres
+res://buildings/factory_drone/factory_drone_data.tres
+res://buildings/_building_energy_data.gd
+res://buildings/_building_factory_data.gd
+res://resources/_resource_data.gd
+res://resources/battery/resource_battery_data.tres
+res://resources/ore/resource_ore_data.tres
+res://resources/_resource_energy_data.gd
+res://buildings/_building_factory_resource_data.gd
+res://buildings/_building_factory_unit_data.gd
+res://units/_unit_data.gd
+res://units/drone/unit_drone_data.tres

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataResource" load_steps=3 format=3 uid="uid://bvwt7d3u2i6nj"]
+
+[ext_resource type="Script" uid="uid://iubhn0eug404" path="res://resources/_resource_data.gd" id="1_kxegk"]
+[ext_resource type="Texture2D" uid="uid://d4dtfkc3g86w" path="res://resources/sprite_resources.png" id="2_3ht2o"]
+
+[resource]
+script = ExtResource("1_kxegk")
+id = "resource_ore"
+display_name = "Ore"
+sprite = ExtResource("2_3ht2o")
+metadata/_custom_type_script = "uid://iubhn0eug404"

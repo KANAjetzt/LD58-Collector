@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataUnit" load_steps=3 format=3 uid="uid://dwrh6ythq8856"]
+
+[ext_resource type="Script" uid="uid://c4fm7tc7t68me" path="res://units/_unit_data.gd" id="1_f0kcg"]
+[ext_resource type="Texture2D" uid="uid://bwwvx3djutjpn" path="res://units/drone/drone.png" id="2_xd0tt"]
+
+[resource]
+script = ExtResource("1_f0kcg")
+id = "unit_drone"
+display_name = "Drone"
+sprite = ExtResource("2_xd0tt")
+metadata/_custom_type_script = "uid://c4fm7tc7t68me"
