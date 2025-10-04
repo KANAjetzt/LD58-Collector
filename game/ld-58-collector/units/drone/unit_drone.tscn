@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://375n7l30emlp"]
+
+[ext_resource type="Texture2D" uid="uid://rjqfi70f34vu" path="res://units/drone/unit_drone.png" id="1_5px8r"]
+[ext_resource type="Texture2D" uid="uid://cde25113y2t35" path="res://units/drone/unit_drone_shadow.png" id="1_vshxr"]
+[ext_resource type="Script" uid="uid://dqrqghwqgulbk" path="res://units/drone/unit_drone.gd" id="1_y8dcp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vshxr"]
+atlas = ExtResource("1_5px8r")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8dcp"]
+atlas = ExtResource("1_5px8r")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8oav"]
+atlas = ExtResource("1_5px8r")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wyfff"]
+atlas = ExtResource("1_5px8r")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vas5m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vshxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y8dcp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8oav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wyfff")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="UnitDrone" type="Node2D"]
+script = ExtResource("1_y8dcp")
+
+[node name="SpriteShadow" type="Sprite2D" parent="."]
+position = Vector2(0, 7)
+texture = ExtResource("1_vshxr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vas5m")
+autoplay = "default"
+frame_progress = 0.36664188
+speed_scale = 5.0

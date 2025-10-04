@@ -1,0 +1,2 @@
+class_name BuildingFactoryDrone
+extends Node2D

@@ -1,0 +1,91 @@
+[gd_scene load_steps=16 format=3 uid="uid://xi2yax00lupo"]
+
+[ext_resource type="Script" uid="uid://dngva5uxnr670" path="res://buildings/factory_drone/factory_drone.gd" id="1_8qync"]
+[ext_resource type="Texture2D" uid="uid://wjsi1mculi7r" path="res://buildings/factory_drone/factory_drone.png" id="1_dgwce"]
+[ext_resource type="PackedScene" uid="uid://d0oxht4w1r24p" path="res://buildings/storage_battery/storage_battery.tscn" id="2_edn5b"]
+[ext_resource type="PackedScene" uid="uid://do4c8a2ivv1bf" path="res://components/producer_unit/producer_unit.tscn" id="3_6ly06"]
+[ext_resource type="PackedScene" uid="uid://cvh41kanodruy" path="res://components/consumer/consumer.tscn" id="3_l4iv5"]
+[ext_resource type="PackedScene" uid="uid://bc8u888yvt4c4" path="res://components/zone_building/zone_building.tscn" id="5_epumg"]
+[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="5_mdbdu"]
+[ext_resource type="Resource" uid="uid://dwrh6ythq8856" path="res://units/drone/unit_drone_data.tres" id="8_6ly06"]
+[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="10_lepto"]
+[ext_resource type="PackedScene" uid="uid://dgao64vay21sj" path="res://components/storage_manager/storage_manager.tscn" id="11_cx0oh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edn5b"]
+atlas = ExtResource("1_dgwce")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4iv5"]
+atlas = ExtResource("1_dgwce")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n51lx"]
+atlas = ExtResource("1_dgwce")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epumg"]
+atlas = ExtResource("1_dgwce")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ljf5v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edn5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4iv5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n51lx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epumg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FactoryDrone" type="Node2D"]
+script = ExtResource("1_8qync")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ljf5v")
+autoplay = "default"
+frame_progress = 0.82084256
+
+[node name="ConsumerEnergy" parent="." node_paths=PackedStringArray("storage_manager") instance=ExtResource("3_l4iv5")]
+storage_manager = NodePath("../StorageManagerEnergy")
+
+[node name="ConsumerOre" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("3_l4iv5")]
+amount = 3.0
+use_time = false
+storage = NodePath("../StorageOre")
+
+[node name="ProducerUnit" parent="." node_paths=PackedStringArray("consumer", "spawn_point") instance=ExtResource("3_6ly06")]
+consumer = NodePath("../ConsumerOre")
+unit = ExtResource("8_6ly06")
+spawn_point = NodePath("../SpawnPoint")
+
+[node name="ZoneBuilding" parent="." instance=ExtResource("5_epumg")]
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+position = Vector2(0, 29)
+
+[node name="StorageBattery" parent="." instance=ExtResource("2_edn5b")]
+position = Vector2(23, 8)
+
+[node name="StorageBattery2" parent="." instance=ExtResource("2_edn5b")]
+position = Vector2(36, 8)
+
+[node name="StorageOre" parent="." instance=ExtResource("10_lepto")]
+resource = ExtResource("5_mdbdu")
+current = 10.0
+maximum = 10.0
+
+[node name="StorageManagerEnergy" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("11_cx0oh")]
+storages = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/Storage")]
+
+[editable path="StorageBattery"]
+[editable path="StorageBattery2"]

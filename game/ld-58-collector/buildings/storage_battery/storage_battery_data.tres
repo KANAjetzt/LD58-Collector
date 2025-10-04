@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DataBuildingStorage" load_steps=3 format=3 uid="uid://c1trwr5leqadg"]
+
+[ext_resource type="Script" uid="uid://cw61l3ex1s5y5" path="res://resources/_resource_energy_data.gd" id="1_u18ew"]
+[ext_resource type="Script" uid="uid://bipbj0kmr0ecs" path="res://buildings/_building_storage_data.gd" id="2_22c5m"]
+
+[resource]
+script = ExtResource("2_22c5m")
+metadata/_custom_type_script = "uid://bipbj0kmr0ecs"

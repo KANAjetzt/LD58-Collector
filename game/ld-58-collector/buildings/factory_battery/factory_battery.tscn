@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://cnaqe82pb7sjl"]
+
+[ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yp2er"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_url3b"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7uvi"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5xny"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgvld"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk5go"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m77na"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mb67"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mojj6"]
+atlas = ExtResource("1_qdvem")
+region = Rect2(0, 256, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_unfgd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yp2er")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_url3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7uvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5xny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgvld")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk5go")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m77na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mb67")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mojj6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FactoryBattery" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_unfgd")
+autoplay = "default"
+frame_progress = 0.035732474

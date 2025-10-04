@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgao64vay21sj"]
+
+[ext_resource type="Script" uid="uid://dbvb7jgcdh7ud" path="res://components/storage_manager/storage_manager.gd" id="1_jcaci"]
+
+[node name="StorageManager" type="Node"]
+script = ExtResource("1_jcaci")

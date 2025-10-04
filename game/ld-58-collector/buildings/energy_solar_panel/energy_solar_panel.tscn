@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://dagsvneqbku2s"]
+
+[ext_resource type="Texture2D" uid="uid://bv001dsmv312m" path="res://buildings/energy_solar_panel/energy_solar_panel.png" id="1_86kne"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0e3w"]
+atlas = ExtResource("1_86kne")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_maot5"]
+atlas = ExtResource("1_86kne")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elf5m"]
+atlas = ExtResource("1_86kne")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwegr"]
+atlas = ExtResource("1_86kne")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvwp3"]
+atlas = ExtResource("1_86kne")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_853co"]
+atlas = ExtResource("1_86kne")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ggoyg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0e3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_maot5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elf5m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwegr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvwp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_853co")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnergySolarPanel" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ggoyg")
+autoplay = "default"
+frame_progress = 0.43331817

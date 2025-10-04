@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://do4c8a2ivv1bf"]
+
+[ext_resource type="Script" uid="uid://b5v265jht6fdy" path="res://components/producer_unit/producer_unit.gd" id="1_8now7"]
+
+[node name="ProducerUnit" type="Node"]
+script = ExtResource("1_8now7")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

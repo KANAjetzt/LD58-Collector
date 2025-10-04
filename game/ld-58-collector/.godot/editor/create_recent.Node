@@ -1,1 +1,12 @@
+Timer
+Node2D
+CollisionShape2D
+Area2D
+AnimatedSprite2D
+CharacterBody2D
+PhantomCameraHost
+PhantomCamera2D
+Camera2D
+TileMap
+Sprite2D
 Node

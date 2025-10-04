@@ -1,3 +1,101 @@
-[gd_scene format=3 uid="uid://4v05avyp0n8s"]
+[gd_scene load_steps=11 format=3 uid="uid://4v05avyp0n8s"]
+
+[ext_resource type="PackedScene" uid="uid://xi2yax00lupo" path="res://buildings/factory_drone/factory_drone.tscn" id="1_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://c4gxmi2kyj3e5" path="res://buildings/mine/mine.tscn" id="2_lquwl"]
+[ext_resource type="PackedScene" uid="uid://cnaqe82pb7sjl" path="res://buildings/factory_battery/factory_battery.tscn" id="3_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dagsvneqbku2s" path="res://buildings/energy_solar_panel/energy_solar_panel.tscn" id="4_272bh"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_5vw27"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_kek77"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_4c57u"]
+[ext_resource type="Script" uid="uid://15oioqir8mfg" path="res://camera_controller.gd" id="8_efxa6"]
+
+[sub_resource type="Resource" id="Resource_dg77c"]
+script = ExtResource("6_kek77")
+
+[sub_resource type="Curve" id="Curve_5vw27"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9999999, 0.017557144), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Main" type="Node"]
+
+[node name="Mine" parent="." instance=ExtResource("2_lquwl")]
+position = Vector2(-238, -40)
+
+[node name="Mine2" parent="." instance=ExtResource("2_lquwl")]
+position = Vector2(-275, -40)
+
+[node name="Mine3" parent="." instance=ExtResource("2_lquwl")]
+position = Vector2(-275, -11)
+
+[node name="Mine4" parent="." instance=ExtResource("2_lquwl")]
+position = Vector2(-237, -11)
+
+[node name="FactoryBattery" parent="." instance=ExtResource("3_7mycd")]
+position = Vector2(-204, 200)
+
+[node name="SolarPanels" type="Node2D" parent="."]
+position = Vector2(-74, 328)
+metadata/_edit_group_ = true
+
+[node name="EnergySolarPanel" parent="SolarPanels" instance=ExtResource("4_272bh")]
+
+[node name="EnergySolarPanel2" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(35, 0)
+
+[node name="EnergySolarPanel3" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(70, 0)
+
+[node name="EnergySolarPanel4" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(0, 34)
+
+[node name="EnergySolarPanel5" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(35, 34)
+
+[node name="EnergySolarPanel6" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(70, 34)
+
+[node name="EnergySolarPanel7" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(0, 67)
+
+[node name="EnergySolarPanel8" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(35, 67)
+
+[node name="EnergySolarPanel9" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(70, 67)
+
+[node name="EnergySolarPanel10" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(0, 100)
+
+[node name="EnergySolarPanel11" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(35, 100)
+
+[node name="EnergySolarPanel12" parent="SolarPanels" instance=ExtResource("4_272bh")]
+position = Vector2(70, 100)
+
+[node name="CameraMain" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("5_5vw27")
+follow_mode = 1
+follow_target = NodePath("../CameraTarget")
+zoom = Vector2(0.3, 0.3)
+tween_resource = SubResource("Resource_dg77c")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.3, 0.3)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("7_4c57u")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="CameraTarget" type="Node2D" parent="."]
+script = ExtResource("8_efxa6")
+speed = 450
+zoom_out_max = Vector2(0.1, 0.1)
+zoom_target_speed_curve = SubResource("Curve_5vw27")
+
+[node name="FactoryDrone" parent="." instance=ExtResource("1_1bvp3")]
+position = Vector2(0, -4)

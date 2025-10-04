@@ -1,4 +1,7 @@
+DataConsumer
+DataResource
+DataBuildingStorage
+TileMapPattern
 DataUnit
 DataResourceEnergy
-DataResource
 DataBuilding

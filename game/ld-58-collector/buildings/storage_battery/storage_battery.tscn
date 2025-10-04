@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0oxht4w1r24p"]
+
+[ext_resource type="Texture2D" uid="uid://dyudthxsw3he1" path="res://buildings/storage_battery/storage_battery.png" id="1_ix1ga"]
+[ext_resource type="PackedScene" uid="uid://dc2kuuu08bonu" path="res://components/zone_battery/battery_zone.tscn" id="2_gp0mg"]
+[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="3_x1epi"]
+[ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="4_amido"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gp0mg"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc2rw"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x1epi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gp0mg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc2rw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="StorageBattery" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_x1epi")
+frame = 1
+
+[node name="BatteryZone" parent="." instance=ExtResource("2_gp0mg")]
+
+[node name="Storage" parent="." instance=ExtResource("3_x1epi")]
+resource = ExtResource("4_amido")
+maximum = 10.0

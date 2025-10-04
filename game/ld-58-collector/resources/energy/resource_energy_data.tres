@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataResource" load_steps=3 format=3 uid="uid://crspjph6bv4v3"]
+
+[ext_resource type="Script" uid="uid://iubhn0eug404" path="res://resources/_resource_data.gd" id="1_a6pxq"]
+[ext_resource type="Texture2D" uid="uid://b3kti0a3wry3x" path="res://resources/energy/energy.png" id="2_qkeku"]
+
+[resource]
+script = ExtResource("1_a6pxq")
+id = "resource_energy"
+display_name = "Energy"
+sprite = ExtResource("2_qkeku")
+metadata/_custom_type_script = "uid://iubhn0eug404"

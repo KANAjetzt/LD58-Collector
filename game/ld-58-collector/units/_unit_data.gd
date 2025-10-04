@@ -7,6 +7,7 @@ extends Resource
 ## Can be used to display the building name in game
 @export var display_name = ""
 @export var sprite: Texture
+@export_file_path("*.tscn") var scene_path
 var storage_max := 1
 
 var location_current: DataBuilding

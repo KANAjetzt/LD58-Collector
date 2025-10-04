@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbdxfygep5a17"]
+
+[ext_resource type="Script" uid="uid://c1p3df43lcc6x" path="res://components/producer_resource/producer_resource.gd" id="1_h583i"]
+
+[node name="ProducerResource" type="Node"]
+script = ExtResource("1_h583i")
