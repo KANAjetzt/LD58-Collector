@@ -25,3 +25,11 @@ res://components/logic_blocks/is_exactly.tscn
 res://components/logic_blocks/is_exactly.gd
 res://components/zone_building/zone_building.tscn
 res://components/zone_battery/battery_zone.tscn
+res://resources/battery/resource_battery.tscn
+res://resources/battery/resource_battery_data.tres
+res://buildings/factory_battery/factory_battery.tscn
+res://components/logic_blocks/and.tscn
+res://components/logic_blocks/and.gd
+res://components/logic_blocks/or.tscn
+res://components/logic_blocks/or.gd
+res://buildings/factory_battery/factory_battery.gd

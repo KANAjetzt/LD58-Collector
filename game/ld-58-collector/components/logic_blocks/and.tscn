@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw0f4nictnucs"]
+
+[ext_resource type="Script" uid="uid://fx2jjimjyed8" path="res://components/logic_blocks/and.gd" id="1_6qrlv"]
+
+[node name="And" type="Node"]
+script = ExtResource("1_6qrlv")

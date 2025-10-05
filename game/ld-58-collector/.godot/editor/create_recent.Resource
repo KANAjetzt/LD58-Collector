@@ -1,4 +1,3 @@
-DataConsumer
 DataResource
 DataBuildingStorage
 TileMapPattern

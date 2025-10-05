@@ -14,7 +14,7 @@ extends ComponentLogicBlock
 @export var boundary_prop: String
 
 
-func update() -> void:
+func update(set_values := true) -> bool:
 	var accumulator := 0
 
 	if boundary_node:
@@ -27,8 +27,12 @@ func update() -> void:
 	if accumulator == boundary:
 		for i in set_nodes.size():
 			var node = set_nodes[i]
-			node[set_props[i]] = set_value
+			if set_values:
+				node[set_props[i]] = set_value
+		return set_value
 	else:
 		for i in set_nodes.size():
 			var node = set_nodes[i]
-			node[set_props[i]] = !set_value
+			if set_values:
+				node[set_props[i]] = !set_value
+		return !set_value

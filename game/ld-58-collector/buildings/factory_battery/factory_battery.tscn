@@ -1,6 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnaqe82pb7sjl"]
+[gd_scene load_steps=24 format=3 uid="uid://cnaqe82pb7sjl"]
 
 [ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
+[ext_resource type="Script" uid="uid://dg4qkvvkutb6i" path="res://buildings/factory_battery/factory_battery.gd" id="1_wwyyl"]
+[ext_resource type="PackedScene" uid="uid://bbdxfygep5a17" path="res://components/producer_resource/producer_resource.tscn" id="2_yp2er"]
+[ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="3_x7uvi"]
+[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="4_v5xny"]
+[ext_resource type="PackedScene" uid="uid://bw0f4nictnucs" path="res://components/logic_blocks/and.tscn" id="5_xc5vc"]
+[ext_resource type="PackedScene" uid="uid://d0oxht4w1r24p" path="res://buildings/storage_battery/storage_battery.tscn" id="6_jk5go"]
+[ext_resource type="PackedScene" uid="uid://bc8u888yvt4c4" path="res://components/zone_building/zone_building.tscn" id="7_m77na"]
+[ext_resource type="PackedScene" uid="uid://nudcjgy77bdb" path="res://components/logic_blocks/smaller_then.tscn" id="7_xc5vc"]
+[ext_resource type="PackedScene" uid="uid://dgao64vay21sj" path="res://components/storage_manager/storage_manager.tscn" id="8_m77na"]
+[ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="9_8mb67"]
+[ext_resource type="PackedScene" uid="uid://cvh41kanodruy" path="res://components/consumer/consumer.tscn" id="10_unfgd"]
+[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="11_xc5vc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp2er"]
 atlas = ExtResource("1_qdvem")
@@ -74,8 +86,80 @@ animations = [{
 }]
 
 [node name="FactoryBattery" type="Node2D"]
+script = ExtResource("1_wwyyl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_unfgd")
 autoplay = "default"
 frame_progress = 0.035732474
+
+[node name="ZoneBuilding" parent="." instance=ExtResource("7_m77na")]
+
+[node name="ProducerResource-Battery" parent="." node_paths=PackedStringArray("consumer", "storage") instance=ExtResource("2_yp2er")]
+consumer = NodePath("../Consumer-Ore")
+resource = ExtResource("3_x7uvi")
+time = 10.0
+storage = NodePath("../Storage-Battery")
+
+[node name="And-Production-Requirement" parent="." node_paths=PackedStringArray("set_nodes") instance=ExtResource("5_xc5vc")]
+set_nodes = [NodePath("../ProducerResource-Battery")]
+set_props = Array[String](["can_produce"])
+
+[node name="LargerThen-0-Ore" parent="And-Production-Requirement" node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("9_8mb67")]
+get_nodes = [NodePath("../../Storage-Ore")]
+get_props = Array[String](["current"])
+set_nodes = [NodePath("../../ProducerResource-Battery")]
+set_props = Array[String](["can_produce"])
+
+[node name="LargerThen-0-Energy" parent="And-Production-Requirement" node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("9_8mb67")]
+get_nodes = [NodePath("../../StorageBattery/Storage"), NodePath("../../StorageBattery2/Storage")]
+get_props = Array[String](["current", "current"])
+set_nodes = [NodePath("../../ProducerResource-Battery")]
+set_props = Array[String](["can_produce"])
+
+[node name="SmallerThen-max-Battery" parent="And-Production-Requirement" node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("7_xc5vc")]
+get_nodes = [NodePath("../../Storage-Battery")]
+get_props = Array[String](["current"])
+set_nodes = [NodePath("../../ProducerResource-Battery")]
+set_props = Array[String](["can_produce"])
+boundary_node = NodePath("../../Storage-Battery")
+boundary_prop = "maximum"
+
+[node name="Consumer-Energy" parent="." node_paths=PackedStringArray("storage_manager") instance=ExtResource("10_unfgd")]
+storage_manager = NodePath("../StorageManager-Energy")
+
+[node name="Consumer-Ore" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("10_unfgd")]
+use_time = false
+storage = NodePath("../Storage-Ore")
+
+[node name="Storage-Battery" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("4_v5xny")]
+resource = ExtResource("3_x7uvi")
+maximum = 10.0
+current_changed_logic_blocks = [NodePath("../And-Production-Requirement")]
+
+[node name="Storage-Ore" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("4_v5xny")]
+resource = ExtResource("11_xc5vc")
+current = 10.0
+maximum = 10.0
+current_changed_logic_blocks = [NodePath("../And-Production-Requirement")]
+
+[node name="StorageManager-Energy" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("8_m77na")]
+storages = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/Storage")]
+
+[node name="StorageBattery" parent="." instance=ExtResource("6_jk5go")]
+position = Vector2(24, 8)
+
+[node name="Storage" parent="StorageBattery" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
+current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
+
+[node name="StorageBattery2" parent="." instance=ExtResource("6_jk5go")]
+position = Vector2(37, 8)
+
+[node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
+current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
+
+[connection signal="started" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_started"]
+[connection signal="stoped" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_stoped"]
+
+[editable path="StorageBattery"]
+[editable path="StorageBattery2"]

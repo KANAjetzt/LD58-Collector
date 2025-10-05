@@ -79,13 +79,13 @@ position = Vector2(0, 29)
 position = Vector2(23, 8)
 
 [node name="Storage" parent="StorageBattery" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
-current_changed_logic_blocks = [NodePath("../../LargerThen0-Energy")]
+current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
 
 [node name="StorageBattery2" parent="." instance=ExtResource("2_edn5b")]
 position = Vector2(36, 8)
 
 [node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
-current_changed_logic_blocks = [NodePath("../../LargerThen0-Energy")]
+current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
 
 [node name="StorageOre" parent="." instance=ExtResource("10_lepto")]
 resource = ExtResource("5_mdbdu")
@@ -95,7 +95,7 @@ maximum = 10.0
 [node name="StorageManagerEnergy" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("11_cx0oh")]
 storages = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/Storage")]
 
-[node name="LargerThen0-Energy" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("11_df5oo")]
+[node name="LargerThen-0-Energy" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("11_df5oo")]
 get_nodes = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/Storage")]
 get_props = Array[String](["current", "current"])
 set_nodes = [NodePath("../ProducerUnit")]

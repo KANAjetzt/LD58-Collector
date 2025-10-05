@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dny0gxtgfao48"]
+
+[ext_resource type="Script" uid="uid://pv5rxq03qfac" path="res://components/logic_blocks/or.gd" id="1_ip76a"]
+
+[node name="Or" type="Node"]
+script = ExtResource("1_ip76a")

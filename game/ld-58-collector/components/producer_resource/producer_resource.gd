@@ -8,10 +8,14 @@ signal started(ComponentProducerResource)
 
 ## False if something is preventing production
 @export var can_produce := true : set = set_can_produce
+## Resource consumed for production
+@export var consumer: ComponentConsumer
 ## Resource produced
 @export var resource: Resource
 ## Time until produced
 @export var time := 5.0
+## Resource check interval
+@export var time_resource_check := 1.0
 ## Amount produced
 @export var amount := 1
 @export var storage: ComponentStorage
@@ -21,13 +25,19 @@ signal started(ComponentProducerResource)
 
 
 func _ready() -> void:
+	if consumer:
+		consumer.consumed.connect(_on_consumer_consumed)
+		consumer.starved.connect(_on_consumer_starved)
 	start()
 
 
 func start() -> void:
 	if can_produce:
 		print("starting production for resource %s" % [resource.display_name])
-		timer.start(time)
+		if consumer:
+			consumer.consume()
+		else:
+			timer.start(time)
 
 
 func set_can_produce(new_value) -> void:
@@ -39,6 +49,23 @@ func set_can_produce(new_value) -> void:
 			started.emit(self)
 		else:
 			stoped.emit(self)
+
+
+func _on_consumer_consumed(_resource: DataResource, _amount: float) -> void:
+	can_produce = true
+	print("starting production for unit %s" % [resource.display_name])
+	timer.start(time)
+
+
+func _on_consumer_starved(_resource: DataResource) -> void:
+	# Something that can be refactored if needed to wait for a signal from the
+	# consumer that new resources arrived.
+	can_produce = false
+
+	get_tree().create_timer(time_resource_check).timeout.connect(
+		func _on_resource_check_timeout() -> void:
+			start()
+	)
 
 
 func _on_timer_timeout() -> void:
