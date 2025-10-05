@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cnaqe82pb7sjl"]
+[gd_scene load_steps=25 format=3 uid="uid://cnaqe82pb7sjl"]
 
 [ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
 [ext_resource type="Script" uid="uid://dg4qkvvkutb6i" path="res://buildings/factory_battery/factory_battery.gd" id="1_wwyyl"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="9_8mb67"]
 [ext_resource type="PackedScene" uid="uid://cvh41kanodruy" path="res://components/consumer/consumer.tscn" id="10_unfgd"]
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="11_xc5vc"]
+[ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="14_gflkv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp2er"]
 atlas = ExtResource("1_qdvem")
@@ -157,6 +158,10 @@ position = Vector2(37, 8)
 
 [node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
 current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
+
+[node name="Jobs" type="Node" parent="."]
+
+[node name="PickUp" parent="Jobs" instance=ExtResource("14_gflkv")]
 
 [connection signal="started" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_started"]
 [connection signal="stoped" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_stoped"]

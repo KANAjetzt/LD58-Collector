@@ -1,0 +1,2 @@
+class_name BuildingEnergySolarPanel
+extends Building

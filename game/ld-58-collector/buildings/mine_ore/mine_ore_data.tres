@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataBuilding" load_steps=3 format=3 uid="uid://eqoevpxrag8p"]
+
+[ext_resource type="Script" uid="uid://7q4pd1c1t1ar" path="res://buildings/_building_data.gd" id="1_khvq0"]
+[ext_resource type="Texture2D" uid="uid://bnig06l7gvyb8" path="res://buildings/mine_ore/mine_ore.png" id="2_66s52"]
+
+[resource]
+script = ExtResource("1_khvq0")
+id = "mine_ore"
+display_name = "Ore Mine"
+sprites = ExtResource("2_66s52")
+metadata/_custom_type_script = "uid://7q4pd1c1t1ar"

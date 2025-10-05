@@ -1,3 +1,7 @@
+res://singletons
+res://buildings/mine_ore
+res://buildings/factory_battery
+res://components/job_pick_up
 res://resources/battery
 res://buildings/factory_drone
 res://units/drone
@@ -5,7 +9,5 @@ res://resources/energy
 res://buildings/storage_battery
 res://map
 res://buildings/energy_solar_panel
-res://buildings/factory_battery
-res://buildings/mine
 res://resources/ore
 res://

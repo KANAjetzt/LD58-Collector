@@ -1,13 +1,13 @@
-Timer
-Label
 Node2D
+Sprite2D
+Node
 CollisionShape2D
 Area2D
+Timer
+Label
 AnimatedSprite2D
 CharacterBody2D
 PhantomCameraHost
 PhantomCamera2D
 Camera2D
 TileMap
-Sprite2D
-Node

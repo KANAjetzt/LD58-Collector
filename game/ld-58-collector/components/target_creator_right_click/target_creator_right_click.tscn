@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0t33gwrkqiy1"]
+
+[ext_resource type="Script" uid="uid://r5lnsglbyxd" path="res://components/target_creator_right_click/target_creator_right_click.gd" id="1_bp2dp"]
+[ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="2_qshdl"]
+
+[node name="TargetCreatorRightClick" type="Node2D"]
+script = ExtResource("1_bp2dp")
+target_scene = ExtResource("2_qshdl")

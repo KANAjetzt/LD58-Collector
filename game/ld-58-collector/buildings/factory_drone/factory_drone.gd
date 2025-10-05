@@ -1,5 +1,5 @@
 class_name BuildingFactoryDrone
-extends Node2D
+extends Building
 
 
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D

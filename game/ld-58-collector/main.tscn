@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://4v05avyp0n8s"]
+[gd_scene load_steps=14 format=3 uid="uid://4v05avyp0n8s"]
 
 [ext_resource type="PackedScene" uid="uid://xi2yax00lupo" path="res://buildings/factory_drone/factory_drone.tscn" id="1_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://c4gxmi2kyj3e5" path="res://buildings/mine/mine.tscn" id="2_lquwl"]
+[ext_resource type="Script" uid="uid://cingsqpvv46yu" path="res://main.gd" id="1_4c57u"]
+[ext_resource type="PackedScene" uid="uid://c4gxmi2kyj3e5" path="res://buildings/mine_ore/mine_ore.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://cnaqe82pb7sjl" path="res://buildings/factory_battery/factory_battery.tscn" id="3_7mycd"]
+[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://dagsvneqbku2s" path="res://buildings/energy_solar_panel/energy_solar_panel.tscn" id="4_272bh"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_5vw27"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_kek77"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_4c57u"]
 [ext_resource type="Script" uid="uid://15oioqir8mfg" path="res://camera_controller.gd" id="8_efxa6"]
+[ext_resource type="PackedScene" uid="uid://d0t33gwrkqiy1" path="res://components/target_creator_right_click/target_creator_right_click.tscn" id="11_efxa6"]
 
 [sub_resource type="Resource" id="Resource_dg77c"]
 script = ExtResource("6_kek77")
@@ -17,6 +20,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9999999, 0.017557144), 0.0, 0.
 point_count = 2
 
 [node name="Main" type="Node"]
+script = ExtResource("1_4c57u")
 
 [node name="Mine" parent="." instance=ExtResource("2_lquwl")]
 position = Vector2(-238, -40)
@@ -32,6 +36,10 @@ position = Vector2(-237, -11)
 
 [node name="FactoryBattery" parent="." instance=ExtResource("3_7mycd")]
 position = Vector2(-204, 200)
+
+[node name="PickUp" parent="FactoryBattery/Jobs" index="0" node_paths=PackedStringArray("location")]
+location = NodePath("../../../Mine")
+resource = ExtResource("3_kek77")
 
 [node name="SolarPanels" type="Node2D" parent="."]
 position = Vector2(-74, 328)
@@ -99,3 +107,12 @@ zoom_target_speed_curve = SubResource("Curve_5vw27")
 
 [node name="FactoryDrone" parent="." instance=ExtResource("1_1bvp3")]
 position = Vector2(0, -4)
+
+[node name="TargetCreatorRightClick" parent="." node_paths=PackedStringArray("target_parent") instance=ExtResource("11_efxa6")]
+target_parent = NodePath("../Targets")
+
+[node name="Targets" type="Node2D" parent="."]
+
+[editable path="FactoryBattery"]
+[editable path="FactoryBattery/StorageBattery"]
+[editable path="FactoryBattery/StorageBattery2"]

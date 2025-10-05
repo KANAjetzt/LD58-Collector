@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ihjpqtgehaut"]
+
+[ext_resource type="Script" uid="uid://dsmimt5s7bfkb" path="res://components/job_pick_up/job_pick_up.gd" id="1_jtqnb"]
+
+[node name="JobPickUp" type="Node"]
+script = ExtResource("1_jtqnb")

@@ -1,6 +1,8 @@
+DataBuilding
+DataBuildingFactoryResource
+DataJobPickUp
 DataResource
 DataBuildingStorage
 TileMapPattern
 DataUnit
 DataResourceEnergy
-DataBuilding

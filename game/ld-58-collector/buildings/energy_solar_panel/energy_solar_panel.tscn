@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dagsvneqbku2s"]
+[gd_scene load_steps=10 format=3 uid="uid://dagsvneqbku2s"]
 
 [ext_resource type="Texture2D" uid="uid://bv001dsmv312m" path="res://buildings/energy_solar_panel/energy_solar_panel.png" id="1_86kne"]
+[ext_resource type="Script" uid="uid://bdrjyddtv2ev3" path="res://buildings/energy_solar_panel/energy_solar_panel.gd" id="1_f0e3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0e3w"]
 atlas = ExtResource("1_86kne")
@@ -53,6 +54,7 @@ animations = [{
 }]
 
 [node name="EnergySolarPanel" type="Node2D"]
+script = ExtResource("1_f0e3w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ggoyg")

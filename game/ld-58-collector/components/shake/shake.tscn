@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bw6cnmf8gno7h"]
+
+[ext_resource type="Script" uid="uid://ckcef31q6w1lu" path="res://components/shake/shake.gd" id="1_rlhan"]
+
+[node name="Shake" type="Node"]
+script = ExtResource("1_rlhan")
