@@ -37,4 +37,5 @@ frame = 1
 
 [node name="Storage" parent="." instance=ExtResource("3_x1epi")]
 resource = ExtResource("4_amido")
+current = 2.0
 maximum = 10.0

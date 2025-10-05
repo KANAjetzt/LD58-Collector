@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b51tq7ww2g5bm"]
+
+[ext_resource type="Script" uid="uid://dpfrqkinm3fqi" path="res://components/logic_blocks/larger_then_0.gd" id="1_mmknh"]
+
+[node name="LargerThen0" type="Node"]
+script = ExtResource("1_mmknh")

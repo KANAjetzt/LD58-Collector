@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://xi2yax00lupo"]
+[gd_scene load_steps=17 format=3 uid="uid://xi2yax00lupo"]
 
 [ext_resource type="Script" uid="uid://dngva5uxnr670" path="res://buildings/factory_drone/factory_drone.gd" id="1_8qync"]
 [ext_resource type="Texture2D" uid="uid://wjsi1mculi7r" path="res://buildings/factory_drone/factory_drone.png" id="1_dgwce"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://dwrh6ythq8856" path="res://units/drone/unit_drone_data.tres" id="8_6ly06"]
 [ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="10_lepto"]
 [ext_resource type="PackedScene" uid="uid://dgao64vay21sj" path="res://components/storage_manager/storage_manager.tscn" id="11_cx0oh"]
+[ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then_0.tscn" id="11_df5oo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_edn5b"]
 atlas = ExtResource("1_dgwce")
@@ -51,6 +52,7 @@ animations = [{
 script = ExtResource("1_8qync")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_ljf5v")
 autoplay = "default"
 frame_progress = 0.82084256
@@ -76,8 +78,14 @@ position = Vector2(0, 29)
 [node name="StorageBattery" parent="." instance=ExtResource("2_edn5b")]
 position = Vector2(23, 8)
 
+[node name="Storage" parent="StorageBattery" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
+current_changed_logic_blocks = [NodePath("../../LargerThen0-Energy")]
+
 [node name="StorageBattery2" parent="." instance=ExtResource("2_edn5b")]
 position = Vector2(36, 8)
+
+[node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
+current_changed_logic_blocks = [NodePath("../../LargerThen0-Energy")]
 
 [node name="StorageOre" parent="." instance=ExtResource("10_lepto")]
 resource = ExtResource("5_mdbdu")
@@ -86,6 +94,15 @@ maximum = 10.0
 
 [node name="StorageManagerEnergy" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("11_cx0oh")]
 storages = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/Storage")]
+
+[node name="LargerThen0-Energy" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("11_df5oo")]
+get_nodes = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/Storage")]
+get_props = Array[String](["current", "current"])
+set_nodes = [NodePath("../ProducerUnit")]
+set_props = Array[String](["can_produce"])
+
+[connection signal="started" from="ProducerUnit" to="." method="_on_producer_unit_started"]
+[connection signal="stoped" from="ProducerUnit" to="." method="_on_producer_unit_stoped"]
 
 [editable path="StorageBattery"]
 [editable path="StorageBattery2"]

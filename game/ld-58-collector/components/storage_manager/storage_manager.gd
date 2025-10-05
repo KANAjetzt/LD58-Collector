@@ -5,4 +5,8 @@ extends Node
 
 
 func get_storage() -> ComponentStorage:
+	for storage in storages:
+		if storage.current > 0:
+			return storage
+
 	return storages[0]
