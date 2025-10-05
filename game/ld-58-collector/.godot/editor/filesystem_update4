@@ -15,3 +15,16 @@ res://components/responder_right_click/responder_right_click.tscn
 res://components/responder_left_click/responder_left_click.tscn
 res://components/zone_building/zone_building.tscn
 res://components/shake/shake.gd
+res://components/job_wait/job_wait.tscn
+res://components/job_wait/job_wait.gd
+res://components/deliver_manager/deliver_manager.tscn
+res://components/deliver_manager/deliver_manager.gd
+res://units/drone/unit_drone.gd
+res://buildings/factory_battery/factory_battery.gd
+res://components/job_fly_to/job_fly_to.gd
+res://buildings/mine_ore/mine_ore.tscn
+res://components/job_pick_up/job_pick_up.gd
+res://buildings/mine_ore/mine_ore.gd
+res://buildings/building.gd
+res://components/pick_up_manager/pick_up_manager.gd
+res://components/job_deliver/job_deliver.gd

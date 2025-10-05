@@ -8,6 +8,7 @@ extends Building
 
 func _ready() -> void:
 	target = %Target
+	pick_up_manager = %PickUpManager
 
 
 func activate_target() -> Target:

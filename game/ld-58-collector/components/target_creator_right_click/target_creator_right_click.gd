@@ -26,6 +26,7 @@ func _process(_delta: float) -> void:
 					new_target.clear()
 			)
 			unit.target = new_target
+			unit.job_manager.stop()
 		else:
 			var building: Building = result[0].collider.parent
 			unit.target = building.activate_target()

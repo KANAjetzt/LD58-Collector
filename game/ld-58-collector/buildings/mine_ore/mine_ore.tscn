@@ -81,9 +81,10 @@ set_value = false
 boundary_node = NodePath("../Storage")
 boundary_prop = "maximum"
 
-[node name="Target" parent="." instance=ExtResource("8_f6bnh")]
+[node name="Target" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("8_f6bnh")]
 unique_name_in_owner = true
 visible = false
+parent = NodePath("..")
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("9_7vw5c")]
 parent = NodePath("..")
@@ -92,6 +93,7 @@ parent = NodePath("..")
 shape = SubResource("CircleShape2D_uw365")
 
 [node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("10_uw365")]
+unique_name_in_owner = true
 storages = [NodePath("../Storage")]
 
 [connection signal="started" from="ProducerResource" to="." method="_on_producer_resource_started"]

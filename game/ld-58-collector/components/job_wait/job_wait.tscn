@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://rfjsfxc11yb2"]
+
+[ext_resource type="Script" uid="uid://nwkytm4u8h5a" path="res://components/job_wait/job_wait.gd" id="1_cbls1"]
+
+[node name="JobWait" type="Node"]
+script = ExtResource("1_cbls1")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

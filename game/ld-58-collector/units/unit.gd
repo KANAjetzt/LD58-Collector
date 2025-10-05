@@ -12,7 +12,10 @@ var target: Target:
 			new_target.emit(new_value)
 
 		target = new_value
+var job_manager: ComponentJobManager
+var pick_up_manager: ComponentPickUpManager
+var deliver_manager: ComponentDeliverManager
 
 
-func signal_target_reached() -> void:
-	reached_target.emit(self)
+func signal_target_reached(target: Target) -> void:
+	reached_target.emit(target)

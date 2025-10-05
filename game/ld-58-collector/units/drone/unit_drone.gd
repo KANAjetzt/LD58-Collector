@@ -7,7 +7,9 @@ extends Unit
 
 
 func _ready() -> void:
-	movement.target = Vector2(100, 100)
+	job_manager = %JobManager
+	pick_up_manager = %PickUpManager
+	deliver_manager = %DeliverManager
 
 
 func select() -> void:

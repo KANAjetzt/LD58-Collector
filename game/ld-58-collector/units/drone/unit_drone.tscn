@@ -1,14 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://375n7l30emlp"]
+[gd_scene load_steps=20 format=3 uid="uid://375n7l30emlp"]
 
 [ext_resource type="Texture2D" uid="uid://rjqfi70f34vu" path="res://units/drone/unit_drone.png" id="1_5px8r"]
 [ext_resource type="Texture2D" uid="uid://cde25113y2t35" path="res://units/drone/unit_drone_shadow.png" id="1_vshxr"]
 [ext_resource type="Script" uid="uid://dqrqghwqgulbk" path="res://units/drone/unit_drone.gd" id="1_y8dcp"]
+[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="2_6oocx"]
 [ext_resource type="PackedScene" uid="uid://cic1nuihtlp2d" path="res://components/job_manager/job_manager.tscn" id="2_cquy1"]
 [ext_resource type="PackedScene" uid="uid://dh3ge2qbc2h4a" path="res://components/movement/movement.tscn" id="2_vas5m"]
 [ext_resource type="PackedScene" uid="uid://fxwqsdfn7ypk" path="res://components/responder_left_click/responder_left_click.tscn" id="4_t8oav"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="4_wyfff"]
 [ext_resource type="PackedScene" uid="uid://bw6cnmf8gno7h" path="res://components/shake/shake.tscn" id="7_nv2oy"]
 [ext_resource type="PackedScene" uid="uid://m8iq3h4cvfm3" path="res://components/zone_unit/zone_unit.tscn" id="9_qfe8r"]
+[ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="11_ixspc"]
+[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/deliver_manager/deliver_manager.tscn" id="12_m23cb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vshxr"]
 atlas = ExtResource("1_5px8r")
@@ -55,7 +58,9 @@ radius = 20.024984
 [node name="UnitDrone" type="Node2D"]
 script = ExtResource("1_y8dcp")
 
-[node name="JobManager" parent="." instance=ExtResource("2_cquy1")]
+[node name="JobManager" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_cquy1")]
+unique_name_in_owner = true
+parent = NodePath("..")
 
 [node name="Movement" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_vas5m")]
 parent = NodePath("..")
@@ -88,6 +93,17 @@ parent = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneUnit"]
 shape = SubResource("CircleShape2D_6oocx")
+
+[node name="Storage" parent="." instance=ExtResource("2_6oocx")]
+maximum = 1.0
+
+[node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("11_ixspc")]
+unique_name_in_owner = true
+storages = [NodePath("../Storage")]
+
+[node name="DeliverManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("12_m23cb")]
+unique_name_in_owner = true
+storages = [NodePath("../Storage")]
 
 [connection signal="new_target" from="." to="." method="_on_new_target"]
 [connection signal="deselected" from="ResponderLeftClick" to="." method="_on_responder_left_click_deselected"]
