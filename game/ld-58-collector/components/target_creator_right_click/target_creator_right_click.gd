@@ -16,9 +16,15 @@ func _process(_delta: float) -> void:
 		var result := get_world_2d().direct_space_state.intersect_point(params)
 
 		if result.size() == 0:
-			var new_target: Node2D = target_scene.instantiate()
+			var new_target: Target = target_scene.instantiate()
 			new_target.global_position = get_global_mouse_position()
+			if target_parent.get_child_count() > 0:
+				target_parent.get_child(0).clear()
 			target_parent.add_child(new_target)
+			new_target.unit_entered.connect(
+				func _on_unit_entered(_unit: Unit) -> void:
+					new_target.clear()
+			)
 			unit.target = new_target
 		else:
 			var building: Building = result[0].collider.parent

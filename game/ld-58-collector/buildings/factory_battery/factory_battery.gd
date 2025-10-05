@@ -5,6 +5,7 @@ extends Building
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var producer_resource_battery: ComponentProducerResource = $"ProducerResource-Battery"
 @onready var sprite_selected: Sprite2D = $SpriteSelected
+@onready var job_pick_up: ComponentJobPickUp = $Jobs/PickUp
 
 
 func _ready() -> void:

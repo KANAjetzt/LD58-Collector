@@ -1,6 +1,6 @@
+DataJob
 DataBuilding
 DataBuildingFactoryResource
-DataJobPickUp
 DataResource
 DataBuildingStorage
 TileMapPattern

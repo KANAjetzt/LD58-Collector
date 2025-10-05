@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://4v05avyp0n8s"]
+[gd_scene load_steps=13 format=3 uid="uid://4v05avyp0n8s"]
 
 [ext_resource type="PackedScene" uid="uid://xi2yax00lupo" path="res://buildings/factory_drone/factory_drone.tscn" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cingsqpvv46yu" path="res://main.gd" id="1_4c57u"]
 [ext_resource type="PackedScene" uid="uid://c4gxmi2kyj3e5" path="res://buildings/mine_ore/mine_ore.tscn" id="2_lquwl"]
 [ext_resource type="PackedScene" uid="uid://cnaqe82pb7sjl" path="res://buildings/factory_battery/factory_battery.tscn" id="3_7mycd"]
-[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://dagsvneqbku2s" path="res://buildings/energy_solar_panel/energy_solar_panel.tscn" id="4_272bh"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_5vw27"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_kek77"]
@@ -36,10 +35,6 @@ position = Vector2(-237, -11)
 
 [node name="FactoryBattery" parent="." instance=ExtResource("3_7mycd")]
 position = Vector2(-204, 200)
-
-[node name="PickUp" parent="FactoryBattery/Jobs" index="0" node_paths=PackedStringArray("location")]
-location = NodePath("../../../Mine")
-resource = ExtResource("3_kek77")
 
 [node name="SolarPanels" type="Node2D" parent="."]
 position = Vector2(-74, 328)

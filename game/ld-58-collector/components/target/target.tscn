@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cksrrkckd0iy5"]
+[gd_scene load_steps=4 format=3 uid="uid://cksrrkckd0iy5"]
 
 [ext_resource type="Script" uid="uid://bej54rlsi7n7k" path="res://components/target/target.gd" id="1_yvt6i"]
 [ext_resource type="Texture2D" uid="uid://kthmektwuvxf" path="res://components/target/Target.png" id="2_58sx2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_58sx2"]
 
 [node name="Target" type="Node2D"]
 script = ExtResource("1_yvt6i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_58sx2")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_58sx2")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

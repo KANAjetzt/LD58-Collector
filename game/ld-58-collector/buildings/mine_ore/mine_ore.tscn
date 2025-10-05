@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c4gxmi2kyj3e5"]
+[gd_scene load_steps=17 format=3 uid="uid://c4gxmi2kyj3e5"]
 
 [ext_resource type="Script" uid="uid://ctxk5fxpjsnh5" path="res://buildings/mine_ore/mine_ore.gd" id="1_5v2gv"]
 [ext_resource type="Texture2D" uid="uid://bnig06l7gvyb8" path="res://buildings/mine_ore/mine_ore.png" id="1_lvoaf"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://782ljuf7irbj" path="res://components/logic_blocks/is_exactly.tscn" id="6_5rift"]
 [ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="8_f6bnh"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="9_7vw5c"]
+[ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="10_uw365"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_48a3l"]
 atlas = ExtResource("1_lvoaf")
@@ -89,6 +90,9 @@ parent = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick"]
 shape = SubResource("CircleShape2D_uw365")
+
+[node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("10_uw365")]
+storages = [NodePath("../Storage")]
 
 [connection signal="started" from="ProducerResource" to="." method="_on_producer_resource_started"]
 [connection signal="stoped" from="ProducerResource" to="." method="_on_producer_resource_stoped"]

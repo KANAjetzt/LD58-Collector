@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsv3tl5s64app"]
+
+[ext_resource type="Script" uid="uid://sxacfew8sme0" path="res://components/job_fly_to/job_fly_to.gd" id="1_ewwk4"]
+
+[node name="JobFlyTo" type="Node"]
+script = ExtResource("1_ewwk4")

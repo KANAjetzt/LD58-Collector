@@ -3,6 +3,7 @@ extends Node2D
 
 
 signal new_target(Target)
+signal reached_target(Target)
 
 
 var target: Target:
@@ -11,3 +12,7 @@ var target: Target:
 			new_target.emit(new_value)
 
 		target = new_value
+
+
+func signal_target_reached() -> void:
+	reached_target.emit(self)

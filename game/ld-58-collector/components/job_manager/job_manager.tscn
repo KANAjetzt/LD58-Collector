@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cic1nuihtlp2d"]
+
+[ext_resource type="Script" uid="uid://cssh1usrteyf2" path="res://components/job_manager/job_manager.gd" id="1_sn55x"]
+
+[node name="JobManager" type="Node"]
+script = ExtResource("1_sn55x")

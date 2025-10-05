@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cnaqe82pb7sjl"]
+[gd_scene load_steps=33 format=3 uid="uid://cnaqe82pb7sjl"]
 
 [ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
 [ext_resource type="Script" uid="uid://dg4qkvvkutb6i" path="res://buildings/factory_battery/factory_battery.gd" id="1_wwyyl"]
@@ -17,6 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="14_gflkv"]
 [ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="15_qd8o0"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="16_xrili"]
+[ext_resource type="PackedScene" uid="uid://u73ipdserymd" path="res://components/job_container/job_container.tscn" id="18_pnjup"]
+[ext_resource type="Resource" uid="uid://ldnns7ydixna" path="res://buildings/factory_battery/job_deliver_ore_from_mine.tres" id="19_1hsi1"]
+[ext_resource type="PackedScene" uid="uid://bsv3tl5s64app" path="res://components/job_fly_to/job_fly_to.tscn" id="20_1hsi1"]
+[ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="21_c4ehs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp2er"]
 atlas = ExtResource("1_qdvem")
@@ -173,16 +177,33 @@ current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
 [node name="Jobs" type="Node" parent="."]
 
 [node name="PickUp" parent="Jobs" instance=ExtResource("14_gflkv")]
+resource = ExtResource("11_xc5vc")
 
 [node name="Target" parent="." instance=ExtResource("15_qd8o0")]
 unique_name_in_owner = true
 visible = false
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("16_xrili")]
+collision_layer = 8
+collision_mask = 8
 parent = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick"]
 shape = SubResource("CircleShape2D_cgbae")
+
+[node name="JobContainer-Deliver-Ore" parent="." node_paths=PackedStringArray("building") instance=ExtResource("18_pnjup")]
+data = ExtResource("19_1hsi1")
+building = NodePath("..")
+
+[node name="JobFlyTo-Mine" parent="JobContainer-Deliver-Ore" instance=ExtResource("20_1hsi1")]
+
+[node name="JobPickUp" parent="JobContainer-Deliver-Ore" instance=ExtResource("14_gflkv")]
+resource = ExtResource("11_xc5vc")
+
+[node name="JobFlyTo-Self" parent="JobContainer-Deliver-Ore" instance=ExtResource("20_1hsi1")]
+
+[node name="JobDeliver" parent="JobContainer-Deliver-Ore" node_paths=PackedStringArray("storage") instance=ExtResource("21_c4ehs")]
+storage = NodePath("../../Storage-Ore")
 
 [connection signal="started" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_started"]
 [connection signal="stoped" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_stoped"]

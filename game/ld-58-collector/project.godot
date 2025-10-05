@@ -86,6 +86,7 @@ action={
 2d_physics/layer_1="Units"
 2d_physics/layer_2="buildings"
 2d_physics/layer_3="pickup"
+2d_physics/layer_4="mouse"
 
 [rendering]
 

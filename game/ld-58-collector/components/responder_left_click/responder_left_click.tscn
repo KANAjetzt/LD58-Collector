@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://d1hnj2apvxrai" path="res://components/responder_left_click/responder_left_click.gd" id="1_2a1sj"]
 
 [node name="ResponderLeftClick" type="Area2D"]
+collision_layer = 8
+collision_mask = 8
 script = ExtResource("1_2a1sj")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://xrjkmid5vvcu"]
+
+[ext_resource type="Script" uid="uid://btw12mxup74ib" path="res://components/job_deliver/job_deliver.gd" id="1_6pt1v"]
+
+[node name="JobDeliver" type="Node"]
+script = ExtResource("1_6pt1v")
