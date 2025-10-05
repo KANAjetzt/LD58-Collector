@@ -1,6 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4gxmi2kyj3e5"]
+[gd_scene load_steps=13 format=3 uid="uid://c4gxmi2kyj3e5"]
 
+[ext_resource type="Script" uid="uid://ctxk5fxpjsnh5" path="res://buildings/mine/mine.gd" id="1_5v2gv"]
 [ext_resource type="Texture2D" uid="uid://bnig06l7gvyb8" path="res://buildings/mine/sprite_mine.png" id="1_lvoaf"]
+[ext_resource type="PackedScene" uid="uid://bbdxfygep5a17" path="res://components/producer_resource/producer_resource.tscn" id="2_48a3l"]
+[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="3_wtgyh"]
+[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="4_5v2gv"]
+[ext_resource type="PackedScene" uid="uid://782ljuf7irbj" path="res://components/logic_blocks/is_exactly.tscn" id="6_5rift"]
+[ext_resource type="PackedScene" uid="uid://bc8u888yvt4c4" path="res://components/zone_building/zone_building.tscn" id="7_ghtff"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_48a3l"]
 atlas = ExtResource("1_lvoaf")
@@ -39,8 +45,33 @@ animations = [{
 }]
 
 [node name="Mine" type="Node2D"]
+script = ExtResource("1_5v2gv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_5rift")
 autoplay = "default"
 frame_progress = 0.2053204
+
+[node name="ProducerResource" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("2_48a3l")]
+resource = ExtResource("4_5v2gv")
+storage = NodePath("../Storage")
+
+[node name="Storage" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("3_wtgyh")]
+resource = ExtResource("4_5v2gv")
+maximum = 10.0
+current_changed_logic_blocks = [NodePath("../IsExactly")]
+
+[node name="IsExactly" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("6_5rift")]
+get_nodes = [NodePath("../Storage")]
+get_props = Array[String](["current"])
+set_nodes = [NodePath("../ProducerResource")]
+set_props = Array[String](["can_produce"])
+set_value = false
+boundary_node = NodePath("../Storage")
+boundary_prop = "maximum"
+
+[node name="ZoneBuilding" parent="." instance=ExtResource("7_ghtff")]
+
+[connection signal="started" from="ProducerResource" to="." method="_on_producer_resource_started"]
+[connection signal="stoped" from="ProducerResource" to="." method="_on_producer_resource_stoped"]

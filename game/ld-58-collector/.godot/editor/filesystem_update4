@@ -13,3 +13,15 @@ res://components/producer_unit/producer_unit.tscn
 res://components/consumer/consumer.tscn
 res://components/consumer/consumer.gd
 res://components/storage/storage.tscn
+res://buildings/mine/mine.tscn
+res://components/producer_resource/producer_resource.gd
+res://components/producer_resource/producer_resource.tscn
+res://buildings/mine/mine.gd
+res://components/logic_blocks/smaller_then.tscn
+res://components/logic_blocks/smaller_then.gd
+res://components/logic_blocks/larger_then.tscn
+res://components/logic_blocks/larger_then.gd
+res://components/logic_blocks/is_exactly.tscn
+res://components/logic_blocks/is_exactly.gd
+res://components/zone_building/zone_building.tscn
+res://components/zone_battery/battery_zone.tscn

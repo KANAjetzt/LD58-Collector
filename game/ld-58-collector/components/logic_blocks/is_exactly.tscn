@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://782ljuf7irbj"]
+
+[ext_resource type="Script" uid="uid://bhybjgd0y74cy" path="res://components/logic_blocks/is_exactly.gd" id="1_7gbkm"]
+
+[node name="IsExactly" type="Node"]
+script = ExtResource("1_7gbkm")

@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://dwrh6ythq8856" path="res://units/drone/unit_drone_data.tres" id="8_6ly06"]
 [ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="10_lepto"]
 [ext_resource type="PackedScene" uid="uid://dgao64vay21sj" path="res://components/storage_manager/storage_manager.tscn" id="11_cx0oh"]
-[ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then_0.tscn" id="11_df5oo"]
+[ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="11_df5oo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_edn5b"]
 atlas = ExtResource("1_dgwce")
