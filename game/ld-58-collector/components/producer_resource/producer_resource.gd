@@ -33,7 +33,7 @@ func _ready() -> void:
 
 func start() -> void:
 	if can_produce:
-		print("starting production for resource %s" % [resource.display_name])
+		#print("starting production for resource %s" % [resource.display_name])
 		if consumer:
 			consumer.consume()
 		else:
@@ -53,7 +53,7 @@ func set_can_produce(new_value) -> void:
 
 func _on_consumer_consumed(_resource: DataResource, _amount: float) -> void:
 	can_produce = true
-	print("starting production for unit %s" % [resource.display_name])
+	#print("starting production for unit %s" % [resource.display_name])
 	timer.start(time)
 
 

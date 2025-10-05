@@ -32,14 +32,14 @@ func consume() -> void:
 		var storage_pick := storage_manager.get_storage()
 		if storage_pick.current >= amount:
 			storage_pick.current -= amount
-			print("consumed %sx %s" % [amount, storage_pick.resource.display_name])
+			#print("consumed %sx %s" % [amount, storage_pick.resource.display_name])
 			consumed.emit(storage_pick.resource, amount)
 		else:
 			starved.emit(storage_pick.resource)
 	else:
 		if storage.current >= amount:
 			storage.current -= amount
-			print("consumed %sx %s" % [amount, storage.resource.display_name])
+			#print("consumed %sx %s" % [amount, storage.resource.display_name])
 			consumed.emit(storage.resource, amount)
 		else:
 			starved.emit(storage.resource)

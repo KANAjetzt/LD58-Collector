@@ -46,7 +46,7 @@ func set_can_produce(new_value) -> void:
 
 func _on_consumer_consumed(_resource: DataResource, _amount: float) -> void:
 	can_produce = true
-	print("starting production for unit %s" % [unit.display_name])
+	# print("starting production for unit %s" % [unit.display_name])
 	timer.start(time)
 
 

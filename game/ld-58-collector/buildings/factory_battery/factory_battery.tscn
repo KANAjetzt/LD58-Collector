@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://cnaqe82pb7sjl"]
+[gd_scene load_steps=29 format=3 uid="uid://cnaqe82pb7sjl"]
 
 [ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
 [ext_resource type="Script" uid="uid://dg4qkvvkutb6i" path="res://buildings/factory_battery/factory_battery.gd" id="1_wwyyl"]
 [ext_resource type="PackedScene" uid="uid://bbdxfygep5a17" path="res://components/producer_resource/producer_resource.tscn" id="2_yp2er"]
+[ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="3_qd8o0"]
 [ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="3_x7uvi"]
 [ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="4_v5xny"]
 [ext_resource type="PackedScene" uid="uid://bw0f4nictnucs" path="res://components/logic_blocks/and.tscn" id="5_xc5vc"]
@@ -14,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://cvh41kanodruy" path="res://components/consumer/consumer.tscn" id="10_unfgd"]
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="11_xc5vc"]
 [ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="14_gflkv"]
+[ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="15_qd8o0"]
+[ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="16_xrili"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp2er"]
 atlas = ExtResource("1_qdvem")
@@ -86,6 +89,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cgbae"]
+radius = 18.0
+
 [node name="FactoryBattery" type="Node2D"]
 script = ExtResource("1_wwyyl")
 
@@ -94,7 +100,12 @@ sprite_frames = SubResource("SpriteFrames_unfgd")
 autoplay = "default"
 frame_progress = 0.035732474
 
+[node name="SpriteSelected" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_qd8o0")
+
 [node name="ZoneBuilding" parent="." instance=ExtResource("7_m77na")]
+visible = false
 
 [node name="ProducerResource-Battery" parent="." node_paths=PackedStringArray("consumer", "storage") instance=ExtResource("2_yp2er")]
 consumer = NodePath("../Consumer-Ore")
@@ -163,8 +174,20 @@ current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
 
 [node name="PickUp" parent="Jobs" instance=ExtResource("14_gflkv")]
 
+[node name="Target" parent="." instance=ExtResource("15_qd8o0")]
+unique_name_in_owner = true
+visible = false
+
+[node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("16_xrili")]
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick"]
+shape = SubResource("CircleShape2D_cgbae")
+
 [connection signal="started" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_started"]
 [connection signal="stoped" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_stoped"]
+[connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
+[connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]
 
 [editable path="StorageBattery"]
 [editable path="StorageBattery2"]

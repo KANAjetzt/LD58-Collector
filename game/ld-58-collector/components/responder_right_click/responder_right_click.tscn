@@ -1,3 +1,10 @@
-[gd_scene format=3 uid="uid://4jihncq630xx"]
+[gd_scene load_steps=2 format=3 uid="uid://4jihncq630xx"]
+
+[ext_resource type="Script" uid="uid://dg456f0p3yjp4" path="res://components/responder_right_click/responder_right_click.gd" id="1_82npa"]
 
 [node name="ResponderRightClick" type="Area2D"]
+script = ExtResource("1_82npa")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

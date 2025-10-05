@@ -69,3 +69,5 @@ res://components/target_creator_right_click/target_creator_right_click.tscn
 res://components/target_creator_right_click/target_creator_right_click.gd
 res://units/unit.gd
 res://components/target/target.gd
+res://components/responder_right_click/responder_right_click.gd
+res://buildings/mine_ore/mine_ore.gd
