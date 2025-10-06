@@ -2,7 +2,7 @@ class_name Target
 extends Node2D
 
 
-signal unit_entered(Unit)
+signal unit_entered(unit: Unit)
 
 @export var parent: Node2D
 

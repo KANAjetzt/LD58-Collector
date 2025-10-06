@@ -29,5 +29,7 @@ func _process(_delta: float) -> void:
 			unit.job_manager.stop()
 		else:
 			var building: Building = result[0].collider.parent
+			# If you are here and building is null you have to set the parent on the "ResponderRightClick" Node
+			# on the building you just clicked
 			unit.target = building.activate_target()
 			print("=== BUILDING SELECTED ===")
