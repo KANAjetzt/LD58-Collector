@@ -1,12 +1,15 @@
 class_name ComponentJobContainer
 extends Node
 
+
 @export var data: DataJob
 @export var building: Building
+@export var loop := true
 
 var units: Dictionary[Unit, int]
 var steps: Array[Node]
 var unit: Unit
+
 
 func _ready() -> void:
 	steps = get_children()

@@ -4,6 +4,7 @@ extends Node
 
 signal completed
 
+
 @export var resource: DataResource
 
 

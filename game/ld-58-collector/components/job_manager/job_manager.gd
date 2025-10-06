@@ -29,12 +29,18 @@ func stop() -> void:
 
 func start_task(index := 0) -> void:
 	print("Starting %s" % [job.steps[index].name])
+	job.steps[index].completed.connect(_on_job_completed)
 	job.steps[index].start()
-	job.steps[index].completed.connect(
-		func _on_job_completed() ->  void:
-			step_index += 1
-			if step_index < job.steps.size():
-				start_task(step_index)
-			else:
-				stop()
-	)
+
+
+func _on_job_completed() ->  void:
+	job.steps[step_index].completed.disconnect(_on_job_completed)
+	step_index += 1
+	if step_index < job.steps.size():
+		start_task(step_index)
+	else:
+		if job.loop:
+			step_index = 0
+			start_task(step_index)
+		else:
+			stop()
