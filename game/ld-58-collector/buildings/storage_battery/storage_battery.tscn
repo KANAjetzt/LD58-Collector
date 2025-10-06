@@ -1,26 +1,54 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0oxht4w1r24p"]
+[gd_scene load_steps=12 format=3 uid="uid://d0oxht4w1r24p"]
 
 [ext_resource type="Texture2D" uid="uid://dyudthxsw3he1" path="res://buildings/storage_battery/storage_battery.png" id="1_ix1ga"]
 [ext_resource type="PackedScene" uid="uid://dc2kuuu08bonu" path="res://components/zone_battery/battery_zone.tscn" id="2_gp0mg"]
 [ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="3_x1epi"]
 [ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="4_amido"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gp0mg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1epi"]
 atlas = ExtResource("1_ix1ga")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mc2rw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_amido"]
 atlas = ExtResource("1_ix1ga")
 region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vg3aw"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rv33"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noa1j"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ii07a"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 80, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x1epi"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gp0mg")
+"texture": SubResource("AtlasTexture_x1epi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mc2rw")
+"texture": SubResource("AtlasTexture_amido")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vg3aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0rv33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noa1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii07a")
 }],
 "loop": true,
 "name": &"default",
@@ -37,5 +65,5 @@ frame = 1
 
 [node name="Storage" parent="." instance=ExtResource("3_x1epi")]
 resource = ExtResource("4_amido")
-current = 2.0
+current = 10.0
 maximum = 10.0
