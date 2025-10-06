@@ -5,6 +5,10 @@ extends ComponentLogicBlock
 @export var storage: ComponentStorage
 
 
+func _ready() -> void:
+	update()
+
+
 func update(_only_return := false) -> Variant:
 	var childs_visible := 0
 

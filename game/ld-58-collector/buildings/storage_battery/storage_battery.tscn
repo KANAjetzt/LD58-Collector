@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0oxht4w1r24p"]
+[gd_scene load_steps=13 format=3 uid="uid://d0oxht4w1r24p"]
 
 [ext_resource type="Texture2D" uid="uid://dyudthxsw3he1" path="res://buildings/storage_battery/storage_battery.png" id="1_ix1ga"]
 [ext_resource type="Script" uid="uid://byfknuqgk5afg" path="res://buildings/storage_battery/storage_battery.gd" id="1_vg3aw"]
-[ext_resource type="PackedScene" uid="uid://dc2kuuu08bonu" path="res://components/zone_battery/battery_zone.tscn" id="2_gp0mg"]
 [ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="3_x1epi"]
 [ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="4_amido"]
 [ext_resource type="PackedScene" uid="uid://biqi68nnmmn3y" path="res://components/update_sprite/update_sprite.tscn" id="5_amido"]
@@ -64,8 +63,6 @@ storage = NodePath("Storage")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_x1epi")
 frame = 5
-
-[node name="BatteryZone" parent="." instance=ExtResource("2_gp0mg")]
 
 [node name="Storage" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("3_x1epi")]
 resource = ExtResource("4_amido")
