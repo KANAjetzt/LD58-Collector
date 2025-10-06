@@ -5,17 +5,24 @@ extends Node
 @export var storages: Array[ComponentStorage]
 
 
-func request(resource: DataResource, amount := 1) -> float:
+# Return available Storage
+func request(resource: DataResource) -> ComponentStorage:
 	if storages.size() == 0:
-		push_error("Pick up requested but no storages defined in Manager!")
-		return -1
+		push_error("Delivery requested but no storages defined in Manager!")
+		return null
 
 	for storage in storages:
-		if storage.resource == resource and storage.current + amount > storage.maximum:
-			storage.current = storage.maximum
-			return storage.current
-		else:
-			storage.current += amount
-			return storage.current
+		if storage.resource == resource and storage.current < storage.maximum:
+			return storage
 
-	return -1
+	return null
+
+
+# Return delivered amount
+func deliver(storage: ComponentStorage, amount := 1) -> float:
+	if storage.current + amount > storage.maximum:
+		storage.current = storage.maximum
+		return storage.maximum - storage.current
+	else:
+		storage.current += amount
+		return amount

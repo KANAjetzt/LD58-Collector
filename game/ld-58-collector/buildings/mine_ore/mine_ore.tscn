@@ -104,6 +104,7 @@ storage = NodePath("../Storage")
 
 [node name="Storage" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("3_wtgyh")]
 resource = ExtResource("4_5v2gv")
+current = 8.0
 maximum = 10.0
 current_changed_logic_blocks = [NodePath("../IsExactly")]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://375n7l30emlp"]
+[gd_scene load_steps=23 format=3 uid="uid://375n7l30emlp"]
 
 [ext_resource type="Texture2D" uid="uid://rjqfi70f34vu" path="res://units/drone/unit_drone.png" id="1_5px8r"]
 [ext_resource type="Texture2D" uid="uid://cde25113y2t35" path="res://units/drone/unit_drone_shadow.png" id="1_vshxr"]
@@ -10,8 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="4_wyfff"]
 [ext_resource type="PackedScene" uid="uid://bw6cnmf8gno7h" path="res://components/shake/shake.tscn" id="7_nv2oy"]
 [ext_resource type="PackedScene" uid="uid://m8iq3h4cvfm3" path="res://components/zone_unit/zone_unit.tscn" id="9_qfe8r"]
+[ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="11_5bpbw"]
 [ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="11_ixspc"]
+[ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="12_h3ekp"]
 [ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/deliver_manager/deliver_manager.tscn" id="12_m23cb"]
+[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="13_pku36"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vshxr"]
 atlas = ExtResource("1_5px8r")
@@ -94,16 +97,25 @@ parent = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneUnit"]
 shape = SubResource("CircleShape2D_6oocx")
 
-[node name="Storage" parent="." instance=ExtResource("2_6oocx")]
+[node name="Storage-Battery" parent="." instance=ExtResource("2_6oocx")]
+resource = ExtResource("11_5bpbw")
+maximum = 1.0
+
+[node name="Storage-Energy" parent="." instance=ExtResource("2_6oocx")]
+resource = ExtResource("12_h3ekp")
+maximum = 10.0
+
+[node name="Storage-Ore" parent="." instance=ExtResource("2_6oocx")]
+resource = ExtResource("13_pku36")
 maximum = 1.0
 
 [node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("11_ixspc")]
 unique_name_in_owner = true
-storages = [NodePath("../Storage")]
+storages = [NodePath("../Storage-Ore"), NodePath("../Storage-Battery"), NodePath("../Storage-Energy")]
 
 [node name="DeliverManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("12_m23cb")]
 unique_name_in_owner = true
-storages = [NodePath("../Storage")]
+storages = [NodePath("../Storage-Ore"), NodePath("../Storage-Energy"), NodePath("../Storage-Battery")]
 
 [connection signal="new_target" from="." to="." method="_on_new_target"]
 [connection signal="deselected" from="ResponderLeftClick" to="." method="_on_responder_left_click_deselected"]

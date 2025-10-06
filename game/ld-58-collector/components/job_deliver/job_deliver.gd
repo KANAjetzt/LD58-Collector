@@ -17,11 +17,17 @@ func start() -> void:
 
 	var unit: Unit = parent.unit
 	var building: Building = unit.target.parent
-	var result := 0.0
 
+	# Check if building can handle deliveries
 	if building.deliver_manager:
-		result = unit.pick_up_manager.request(resource)
-		if result > 0.0:
-			building.deliver_manager.request(resource)
+		# Request pick up from unit store
+		var unit_storage := unit.pick_up_manager.request(resource)
+		# If resource available
+		if unit_storage:
+			# Request delivery
+			var building_storage := building.deliver_manager.request(resource)
+			if building_storage:
+				unit.pick_up_manager.pick_up(unit_storage)
+				building.deliver_manager.deliver(building_storage)
 
 	completed.emit()

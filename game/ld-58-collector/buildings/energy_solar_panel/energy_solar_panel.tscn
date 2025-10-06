@@ -1,7 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://dagsvneqbku2s"]
+[gd_scene load_steps=25 format=3 uid="uid://dagsvneqbku2s"]
 
 [ext_resource type="Texture2D" uid="uid://bv001dsmv312m" path="res://buildings/energy_solar_panel/energy_solar_panel.png" id="1_86kne"]
 [ext_resource type="Script" uid="uid://bdrjyddtv2ev3" path="res://buildings/energy_solar_panel/energy_solar_panel.gd" id="1_f0e3w"]
+[ext_resource type="PackedScene" uid="uid://bbdxfygep5a17" path="res://components/producer_resource/producer_resource.tscn" id="3_dvwp3"]
+[ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="4_853co"]
+[ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="5_ggoyg"]
+[ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="6_wlbpt"]
+[ext_resource type="PackedScene" uid="uid://d0oxht4w1r24p" path="res://buildings/storage_battery/storage_battery.tscn" id="7_853co"]
+[ext_resource type="PackedScene" uid="uid://dgao64vay21sj" path="res://components/storage_manager/storage_manager.tscn" id="7_ggoyg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0e3w"]
 atlas = ExtResource("1_86kne")
@@ -109,6 +115,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vjmiq"]
+radius = 38.013157
+
 [node name="EnergySolarPanel" type="Node2D"]
 script = ExtResource("1_f0e3w")
 
@@ -116,3 +125,34 @@ script = ExtResource("1_f0e3w")
 sprite_frames = SubResource("SpriteFrames_ggoyg")
 autoplay = "default"
 frame_progress = 0.43331817
+
+[node name="ProducerResource" parent="." node_paths=PackedStringArray("storage_manager") instance=ExtResource("3_dvwp3")]
+resource = ExtResource("4_853co")
+storage_manager = NodePath("../StorageManager")
+
+[node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_ggoyg")]
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick"]
+shape = SubResource("CircleShape2D_vjmiq")
+
+[node name="Target" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_wlbpt")]
+parent = NodePath("..")
+
+[node name="StorageManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("7_ggoyg")]
+storages = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/Storage")]
+
+[node name="StorageBattery" parent="." instance=ExtResource("7_853co")]
+position = Vector2(-41, 23)
+
+[node name="Storage" parent="StorageBattery" index="2"]
+current = 0.0
+
+[node name="StorageBattery2" parent="." instance=ExtResource("7_853co")]
+position = Vector2(-54, 23)
+
+[node name="Storage" parent="StorageBattery2" index="2"]
+current = 0.0
+
+[editable path="StorageBattery"]
+[editable path="StorageBattery2"]

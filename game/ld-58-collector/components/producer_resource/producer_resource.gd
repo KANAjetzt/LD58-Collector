@@ -47,6 +47,7 @@ func set_can_produce(new_value) -> void:
 	if not previous_value == new_value:
 		if can_produce:
 			started.emit(self)
+			start()
 		else:
 			stoped.emit(self)
 
@@ -70,13 +71,13 @@ func _on_consumer_starved(_resource: DataResource) -> void:
 
 func _on_timer_timeout() -> void:
 	if storage_manager:
-		push_error("Storage Manager not implemented yet!")
+		storage = storage_manager.get_first_not_full()
 
 	if amount + storage.current > storage.maximum:
 		storage.current = storage.maximum
 	else:
 		storage.current += amount
 
-	#print("produced %sx %s" % [amount, resource.display_name])
+	print("produced %sx %s" % [amount, resource.display_name])
 	produced.emit(resource)
 	start()
