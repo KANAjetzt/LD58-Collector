@@ -430,8 +430,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljgfa"]
 size = Vector2(66, 66)
 
-[node name="FactoryDrone" type="Node2D"]
+[node name="FactoryDrone" type="Node2D" node_paths=PackedStringArray("target", "deliver_manager", "jobs")]
 script = ExtResource("1_8qync")
+target = NodePath("Target")
+deliver_manager = NodePath("DeliverManager")
+jobs = [NodePath("JobContainer-Deliver-Ore")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

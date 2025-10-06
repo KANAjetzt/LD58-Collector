@@ -58,6 +58,9 @@ buildings = [NodePath("../../../Mine2")]
 [node name="EnergySolarPanel" parent="." instance=ExtResource("4_272bh")]
 position = Vector2(392, 187)
 
+[node name="JobFlyTo-BatteryFactory" parent="EnergySolarPanel/JobContainer-Deliver-Batteries" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../FactoryBattery")]
+
 [node name="FactoryDrone" parent="." instance=ExtResource("1_1bvp3")]
 position = Vector2(240, -136)
 
@@ -74,6 +77,9 @@ target_parent = NodePath("../Targets")
 [editable path="FactoryBattery"]
 [editable path="FactoryBattery/StorageBattery"]
 [editable path="FactoryBattery/StorageBattery2"]
+[editable path="EnergySolarPanel"]
+[editable path="EnergySolarPanel/StorageBattery"]
+[editable path="EnergySolarPanel/StorageBattery2"]
 [editable path="FactoryDrone"]
 [editable path="FactoryDrone/StorageBattery"]
 [editable path="FactoryDrone/StorageBattery2"]

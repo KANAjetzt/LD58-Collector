@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://cnaqe82pb7sjl"]
+[gd_scene load_steps=61 format=3 uid="uid://cnaqe82pb7sjl"]
 
 [ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
 [ext_resource type="Script" uid="uid://dg4qkvvkutb6i" path="res://buildings/factory_battery/factory_battery.gd" id="1_wwyyl"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bsv3tl5s64app" path="res://components/job_fly_to/job_fly_to.tscn" id="20_1hsi1"]
 [ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="21_6ec64"]
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="21_c4ehs"]
+[ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="23_n1v2e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ec64"]
 atlas = ExtResource("1_qdvem")
@@ -279,17 +280,17 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_cgbae"]
 radius = 35.014282
 
-[node name="FactoryBattery" type="Node2D"]
+[node name="FactoryBattery" type="Node2D" node_paths=PackedStringArray("target", "pick_up_manager", "deliver_manager", "jobs")]
 script = ExtResource("1_wwyyl")
+target = NodePath("Target")
+pick_up_manager = NodePath("PickUpManager")
+deliver_manager = NodePath("DeliverManager")
+jobs = [NodePath("JobContainer-Deliver-Ore")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_unfgd")
 autoplay = "default"
 frame_progress = 0.035732474
-
-[node name="SpriteSelected" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("3_qd8o0")
 
 [node name="ProducerResource-Battery" parent="." node_paths=PackedStringArray("consumer", "storage") instance=ExtResource("2_yp2er")]
 consumer = NodePath("../Consumer-Ore")
@@ -350,20 +351,20 @@ metadata/_edit_group_ = true
 [node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
 current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
 
-[node name="DeliverManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("15_n1v2e")]
-unique_name_in_owner = true
-storages = [NodePath("../Storage-Ore")]
-
-[node name="Target" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("15_qd8o0")]
-unique_name_in_owner = true
-visible = false
-parent = NodePath("..")
-
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("16_xrili")]
 parent = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick"]
 shape = SubResource("CircleShape2D_cgbae")
+
+[node name="SpriteSelected" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_qd8o0")
+
+[node name="Target" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("15_qd8o0")]
+unique_name_in_owner = true
+visible = false
+parent = NodePath("..")
 
 [node name="JobContainer-Deliver-Ore" parent="." node_paths=PackedStringArray("building") instance=ExtResource("18_pnjup")]
 unique_name_in_owner = true
@@ -385,11 +386,18 @@ resource = ExtResource("11_xc5vc")
 
 [node name="JobWait2" parent="JobContainer-Deliver-Ore" instance=ExtResource("21_6ec64")]
 
+[node name="DeliverManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("15_n1v2e")]
+unique_name_in_owner = true
+storages = [NodePath("../Storage-Ore")]
+
+[node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("23_n1v2e")]
+storages = [NodePath("../Storage-Battery")]
+
 [connection signal="started" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_started"]
 [connection signal="stoped" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_stoped"]
-[connection signal="unit_entered" from="Target" to="." method="_on_target_unit_entered"]
 [connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
 [connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]
+[connection signal="unit_entered" from="Target" to="." method="_on_target_unit_entered"]
 
 [editable path="StorageBattery"]
 [editable path="StorageBattery2"]

@@ -40,6 +40,7 @@ func set_can_produce(new_value) -> void:
 	if not previous_value == new_value:
 		if can_produce:
 			started.emit(self)
+			start()
 		else:
 			stoped.emit(self)
 
