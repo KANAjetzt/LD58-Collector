@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="DataResource" load_steps=3 format=3 uid="uid://e5q16eqtud2x"]
+
+[ext_resource type="Script" uid="uid://iubhn0eug404" path="res://resources/_resource_data.gd" id="1_iy2yg"]
+[ext_resource type="Texture2D" uid="uid://n68vnt7006qq" path="res://resources/battery_full/icon_battery_full.png" id="2_nr7xj"]
+
+[resource]
+script = ExtResource("1_iy2yg")
+id = "resource_battery_full"
+display_name = "Battery Full"
+sprite = ExtResource("2_nr7xj")
+metadata/_custom_type_script = "uid://iubhn0eug404"

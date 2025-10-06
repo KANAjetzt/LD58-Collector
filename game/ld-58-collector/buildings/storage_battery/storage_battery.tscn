@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0oxht4w1r24p"]
+[gd_scene load_steps=14 format=3 uid="uid://d0oxht4w1r24p"]
 
 [ext_resource type="Texture2D" uid="uid://dyudthxsw3he1" path="res://buildings/storage_battery/storage_battery.png" id="1_ix1ga"]
 [ext_resource type="Script" uid="uid://byfknuqgk5afg" path="res://buildings/storage_battery/storage_battery.gd" id="1_vg3aw"]
 [ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="3_x1epi"]
 [ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="4_amido"]
 [ext_resource type="PackedScene" uid="uid://biqi68nnmmn3y" path="res://components/update_sprite/update_sprite.tscn" id="5_amido"]
+[ext_resource type="Script" uid="uid://b72br14xbqr1g" path="res://buildings/storage_battery/filled.gd" id="6_vg3aw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ii07a"]
 atlas = ExtResource("1_ix1ga")
@@ -68,8 +69,14 @@ frame = 5
 resource = ExtResource("4_amido")
 current = 5.0
 maximum = 5.0
-current_changed_logic_blocks = [NodePath("../UpdateSprite")]
+current_changed_logic_blocks = [NodePath("../UpdateSprite"), NodePath("../Filled")]
 
 [node name="UpdateSprite" parent="." node_paths=PackedStringArray("sprite", "storage") instance=ExtResource("5_amido")]
 sprite = NodePath("../AnimatedSprite2D")
 storage = NodePath("../Storage")
+
+[node name="Filled" type="Node" parent="." node_paths=PackedStringArray("storage")]
+script = ExtResource("6_vg3aw")
+storage = NodePath("../Storage")
+
+[connection signal="filled" from="Filled" to="." method="_on_filled_filled"]

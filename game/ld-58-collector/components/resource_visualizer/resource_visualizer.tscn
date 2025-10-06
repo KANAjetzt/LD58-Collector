@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkdn10flc7wju"]
+
+[ext_resource type="Script" uid="uid://dvwuk8o6q5gif" path="res://components/resource_visualizer/resource_visualizer.gd" id="1_8ns0b"]
+[ext_resource type="Texture2D" uid="uid://b3kti0a3wry3x" path="res://resources/energy/energy.png" id="1_p6fg5"]
+
+[node name="ResourceVisualizer" type="Sprite2D"]
+texture = ExtResource("1_p6fg5")
+script = ExtResource("1_8ns0b")

@@ -68,7 +68,6 @@ func _on_consumer_starved(_resource: DataResource) -> void:
 			start()
 	)
 
-
 func _on_timer_timeout() -> void:
 	if storage_manager:
 		storage = storage_manager.get_first_not_full()
@@ -78,6 +77,6 @@ func _on_timer_timeout() -> void:
 	else:
 		storage.current += amount
 
-	print("produced %sx %s" % [amount, resource.display_name])
+	#print("produced %sx %s" % [amount, resource.display_name])
 	produced.emit(resource)
 	start()
