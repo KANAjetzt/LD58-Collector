@@ -1,3 +1,4 @@
 # Godot 4+ specific ignores
 game/ld-58-collector/.godot/
 game/ld-58-collector/android/
+exports/

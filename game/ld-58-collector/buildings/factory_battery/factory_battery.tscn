@@ -308,7 +308,6 @@ get_nodes = [NodePath("../../StorageBattery/Storage"), NodePath("../../StorageBa
 get_props = Array[String](["current", "current"])
 set_nodes = [NodePath("../../ProducerResource-Battery")]
 set_props = Array[String](["can_produce"])
-deactivated = true
 
 [node name="SmallerThen-max-Battery" parent="And-Production-Requirement" node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("7_xc5vc")]
 get_nodes = [NodePath("../../Storage-Battery-Empty")]
@@ -319,7 +318,7 @@ boundary_node = NodePath("../../Storage-Battery-Empty")
 boundary_prop = "maximum"
 
 [node name="Consumer-Energy" parent="." node_paths=PackedStringArray("storage_manager") instance=ExtResource("10_unfgd")]
-time = 10.0
+time = 25.0
 storage_manager = NodePath("../StorageManager-Energy")
 
 [node name="Consumer-Ore" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("10_unfgd")]

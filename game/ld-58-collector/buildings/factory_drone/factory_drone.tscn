@@ -455,7 +455,6 @@ storage = NodePath("../StorageOre")
 unique_name_in_owner = true
 consumer = NodePath("../ConsumerOre")
 unit = ExtResource("8_6ly06")
-time = 1.0
 spawn_point = NodePath("../SpawnPoint")
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_ppv50")]
@@ -485,7 +484,7 @@ current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy"), NodePath(
 
 [node name="StorageOre" parent="." instance=ExtResource("10_lepto")]
 resource = ExtResource("5_mdbdu")
-current = 10.0
+current = 3.0
 maximum = 10.0
 
 [node name="StorageManagerEnergy" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("11_cx0oh")]
