@@ -7,7 +7,6 @@ signal unit_entered(unit: Unit)
 @export var parent: Node2D
 
 
-
 func clear() -> void:
 	queue_free()
 

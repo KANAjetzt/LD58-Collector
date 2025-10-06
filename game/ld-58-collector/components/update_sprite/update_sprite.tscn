@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://biqi68nnmmn3y"]
+
+[ext_resource type="Script" uid="uid://cpejcswko8k1e" path="res://components/update_sprite/update_sprite.gd" id="1_gaptx"]
+
+[node name="UpdateSprite" type="Node"]
+script = ExtResource("1_gaptx")
