@@ -342,14 +342,14 @@ position = Vector2(36, 17)
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="StorageBattery" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
-current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
+current_changed_logic_blocks = [NodePath("../../And-Production-Requirement"), NodePath("../UpdateSprite")]
 
 [node name="StorageBattery2" parent="." instance=ExtResource("6_jk5go")]
 position = Vector2(49, 17)
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
-current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
+current_changed_logic_blocks = [NodePath("../../And-Production-Requirement"), NodePath("../UpdateSprite")]
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("16_xrili")]
 parent = NodePath("..")

@@ -6,50 +6,50 @@
 [ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="4_amido"]
 [ext_resource type="PackedScene" uid="uid://biqi68nnmmn3y" path="res://components/update_sprite/update_sprite.tscn" id="5_amido"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x1epi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ii07a"]
 atlas = ExtResource("1_ix1ga")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_amido"]
-atlas = ExtResource("1_ix1ga")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vg3aw"]
-atlas = ExtResource("1_ix1ga")
-region = Rect2(0, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0rv33"]
-atlas = ExtResource("1_ix1ga")
-region = Rect2(0, 48, 16, 16)
+region = Rect2(0, 80, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_noa1j"]
 atlas = ExtResource("1_ix1ga")
 region = Rect2(0, 64, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ii07a"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0rv33"]
 atlas = ExtResource("1_ix1ga")
-region = Rect2(0, 80, 16, 16)
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vg3aw"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amido"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1epi"]
+atlas = ExtResource("1_ix1ga")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x1epi"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x1epi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_amido")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vg3aw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0rv33")
+"texture": SubResource("AtlasTexture_ii07a")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_noa1j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ii07a")
+"texture": SubResource("AtlasTexture_0rv33")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vg3aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amido")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1epi")
 }],
 "loop": true,
 "name": &"default",
@@ -60,6 +60,7 @@ animations = [{
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_x1epi")
+frame = 5
 
 [node name="BatteryZone" parent="." instance=ExtResource("2_gp0mg")]
 

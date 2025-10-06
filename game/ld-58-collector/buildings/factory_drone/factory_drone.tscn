@@ -471,14 +471,14 @@ position = Vector2(40, 25)
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="StorageBattery" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
-current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
+current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy"), NodePath("../UpdateSprite")]
 
 [node name="StorageBattery2" parent="." instance=ExtResource("2_edn5b")]
 position = Vector2(53, 25)
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
-current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
+current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy"), NodePath("../UpdateSprite")]
 
 [node name="StorageOre" parent="." instance=ExtResource("10_lepto")]
 resource = ExtResource("5_mdbdu")
