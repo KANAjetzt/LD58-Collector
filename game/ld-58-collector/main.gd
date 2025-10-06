@@ -1,5 +1,6 @@
 extends Node
 
+
 func _on_timer_timeout() -> void:
 	$CanvasLayer/TimerLabel.visible = false
 	$CanvasLayer/AnimatedEnd.visible = true

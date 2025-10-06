@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://4v05avyp0n8s"]
+[gd_scene load_steps=71 format=4 uid="uid://4v05avyp0n8s"]
 
 [ext_resource type="PackedScene" uid="uid://xi2yax00lupo" path="res://buildings/factory_drone/factory_drone.tscn" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cingsqpvv46yu" path="res://main.gd" id="1_4c57u"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://828oyr8qi2mj" path="res://map/sprite_lose_animation.png" id="12_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://cmm2884ropxc5" path="res://map/sprite_win_animation.png" id="13_w48qg"]
 [ext_resource type="PackedScene" uid="uid://b7svtartmof6" path="res://buildings/defense_laser/defense_laser.tscn" id="15_vivmo"]
+[ext_resource type="AudioStream" uid="uid://btgxq6eb33yao" path="res://sound/music/starsound.ogg" id="17_yaehf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dg77c"]
 texture = ExtResource("2_efxa6")
@@ -565,6 +566,9 @@ buildings = [NodePath("../../../FactoryBattery")]
 [node name="FactoryDrone" parent="." instance=ExtResource("1_1bvp3")]
 position = Vector2(240, -136)
 
+[node name="ProducerUnit-Drone" parent="FactoryDrone" index="3" node_paths=PackedStringArray("spawn_point")]
+spawn_point = NodePath("../../Drones")
+
 [node name="JobFlyTo-Mine" parent="FactoryDrone/JobContainer-Deliver-Ore" index="0" node_paths=PackedStringArray("buildings")]
 buildings = [NodePath("../../../Mine2")]
 
@@ -594,12 +598,19 @@ text = "--:--"
 script = ExtResource("12_dg77c")
 
 [node name="Timer" type="Timer" parent="CanvasLayer/TimerLabel"]
-wait_time = 180.0
+wait_time = 900.0
 one_shot = true
 autostart = true
 
 [node name="BuildingDefenseLaser" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(-127, 86)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("17_yaehf")
+volume_db = -16.0
+autoplay = true
+bus = &"Music"
 
 [connection signal="timeout" from="CanvasLayer/TimerLabel/Timer" to="." method="_on_timer_timeout"]
 

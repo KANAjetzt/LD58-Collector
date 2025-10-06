@@ -182,7 +182,8 @@ unique_name_in_owner = true
 visible = false
 texture = ExtResource("11_57wax")
 
-[node name="JobContainer-Deliver-Batteries" parent="." instance=ExtResource("9_wlbpt")]
+[node name="JobContainer-Deliver-Batteries" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_wlbpt")]
+building = NodePath("..")
 
 [node name="JobFlyTo-BatteryFactory" parent="JobContainer-Deliver-Batteries" instance=ExtResource("10_vjmiq")]
 
