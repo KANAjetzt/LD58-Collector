@@ -199,8 +199,8 @@ resource = ExtResource("11_xc5vc")
 
 [node name="JobWait" parent="JobContainer-Deliver-Ore" instance=ExtResource("21_6ec64")]
 
-[node name="JobFlyTo-Self" parent="JobContainer-Deliver-Ore" node_paths=PackedStringArray("targets") instance=ExtResource("20_1hsi1")]
-targets = [NodePath("../..")]
+[node name="JobFlyTo-Self" parent="JobContainer-Deliver-Ore" node_paths=PackedStringArray("buildings") instance=ExtResource("20_1hsi1")]
+buildings = [NodePath("../..")]
 
 [node name="JobDeliver" parent="JobContainer-Deliver-Ore" instance=ExtResource("21_c4ehs")]
 

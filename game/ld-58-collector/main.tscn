@@ -36,8 +36,8 @@ position = Vector2(-237, -11)
 [node name="FactoryBattery" parent="." instance=ExtResource("3_7mycd")]
 position = Vector2(-204, 200)
 
-[node name="JobFlyTo-Mine" parent="FactoryBattery/JobContainer-Deliver-Ore" index="0" node_paths=PackedStringArray("targets")]
-targets = [NodePath("../../../Mine"), NodePath("../../../Mine2"), NodePath("../../../Mine3"), NodePath("../../../Mine4")]
+[node name="JobFlyTo-Mine" parent="FactoryBattery/JobContainer-Deliver-Ore" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../Mine"), NodePath("../../../Mine2"), NodePath("../../../Mine3"), NodePath("../../../Mine4")]
 
 [node name="SolarPanels" type="Node2D" parent="."]
 position = Vector2(-74, 328)

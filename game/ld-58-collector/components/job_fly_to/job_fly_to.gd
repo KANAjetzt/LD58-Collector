@@ -5,7 +5,7 @@ extends Node
 signal completed
 
 
-@export var targets: Array[Node2D]
+@export var buildings: Array[Building]
 
 
 func start() -> void:
@@ -15,8 +15,10 @@ func start() -> void:
 		push_error("Jobs have to be inside a JobContainer!")
 		return
 
-	get_parent().unit.target = targets.pick_random().target
-	get_parent().unit.reached_target.connect(
-		func _on_reached_target(_target: Target) -> void:
-			completed.emit()
+	var target: Target = buildings.pick_random().target
+	get_parent().unit.target = target
+	target.unit_entered.connect(
+		func _on_unit_entered(unit: Unit) -> void:
+			if unit == get_parent().unit:
+				completed.emit()
 	)
