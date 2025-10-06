@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://cnaqe82pb7sjl"]
+[gd_scene load_steps=62 format=3 uid="uid://cnaqe82pb7sjl"]
 
 [ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
 [ext_resource type="Script" uid="uid://dg4qkvvkutb6i" path="res://buildings/factory_battery/factory_battery.gd" id="1_wwyyl"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="21_6ec64"]
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="21_c4ehs"]
 [ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="23_n1v2e"]
+[ext_resource type="PackedScene" uid="uid://g3ftjslcir1b" path="res://components/child_hider/child_hider.tscn" id="24_3g4l0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ec64"]
 atlas = ExtResource("1_qdvem")
@@ -307,6 +308,7 @@ get_nodes = [NodePath("../../StorageBattery/Storage"), NodePath("../../StorageBa
 get_props = Array[String](["current", "current"])
 set_nodes = [NodePath("../../ProducerResource-Battery")]
 set_props = Array[String](["can_produce"])
+deactivated = true
 
 [node name="SmallerThen-max-Battery" parent="And-Production-Requirement" node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("7_xc5vc")]
 get_nodes = [NodePath("../../Storage-Battery")]
@@ -327,7 +329,7 @@ storage = NodePath("../Storage-Ore")
 [node name="Storage-Battery" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("4_v5xny")]
 resource = ExtResource("3_x7uvi")
 maximum = 10.0
-current_changed_logic_blocks = [NodePath("../And-Production-Requirement")]
+current_changed_logic_blocks = [NodePath("../And-Production-Requirement"), NodePath("../ChildHider")]
 
 [node name="Storage-Ore" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("4_v5xny")]
 resource = ExtResource("11_xc5vc")
@@ -339,6 +341,7 @@ storages = [NodePath("../StorageBattery/Storage"), NodePath("../StorageBattery2/
 
 [node name="StorageBattery" parent="." instance=ExtResource("6_jk5go")]
 position = Vector2(36, 17)
+energy = 5
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="StorageBattery" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
@@ -346,6 +349,7 @@ current_changed_logic_blocks = [NodePath("../../And-Production-Requirement"), No
 
 [node name="StorageBattery2" parent="." instance=ExtResource("6_jk5go")]
 position = Vector2(49, 17)
+energy = 5
 metadata/_edit_group_ = true
 
 [node name="Storage" parent="StorageBattery2" index="2" node_paths=PackedStringArray("current_changed_logic_blocks")]
@@ -392,6 +396,51 @@ storages = [NodePath("../Storage-Ore")]
 
 [node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("23_n1v2e")]
 storages = [NodePath("../Storage-Battery")]
+
+[node name="ChildHider" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("24_3g4l0")]
+position = Vector2(-61, 0)
+storage = NodePath("../Storage-Battery")
+metadata/_edit_group_ = true
+
+[node name="StorageBattery3" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(7, -34)
+
+[node name="StorageBattery4" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(-6, -34)
+
+[node name="StorageBattery5" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(7, -17)
+
+[node name="StorageBattery6" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(-6, -17)
+
+[node name="StorageBattery7" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(7, 0)
+
+[node name="StorageBattery8" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(-6, 0)
+
+[node name="StorageBattery9" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(7, 17)
+
+[node name="StorageBattery10" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(-6, 17)
+
+[node name="StorageBattery11" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(7, 34)
+
+[node name="StorageBattery12" parent="ChildHider" instance=ExtResource("6_jk5go")]
+visible = false
+position = Vector2(-6, 34)
 
 [connection signal="started" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_started"]
 [connection signal="stoped" from="ProducerResource-Battery" to="." method="_on_producer_resource_battery_stoped"]

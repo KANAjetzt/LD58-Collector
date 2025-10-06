@@ -15,6 +15,9 @@ extends ComponentLogicBlock
 
 
 func update(set_values := true) -> bool:
+	if deactivated:
+		return set_value
+
 	var accumulator := 0
 
 	if boundary_node:
