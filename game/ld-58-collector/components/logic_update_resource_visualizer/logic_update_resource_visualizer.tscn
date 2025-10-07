@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://cmhd0o0voifei" path="res://components/logic_update_resource_visualizer/logic_update_resource_visualizer.gd" id="1_on8ct"]
 
-[node name="LogicUpdateResourceVisualizer" type="Node"]
+[node name="LogicUpdateResourceVisualizer" type="Node2D"]
 script = ExtResource("1_on8ct")
