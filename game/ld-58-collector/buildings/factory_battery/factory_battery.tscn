@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cvh41kanodruy" path="res://components/consumer/consumer.tscn" id="10_unfgd"]
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="11_xc5vc"]
 [ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="14_gflkv"]
-[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/deliver_manager/deliver_manager.tscn" id="15_n1v2e"]
+[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/manager_deliver/manager_deliver.tscn" id="15_n1v2e"]
 [ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="15_qd8o0"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="16_xrili"]
 [ext_resource type="PackedScene" uid="uid://u73ipdserymd" path="res://components/job_container/job_container.tscn" id="18_pnjup"]
@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bsv3tl5s64app" path="res://components/job_fly_to/job_fly_to.tscn" id="20_1hsi1"]
 [ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="21_6ec64"]
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="21_c4ehs"]
-[ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="23_n1v2e"]
+[ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/manager_pick_up/manager_pick_up.tscn" id="23_n1v2e"]
 [ext_resource type="PackedScene" uid="uid://g3ftjslcir1b" path="res://components/child_hider/child_hider.tscn" id="24_3g4l0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ec64"]

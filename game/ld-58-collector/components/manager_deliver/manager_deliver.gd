@@ -1,4 +1,4 @@
-class_name ComponentDeliverManager
+class_name ComponentManagerDeliver
 extends Node
 
 

@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="14_ljgfa"]
 [ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="15_hu1bj"]
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="16_ppv50"]
-[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/deliver_manager/deliver_manager.tscn" id="18_opopk"]
+[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/manager_deliver/manager_deliver.tscn" id="18_opopk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cx0oh"]
 atlas = ExtResource("1_dgwce")

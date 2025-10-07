@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_4c57u"]
 [ext_resource type="Script" uid="uid://15oioqir8mfg" path="res://camera_controller.gd" id="8_efxa6"]
 [ext_resource type="PackedScene" uid="uid://d0t33gwrkqiy1" path="res://components/target_creator_right_click/target_creator_right_click.tscn" id="11_efxa6"]
-[ext_resource type="Script" path="res://timer_label.gd" id="12_dg77c"]
+[ext_resource type="Script" uid="uid://b8jt8iarii044" path="res://timer_label.gd" id="12_dg77c"]
 [ext_resource type="Texture2D" uid="uid://828oyr8qi2mj" path="res://map/sprite_lose_animation.png" id="12_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://cmm2884ropxc5" path="res://map/sprite_win_animation.png" id="13_w48qg"]
 [ext_resource type="PackedScene" uid="uid://b7svtartmof6" path="res://buildings/defense_laser/defense_laser.tscn" id="15_vivmo"]
@@ -556,12 +556,13 @@ position = Vector2(-15, 448)
 [node name="JobFlyTo-Mine" parent="FactoryBattery/JobContainer-Deliver-Ore" index="0" node_paths=PackedStringArray("buildings")]
 buildings = [NodePath("../../../Mine2")]
 
-[node name="EnergySolarPanel" parent="." instance=ExtResource("4_272bh")]
+[node name="EnergySolarPanel" parent="." node_paths=PackedStringArray("jobs") instance=ExtResource("4_272bh")]
 position = Vector2(392, 239)
+jobs = [NodePath("StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries"), null]
 metadata/_edit_group_ = true
 
-[node name="JobFlyTo-BatteryFactory" parent="EnergySolarPanel/JobContainer-Deliver-Batteries" index="0" node_paths=PackedStringArray("buildings")]
-buildings = [NodePath("../../../FactoryBattery")]
+[node name="JobFlyTo-BatteryFactory" parent="EnergySolarPanel/StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../FactoryBattery")]
 
 [node name="FactoryDrone" parent="." instance=ExtResource("1_1bvp3")]
 position = Vector2(240, -136)
@@ -618,6 +619,8 @@ bus = &"Music"
 [editable path="FactoryBattery/StorageBattery"]
 [editable path="FactoryBattery/StorageBattery2"]
 [editable path="EnergySolarPanel"]
+[editable path="EnergySolarPanel/StorageDepot-Battery-Empty"]
+[editable path="EnergySolarPanel/StorageDepot-Battery-Full"]
 [editable path="FactoryDrone"]
 [editable path="FactoryDrone/StorageBattery"]
 [editable path="FactoryDrone/StorageBattery2"]

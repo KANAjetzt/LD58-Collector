@@ -2,6 +2,7 @@ class_name ComponentJobContainer
 extends Node
 
 
+@export var active := true
 @export var data: DataJob
 @export var building: Building
 @export var loop := true
@@ -16,7 +17,7 @@ func _ready() -> void:
 
 
 func register(register_unit: Unit) -> void:
-	if units.has(register_unit):
+	if units.has(register_unit) or not active:
 		return
 
 	units[register_unit] = 0

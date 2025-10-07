@@ -1,8 +1,8 @@
 class_name ComponentConsumer
 extends Node
 
-signal consumed(DataResource, float)
-signal starved(DataResource)
+signal consumed
+signal starved
 
 @export var amount := 1.0
 ## Set to false if only produce once
@@ -31,21 +31,21 @@ func consume() -> void:
 	if storage_manager:
 		var storage_pick := storage_manager.get_storage()
 		if not storage_pick:
-			starved.emit(storage.resource)
+			starved.emit()
 			return
 		if storage_pick.current >= amount:
 			storage_pick.current -= amount
 			#print("consumed %sx %s" % [amount, storage_pick.resource.display_name])
-			consumed.emit(storage_pick.resource, amount)
+			consumed.emit()
 		else:
-			starved.emit(storage_pick.resource)
+			starved.emit()
 	else:
 		if storage.current >= amount:
 			storage.current -= amount
 			#print("consumed %sx %s" % [amount, storage.resource.display_name])
-			consumed.emit(storage.resource, amount)
+			consumed.emit()
 		else:
-			starved.emit(storage.resource)
+			starved.emit()
 
 
 func _on_timer_timeout() -> void:

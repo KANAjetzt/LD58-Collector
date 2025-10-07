@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cll3px46b35t6"]
+
+[ext_resource type="Script" uid="uid://cexlts8etjyjm" path="res://components/logic_blocks/not_null.gd" id="1_ffnwm"]
+
+[node name="NotNull" type="Node"]
+script = ExtResource("1_ffnwm")

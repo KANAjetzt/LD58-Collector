@@ -1,4 +1,4 @@
-class_name ComponentJobManager
+class_name ComponentManagerJob
 extends Node
 
 

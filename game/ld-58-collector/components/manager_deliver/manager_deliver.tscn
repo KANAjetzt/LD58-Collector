@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpo4pk5sdq32v"]
+
+[ext_resource type="Script" uid="uid://kjl0d12w2jps" path="res://components/manager_deliver/manager_deliver.gd" id="1_dc6vk"]
+
+[node name="ManagerDeliver" type="Node"]
+script = ExtResource("1_dc6vk")

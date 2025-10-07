@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://biqi68nnmmn3y" path="res://components/update_sprite/update_sprite.tscn" id="9_dw2ix"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="10_frd3s"]
 [ext_resource type="Script" uid="uid://bej54rlsi7n7k" path="res://components/target/target.gd" id="11_algq6"]
-[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/deliver_manager/deliver_manager.tscn" id="12_5geap"]
+[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/manager_deliver/manager_deliver.tscn" id="12_5geap"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="12_algq6"]
 [ext_resource type="PackedScene" uid="uid://u73ipdserymd" path="res://components/job_container/job_container.tscn" id="14_k66jk"]
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="15_05k8p"]

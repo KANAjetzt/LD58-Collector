@@ -1,4 +1,4 @@
-class_name ComponentPickUpManager
+class_name ComponentManagerPickUp
 extends Node
 
 

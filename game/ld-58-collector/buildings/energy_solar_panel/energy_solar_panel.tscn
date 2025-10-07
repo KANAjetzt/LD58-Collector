@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dagsvneqbku2s"]
+[gd_scene load_steps=37 format=3 uid="uid://dagsvneqbku2s"]
 
 [ext_resource type="Texture2D" uid="uid://bv001dsmv312m" path="res://buildings/energy_solar_panel/energy_solar_panel.png" id="1_86kne"]
 [ext_resource type="Script" uid="uid://bdrjyddtv2ev3" path="res://buildings/energy_solar_panel/energy_solar_panel.gd" id="1_f0e3w"]
@@ -10,19 +10,14 @@
 [ext_resource type="PackedScene" uid="uid://dgao64vay21sj" path="res://components/storage_manager/storage_manager.tscn" id="7_ggoyg"]
 [ext_resource type="Resource" uid="uid://buhtl1nf8rrdn" path="res://resources/battery_empty/battery_empty_data.tres" id="8_1untv"]
 [ext_resource type="Resource" uid="uid://e5q16eqtud2x" path="res://resources/battery_full/battery_full_data.tres" id="9_23n1m"]
-[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="9_e74k1"]
 [ext_resource type="PackedScene" uid="uid://u73ipdserymd" path="res://components/job_container/job_container.tscn" id="9_wlbpt"]
 [ext_resource type="PackedScene" uid="uid://bsv3tl5s64app" path="res://components/job_fly_to/job_fly_to.tscn" id="10_vjmiq"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="11_57wax"]
 [ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="11_idc8o"]
-[ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="12_aosfu"]
 [ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="13_f2kee"]
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="14_57wax"]
-[ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/deliver_manager/deliver_manager.tscn" id="16_f2kee"]
-[ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="17_57wax"]
-[ext_resource type="PackedScene" uid="uid://g3ftjslcir1b" path="res://components/child_hider/child_hider.tscn" id="18_teom5"]
-[ext_resource type="PackedScene" uid="uid://h4qx02fo3cso" path="res://components/update_storage_manager/update_storage_manager.tscn" id="20_hhroj"]
-[ext_resource type="Script" uid="uid://bjor0j0xy3ljo" path="res://buildings/energy_solar_panel/building_solar_battery_depot.gd" id="21_55i60"]
+[ext_resource type="PackedScene" uid="uid://cll3px46b35t6" path="res://components/logic_blocks/not_null.tscn" id="18_teom5"]
+[ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="24_23n1m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0e3w"]
 atlas = ExtResource("1_86kne")
@@ -133,15 +128,16 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_vjmiq"]
 radius = 38.013157
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_teom5"]
-size = Vector2(193, 90)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55i60"]
+size = Vector2(61, 88)
 
-[node name="EnergySolarPanel" type="Node2D" node_paths=PackedStringArray("target", "pick_up_manager", "deliver_manager", "jobs")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1untv"]
+size = Vector2(61, 88)
+
+[node name="EnergySolarPanel" type="Node2D" node_paths=PackedStringArray("target", "jobs")]
 script = ExtResource("1_f0e3w")
 target = NodePath("Target-SolarPanel")
-pick_up_manager = NodePath("PickUpManager")
-deliver_manager = NodePath("DeliverManager")
-jobs = [NodePath("JobContainer-Deliver-Batteries"), NodePath("JobContainer-Pickup-Battery")]
+jobs = [NodePath("StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries"), null]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ggoyg")
@@ -159,19 +155,6 @@ parent = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick"]
 shape = SubResource("CircleShape2D_vjmiq")
 
-[node name="StorageManager-Energy" parent="." node_paths=PackedStringArray("storage_parent") instance=ExtResource("7_ggoyg")]
-storage_parent = NodePath("../ChildHider-Empty")
-
-[node name="Storage-Battery-Empty" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("9_e74k1")]
-resource = ExtResource("8_1untv")
-maximum = 60.0
-current_changed_logic_blocks = [NodePath("../ChildHider-Empty")]
-
-[node name="Storage-Battery-Full" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("9_e74k1")]
-resource = ExtResource("9_23n1m")
-maximum = 60.0
-current_changed_logic_blocks = [NodePath("../ChildHider-Full")]
-
 [node name="Target-SolarPanel" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_wlbpt")]
 unique_name_in_owner = true
 visible = false
@@ -182,555 +165,245 @@ unique_name_in_owner = true
 visible = false
 texture = ExtResource("11_57wax")
 
-[node name="JobContainer-Deliver-Batteries" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_wlbpt")]
-building = NodePath("..")
+[node name="StorageManager-Energy" parent="." node_paths=PackedStringArray("storage_parent", "visiblity_changed_logic_blocks") instance=ExtResource("7_ggoyg")]
+storage_parent = NodePath("../StorageDepot-Battery-Empty/ChildHider")
+visiblity_changed_logic_blocks = [NodePath("../NotNull-StorageManager-Storages")]
 
-[node name="JobFlyTo-BatteryFactory" parent="JobContainer-Deliver-Batteries" instance=ExtResource("10_vjmiq")]
+[node name="StorageDepot-Battery-Empty" parent="." node_paths=PackedStringArray("jobs") instance=ExtResource("24_23n1m")]
+position = Vector2(-74, 0)
+resource = ExtResource("8_1untv")
+jobs = [NodePath("JobContainer-Deliver"), NodePath("JobContainer-PickUp"), NodePath("JobContainer-Deliver-Batteries")]
+metadata/_edit_group_ = true
 
-[node name="JobPickUp-Battery" parent="JobContainer-Deliver-Batteries" instance=ExtResource("11_idc8o")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Empty/ResponderRightClick" index="0"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_55i60")
+
+[node name="Storage" parent="StorageDepot-Battery-Empty" index="1"]
+maximum = 20.0
+
+[node name="StorageBattery" parent="StorageDepot-Battery-Empty/ChildHider" index="0" instance=ExtResource("7_853co")]
+position = Vector2(21, -34)
+
+[node name="StorageBattery2" parent="StorageDepot-Battery-Empty/ChildHider" index="1" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, -17)
+
+[node name="StorageBattery3" parent="StorageDepot-Battery-Empty/ChildHider" index="2" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, 0)
+
+[node name="StorageBattery4" parent="StorageDepot-Battery-Empty/ChildHider" index="3" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, 17)
+
+[node name="StorageBattery5" parent="StorageDepot-Battery-Empty/ChildHider" index="4" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, 34)
+
+[node name="StorageBattery6" parent="StorageDepot-Battery-Empty/ChildHider" index="5" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(7, -34)
+
+[node name="StorageBattery7" parent="StorageDepot-Battery-Empty/ChildHider" index="6" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(7, -17)
+
+[node name="StorageBattery8" parent="StorageDepot-Battery-Empty/ChildHider" index="7" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(7, 0)
+
+[node name="StorageBattery9" parent="StorageDepot-Battery-Empty/ChildHider" index="8" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(7, 17)
+
+[node name="StorageBattery10" parent="StorageDepot-Battery-Empty/ChildHider" index="9" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(7, 34)
+
+[node name="StorageBattery11" parent="StorageDepot-Battery-Empty/ChildHider" index="10" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-7, -34)
+
+[node name="StorageBattery12" parent="StorageDepot-Battery-Empty/ChildHider" index="11" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-7, -17)
+
+[node name="StorageBattery13" parent="StorageDepot-Battery-Empty/ChildHider" index="12" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-7, 0)
+
+[node name="StorageBattery14" parent="StorageDepot-Battery-Empty/ChildHider" index="13" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-7, 17)
+
+[node name="StorageBattery15" parent="StorageDepot-Battery-Empty/ChildHider" index="14" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-7, 34)
+
+[node name="StorageBattery16" parent="StorageDepot-Battery-Empty/ChildHider" index="15" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-21, -34)
+
+[node name="StorageBattery17" parent="StorageDepot-Battery-Empty/ChildHider" index="16" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-21, -17)
+
+[node name="StorageBattery18" parent="StorageDepot-Battery-Empty/ChildHider" index="17" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-21, 0)
+
+[node name="StorageBattery19" parent="StorageDepot-Battery-Empty/ChildHider" index="18" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-21, 17)
+
+[node name="StorageBattery20" parent="StorageDepot-Battery-Empty/ChildHider" index="19" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(-21, 34)
+
+[node name="JobContainer-Deliver-Batteries" parent="StorageDepot-Battery-Empty" node_paths=PackedStringArray("building") instance=ExtResource("9_wlbpt")]
+building = NodePath("../..")
+
+[node name="JobFlyTo-BatteryFactory" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("10_vjmiq")]
+
+[node name="JobPickUp-Battery-Empty" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("11_idc8o")]
 resource = ExtResource("8_1untv")
 
-[node name="JobWait" parent="JobContainer-Deliver-Batteries" instance=ExtResource("13_f2kee")]
+[node name="JobWait" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("13_f2kee")]
 
-[node name="JobFlyTo-Self" parent="JobContainer-Deliver-Batteries" node_paths=PackedStringArray("buildings") instance=ExtResource("10_vjmiq")]
+[node name="JobFlyTo-Self" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" node_paths=PackedStringArray("buildings") instance=ExtResource("10_vjmiq")]
 buildings = [NodePath("../..")]
 
-[node name="JobDeliver-Battery" parent="JobContainer-Deliver-Batteries" instance=ExtResource("14_57wax")]
+[node name="JobDeliver-Battery-Empty" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("14_57wax")]
 resource = ExtResource("8_1untv")
 
-[node name="JobWait2" parent="JobContainer-Deliver-Batteries" instance=ExtResource("13_f2kee")]
+[node name="JobWait2" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("13_f2kee")]
 
-[node name="ResponderRightClick-BatteryDepot" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_ggoyg")]
-parent = NodePath("../BatteryDepot")
+[node name="StorageDepot-Battery-Full" parent="." instance=ExtResource("24_23n1m")]
+position = Vector2(73, 0)
+resource = ExtResource("9_23n1m")
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick-BatteryDepot"]
-position = Vector2(151.5, 0)
-shape = SubResource("RectangleShape2D_teom5")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Full/ResponderRightClick" index="0"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_1untv")
 
-[node name="ChildHider-Full" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("18_teom5")]
-position = Vector2(69, 0)
-storage = NodePath("../Storage-Battery-Full")
+[node name="Storage" parent="StorageDepot-Battery-Full" index="1"]
+maximum = 20.0
 
-[node name="StorageBattery" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery" parent="StorageDepot-Battery-Full/ChildHider" index="0" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, -34)
+energy = 5
+
+[node name="StorageBattery2" parent="StorageDepot-Battery-Full/ChildHider" index="1" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, -17)
+energy = 5
+
+[node name="StorageBattery3" parent="StorageDepot-Battery-Full/ChildHider" index="2" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, 0)
+energy = 5
+
+[node name="StorageBattery4" parent="StorageDepot-Battery-Full/ChildHider" index="3" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, 17)
+energy = 5
+
+[node name="StorageBattery5" parent="StorageDepot-Battery-Full/ChildHider" index="4" instance=ExtResource("7_853co")]
+visible = false
+position = Vector2(21, 34)
+energy = 5
+
+[node name="StorageBattery6" parent="StorageDepot-Battery-Full/ChildHider" index="5" instance=ExtResource("7_853co")]
+visible = false
 position = Vector2(7, -34)
+energy = 5
 
-[node name="StorageBattery2" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-position = Vector2(-6, -34)
-
-[node name="StorageBattery3" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery7" parent="StorageDepot-Battery-Full/ChildHider" index="6" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, -17)
+energy = 5
 
-[node name="StorageBattery4" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, -17)
-
-[node name="StorageBattery5" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery8" parent="StorageDepot-Battery-Full/ChildHider" index="7" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, 0)
+energy = 5
 
-[node name="StorageBattery6" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, 0)
-
-[node name="StorageBattery7" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery9" parent="StorageDepot-Battery-Full/ChildHider" index="8" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, 17)
+energy = 5
 
-[node name="StorageBattery8" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, 17)
-
-[node name="StorageBattery9" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery10" parent="StorageDepot-Battery-Full/ChildHider" index="9" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, 34)
+energy = 5
 
-[node name="StorageBattery10" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery11" parent="StorageDepot-Battery-Full/ChildHider" index="10" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(-6, 34)
+position = Vector2(-7, -34)
+energy = 5
 
-[node name="StorageBattery11" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery12" parent="StorageDepot-Battery-Full/ChildHider" index="11" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(38, -34)
+position = Vector2(-7, -17)
+energy = 5
 
-[node name="StorageBattery12" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery13" parent="StorageDepot-Battery-Full/ChildHider" index="12" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(25, -34)
+position = Vector2(-7, 0)
+energy = 5
 
-[node name="StorageBattery13" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery14" parent="StorageDepot-Battery-Full/ChildHider" index="13" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(38, -17)
+position = Vector2(-7, 17)
+energy = 5
 
-[node name="StorageBattery14" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery15" parent="StorageDepot-Battery-Full/ChildHider" index="14" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(25, -17)
+position = Vector2(-7, 34)
+energy = 5
 
-[node name="StorageBattery15" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery16" parent="StorageDepot-Battery-Full/ChildHider" index="15" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(38, 0)
+position = Vector2(-21, -34)
+energy = 5
 
-[node name="StorageBattery16" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery17" parent="StorageDepot-Battery-Full/ChildHider" index="16" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(25, 0)
+position = Vector2(-21, -17)
+energy = 5
 
-[node name="StorageBattery17" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery18" parent="StorageDepot-Battery-Full/ChildHider" index="17" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(38, 17)
+position = Vector2(-21, 0)
+energy = 5
 
-[node name="StorageBattery18" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery19" parent="StorageDepot-Battery-Full/ChildHider" index="18" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(25, 17)
+position = Vector2(-21, 17)
+energy = 5
 
-[node name="StorageBattery19" parent="ChildHider-Full" instance=ExtResource("7_853co")]
+[node name="StorageBattery20" parent="StorageDepot-Battery-Full/ChildHider" index="19" instance=ExtResource("7_853co")]
 visible = false
-position = Vector2(38, 34)
+position = Vector2(-21, 34)
+energy = 5
 
-[node name="StorageBattery20" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(25, 34)
-
-[node name="StorageBattery21" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, -34)
-
-[node name="StorageBattery22" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, -34)
-
-[node name="StorageBattery23" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, -17)
-
-[node name="StorageBattery24" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, -17)
-
-[node name="StorageBattery25" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, 0)
-
-[node name="StorageBattery26" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, 0)
-
-[node name="StorageBattery27" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, 17)
-
-[node name="StorageBattery28" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, 17)
-
-[node name="StorageBattery29" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, 34)
-
-[node name="StorageBattery30" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, 34)
-
-[node name="StorageBattery31" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, -34)
-
-[node name="StorageBattery32" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, -34)
-
-[node name="StorageBattery33" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, -17)
-
-[node name="StorageBattery34" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, -17)
-
-[node name="StorageBattery35" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, 0)
-
-[node name="StorageBattery36" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, 0)
-
-[node name="StorageBattery37" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, 17)
-
-[node name="StorageBattery38" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, 17)
-
-[node name="StorageBattery39" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, 34)
-
-[node name="StorageBattery40" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, 34)
-
-[node name="StorageBattery41" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, -34)
-
-[node name="StorageBattery42" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, -34)
-
-[node name="StorageBattery43" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, -17)
-
-[node name="StorageBattery44" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, -17)
-
-[node name="StorageBattery45" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, 0)
-
-[node name="StorageBattery46" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, 0)
-
-[node name="StorageBattery47" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, 17)
-
-[node name="StorageBattery48" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, 17)
-
-[node name="StorageBattery49" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, 34)
-
-[node name="StorageBattery50" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, 34)
-
-[node name="StorageBattery51" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, -34)
-
-[node name="StorageBattery52" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, -34)
-
-[node name="StorageBattery53" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, -17)
-
-[node name="StorageBattery54" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, -17)
-
-[node name="StorageBattery55" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, 0)
-
-[node name="StorageBattery56" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, 0)
-
-[node name="StorageBattery57" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, 17)
-
-[node name="StorageBattery58" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, 17)
-
-[node name="StorageBattery59" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, 34)
-
-[node name="StorageBattery60" parent="ChildHider-Full" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, 34)
-
-[node name="ChildHider-Empty" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("18_teom5")]
-position = Vector2(-186, 0)
-storage = NodePath("../Storage-Battery-Empty")
-
-[node name="StorageBattery" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-position = Vector2(7, -34)
-
-[node name="StorageBattery2" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, -34)
-
-[node name="StorageBattery3" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, -17)
-
-[node name="StorageBattery4" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, -17)
-
-[node name="StorageBattery5" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, 0)
-
-[node name="StorageBattery6" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, 0)
-
-[node name="StorageBattery7" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, 17)
-
-[node name="StorageBattery8" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, 17)
-
-[node name="StorageBattery9" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, 34)
-
-[node name="StorageBattery10" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-6, 34)
-
-[node name="StorageBattery11" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(38, -34)
-
-[node name="StorageBattery12" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(25, -34)
-
-[node name="StorageBattery13" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(38, -17)
-
-[node name="StorageBattery14" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(25, -17)
-
-[node name="StorageBattery15" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(38, 0)
-
-[node name="StorageBattery16" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(25, 0)
-
-[node name="StorageBattery17" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(38, 17)
-
-[node name="StorageBattery18" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(25, 17)
-
-[node name="StorageBattery19" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(38, 34)
-
-[node name="StorageBattery20" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(25, 34)
-
-[node name="StorageBattery21" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, -34)
-
-[node name="StorageBattery22" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, -34)
-
-[node name="StorageBattery23" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, -17)
-
-[node name="StorageBattery24" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, -17)
-
-[node name="StorageBattery25" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, 0)
-
-[node name="StorageBattery26" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, 0)
-
-[node name="StorageBattery27" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, 17)
-
-[node name="StorageBattery28" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, 17)
-
-[node name="StorageBattery29" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(72, 34)
-
-[node name="StorageBattery30" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(59, 34)
-
-[node name="StorageBattery31" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, -34)
-
-[node name="StorageBattery32" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, -34)
-
-[node name="StorageBattery33" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, -17)
-
-[node name="StorageBattery34" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, -17)
-
-[node name="StorageBattery35" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, 0)
-
-[node name="StorageBattery36" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, 0)
-
-[node name="StorageBattery37" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, 17)
-
-[node name="StorageBattery38" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, 17)
-
-[node name="StorageBattery39" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(104, 34)
-
-[node name="StorageBattery40" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(91, 34)
-
-[node name="StorageBattery41" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, -34)
-
-[node name="StorageBattery42" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, -34)
-
-[node name="StorageBattery43" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, -17)
-
-[node name="StorageBattery44" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, -17)
-
-[node name="StorageBattery45" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, 0)
-
-[node name="StorageBattery46" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, 0)
-
-[node name="StorageBattery47" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, 17)
-
-[node name="StorageBattery48" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, 17)
-
-[node name="StorageBattery49" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(135, 34)
-
-[node name="StorageBattery50" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(122, 34)
-
-[node name="StorageBattery51" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, -34)
-
-[node name="StorageBattery52" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, -34)
-
-[node name="StorageBattery53" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, -17)
-
-[node name="StorageBattery54" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, -17)
-
-[node name="StorageBattery55" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, 0)
-
-[node name="StorageBattery56" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, 0)
-
-[node name="StorageBattery57" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, 17)
-
-[node name="StorageBattery58" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, 17)
-
-[node name="StorageBattery59" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(169, 34)
-
-[node name="StorageBattery60" parent="ChildHider-Empty" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(156, 34)
+[node name="JobContainer-PickUp" parent="StorageDepot-Battery-Full" index="8"]
+active = true
 
-[node name="SpriteSelected-BatteryDepot" type="Sprite2D" parent="."]
+[node name="NotNull-StorageManager-Storages" parent="." node_paths=PackedStringArray("node", "set_nodes") instance=ExtResource("18_teom5")]
 unique_name_in_owner = true
-visible = false
-texture = ExtResource("11_57wax")
-
-[node name="Target-BatteryDepot" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_wlbpt")]
-unique_name_in_owner = true
-visible = false
-position = Vector2(151, 0)
-parent = NodePath("..")
-
-[node name="DeliverManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("16_f2kee")]
-unique_name_in_owner = true
-storages = [NodePath("../Storage-Battery-Empty"), NodePath("../Storage-Battery-Full")]
-
-[node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("17_57wax")]
-storages = [NodePath("../Storage-Battery-Empty"), NodePath("../Storage-Battery-Full")]
-
-[node name="UpdateStorageManager" parent="." node_paths=PackedStringArray("storage_manager") instance=ExtResource("20_hhroj")]
-storage_manager = NodePath("../StorageManager-Energy")
-
-[node name="BatteryDepot" type="Node2D" parent="."]
-position = Vector2(152, 0)
-script = ExtResource("21_55i60")
-metadata/_custom_type_script = "uid://bj1mrnp5shkh1"
-
-[node name="JobContainer-Pickup-Battery" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_wlbpt")]
-unique_name_in_owner = true
-building = NodePath("..")
-loop = false
-
-[node name="JobPickUp" parent="JobContainer-Pickup-Battery" instance=ExtResource("11_idc8o")]
-resource = ExtResource("12_aosfu")
-
-[node name="JobWait" parent="JobContainer-Pickup-Battery" instance=ExtResource("13_f2kee")]
+node = NodePath("../StorageManager-Energy")
+call_func = "get_first_not_empty"
+set_nodes = [NodePath("../ProducerResource-Energy")]
+set_props = Array[String](["can_produce"])
 
 [connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
 [connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]
 [connection signal="unit_entered" from="Target-SolarPanel" to="." method="_on_target_unit_entered"]
-[connection signal="deselected" from="ResponderRightClick-BatteryDepot" to="." method="_on_responder_right_click_battery_depot_deselected"]
-[connection signal="selected" from="ResponderRightClick-BatteryDepot" to="." method="_on_responder_right_click_battery_depot_selected"]
-[connection signal="unit_entered" from="Target-BatteryDepot" to="." method="_on_target_battery_depot_unit_entered"]
+
+[editable path="StorageDepot-Battery-Empty"]
+[editable path="StorageDepot-Battery-Full"]
