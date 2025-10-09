@@ -2,7 +2,7 @@ class_name ComponentUpdateStorageManager
 extends ComponentLogicBlock
 
 
-@export var storage_manager: ComponentStorageManager
+@export var storage_manager: ComponentManagerStorage
 
 
 func update(_only_return := false) -> Variant:

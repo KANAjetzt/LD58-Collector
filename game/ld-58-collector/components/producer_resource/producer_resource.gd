@@ -19,7 +19,7 @@ signal started(ComponentProducerResource)
 ## Amount produced
 @export var amount := 1
 @export var storage: ComponentStorage
-@export var storage_manager: ComponentStorageManager
+@export var storage_container: ContainerStorage
 
 @onready var timer: Timer = $Timer
 
@@ -52,13 +52,13 @@ func set_can_produce(new_value) -> void:
 			stoped.emit(self)
 
 
-func _on_consumer_consumed(_resource: DataResource, _amount: float) -> void:
+func _on_consumer_consumed() -> void:
 	can_produce = true
 	#print("starting production for unit %s" % [resource.display_name])
 	timer.start(time)
 
 
-func _on_consumer_starved(_resource: DataResource) -> void:
+func _on_consumer_starved() -> void:
 	# Something that can be refactored if needed to wait for a signal from the
 	# consumer that new resources arrived.
 	can_produce = false
@@ -68,9 +68,14 @@ func _on_consumer_starved(_resource: DataResource) -> void:
 			start()
 	)
 
+
 func _on_timer_timeout() -> void:
-	if storage_manager:
-		storage = storage_manager.get_first_not_full()
+	if storage_container:
+		storage = storage_container.get_first_not_full()
+
+	if not storage:
+		can_produce = false
+		return
 
 	if amount + storage.current > storage.maximum:
 		storage.current = storage.maximum

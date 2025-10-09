@@ -1,8 +1,8 @@
 class_name ComponentConsumer
 extends Node
 
-signal consumed(DataResource, float)
-signal starved(DataResource)
+signal consumed
+signal starved
 
 @export var amount := 1.0
 ## Set to false if only produce once
@@ -11,8 +11,9 @@ signal starved(DataResource)
 @export var time := 1.0
 ## The Storage compantent where the consumables are stored
 @export var storage: ComponentStorage
-## Use Storage manager if more then one storage is used
-@export var storage_manager: ComponentStorageManager
+## Pick Container Storage to consume sub resources (energy instead of batteries)
+## Pick Container Storage in storage to consume the resource directly (batteries instead of energy)
+@export var container_storage: ContainerStorage
 
 
 @onready var timer: Timer = $Timer
@@ -28,24 +29,24 @@ func start() -> void:
 
 
 func consume() -> void:
-	if storage_manager:
-		var storage_pick := storage_manager.get_storage()
+	if container_storage:
+		var storage_pick := container_storage.get_first_not_empty()
 		if not storage_pick:
-			starved.emit(storage.resource)
+			starved.emit()
 			return
 		if storage_pick.current >= amount:
 			storage_pick.current -= amount
 			#print("consumed %sx %s" % [amount, storage_pick.resource.display_name])
-			consumed.emit(storage_pick.resource, amount)
+			consumed.emit()
 		else:
-			starved.emit(storage_pick.resource)
+			starved.emit()
 	else:
 		if storage.current >= amount:
 			storage.current -= amount
 			#print("consumed %sx %s" % [amount, storage.resource.display_name])
-			consumed.emit(storage.resource, amount)
+			consumed.emit()
 		else:
-			starved.emit(storage.resource)
+			starved.emit()
 
 
 func _on_timer_timeout() -> void:

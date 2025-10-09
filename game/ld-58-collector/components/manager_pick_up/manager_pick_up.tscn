@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dunmai780p5l6"]
+
+[ext_resource type="Script" uid="uid://c2gsrd6tv8f5g" path="res://components/manager_pick_up/manager_pick_up.gd" id="1_a77s4"]
+
+[node name="ManagerPickUp" type="Node"]
+script = ExtResource("1_a77s4")

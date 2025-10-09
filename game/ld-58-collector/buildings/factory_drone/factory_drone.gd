@@ -10,7 +10,6 @@ extends Building
 
 func _ready() -> void:
 	target = %Target
-	deliver_manager = %DeliverManager
 
 	if producer_unit_drone.can_produce:
 		animated_sprite_2d.play()
@@ -24,11 +23,13 @@ func activate_target() -> Target:
 
 
 func _on_producer_unit_started(_producer_unit: ComponentProducerUnit) -> void:
-	animated_sprite_2d.play()
+	if animated_sprite_2d:
+		animated_sprite_2d.play()
 
 
 func _on_producer_unit_stoped(_producer_unit: ComponentProducerUnit) -> void:
-	animated_sprite_2d.stop()
+	if animated_sprite_2d:
+		animated_sprite_2d.stop()
 
 
 func _on_responder_right_click_selected() -> void:

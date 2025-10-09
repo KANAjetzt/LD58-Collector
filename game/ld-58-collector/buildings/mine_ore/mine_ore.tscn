@@ -1,15 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4gxmi2kyj3e5"]
+[gd_scene load_steps=19 format=3 uid="uid://c4gxmi2kyj3e5"]
 
 [ext_resource type="Script" uid="uid://ctxk5fxpjsnh5" path="res://buildings/mine_ore/mine_ore.gd" id="1_5v2gv"]
 [ext_resource type="Texture2D" uid="uid://bnig06l7gvyb8" path="res://buildings/mine_ore/mine_ore.png" id="1_lvoaf"]
 [ext_resource type="PackedScene" uid="uid://bbdxfygep5a17" path="res://components/producer_resource/producer_resource.tscn" id="2_48a3l"]
-[ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="3_uw365"]
-[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="3_wtgyh"]
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="4_5v2gv"]
-[ext_resource type="PackedScene" uid="uid://782ljuf7irbj" path="res://components/logic_blocks/is_exactly.tscn" id="6_5rift"]
-[ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="8_f6bnh"]
-[ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="9_7vw5c"]
-[ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/pick_up_manager/pick_up_manager.tscn" id="10_uw365"]
+[ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="5_uswbn"]
+[ext_resource type="Texture2D" uid="uid://nf62olgi0s1b" path="res://resources/ore/icon_ore.png" id="6_fq0ln"]
+[ext_resource type="PackedScene" uid="uid://nudcjgy77bdb" path="res://components/logic_blocks/smaller_then.tscn" id="7_fq0ln"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uw365"]
 atlas = ExtResource("1_lvoaf")
@@ -82,8 +79,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_uw365"]
-radius = 42.047592
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6bnh"]
+size = Vector2(92, 37)
 
 [node name="Mine" type="Node2D"]
 script = ExtResource("1_5v2gv")
@@ -94,45 +91,79 @@ sprite_frames = SubResource("SpriteFrames_5rift")
 autoplay = "default"
 frame_progress = 0.2053204
 
-[node name="SpriteSelected" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("3_uw365")
-
-[node name="ProducerResource" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("2_48a3l")]
+[node name="ProducerResource-Ore" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("2_48a3l")]
 resource = ExtResource("4_5v2gv")
-storage = NodePath("../Storage")
+storage = NodePath("../StorageDepot-Ore/ContainerStorage")
 
-[node name="Storage" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("3_wtgyh")]
+[node name="StorageDepot-Ore" parent="." instance=ExtResource("5_uswbn")]
+position = Vector2(-82, 0)
 resource = ExtResource("4_5v2gv")
-current = 8.0
+maximum = 10
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Ore/ResponderRightClick" index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_f6bnh")
+
+[node name="ContainerStorage" parent="StorageDepot-Ore" index="1"]
+resource = ExtResource("4_5v2gv")
 maximum = 10.0
-current_changed_logic_blocks = [NodePath("../IsExactly")]
 
-[node name="IsExactly" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("6_5rift")]
-get_nodes = [NodePath("../Storage")]
+[node name="Sprite2D" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="0"]
+position = Vector2(35, -8)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D2" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="1"]
+position = Vector2(18, -8)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D3" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="2"]
+position = Vector2(1, -8)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D4" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="3"]
+position = Vector2(-17, -8)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D5" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="4"]
+position = Vector2(-35, -8)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D6" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="5"]
+position = Vector2(35, 9)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D7" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="6"]
+position = Vector2(18, 9)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D8" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="7"]
+position = Vector2(1, 9)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D9" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="8"]
+position = Vector2(-17, 9)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D10" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="9"]
+position = Vector2(-35, 9)
+texture = ExtResource("6_fq0ln")
+
+[node name="JobContainer-PickUp" parent="StorageDepot-Ore" index="8"]
+active = true
+
+[node name="JobPickUp" parent="StorageDepot-Ore/JobContainer-PickUp" index="0"]
+resource = ExtResource("4_5v2gv")
+
+[node name="SmallerThen-max-Ore" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("7_fq0ln")]
+get_nodes = [NodePath("../StorageDepot-Ore/ContainerStorage")]
 get_props = Array[String](["current"])
-set_nodes = [NodePath("../ProducerResource")]
+set_nodes = [NodePath("../ProducerResource-Ore")]
 set_props = Array[String](["can_produce"])
-set_value = false
-boundary_node = NodePath("../Storage")
+boundary_node = NodePath("../StorageDepot-Ore/ContainerStorage")
 boundary_prop = "maximum"
 
-[node name="Target" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("8_f6bnh")]
-unique_name_in_owner = true
-visible = false
-parent = NodePath("..")
+[connection signal="started" from="ProducerResource-Ore" to="." method="_on_producer_resource_started"]
+[connection signal="stoped" from="ProducerResource-Ore" to="." method="_on_producer_resource_stoped"]
 
-[node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("9_7vw5c")]
-parent = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderRightClick"]
-shape = SubResource("CircleShape2D_uw365")
-
-[node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("10_uw365")]
-unique_name_in_owner = true
-storages = [NodePath("../Storage")]
-
-[connection signal="started" from="ProducerResource" to="." method="_on_producer_resource_started"]
-[connection signal="stoped" from="ProducerResource" to="." method="_on_producer_resource_stoped"]
-[connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
-[connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]
+[editable path="StorageDepot-Ore"]
