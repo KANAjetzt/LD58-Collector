@@ -6,15 +6,18 @@ extends Node
 
 
 # Return available Storage
-func request(resource: DataResource) -> ComponentStorage:
+func request(resource: DataResource, sub_resource: DataResource = null, request_handler: Callable = same_resource_and_not_empty) -> ComponentStorage:
 	if storages.size() == 0:
 		push_error("Pick up requested but no storages defined in Manager!")
 		return null
 
-	for storage in storages:
-		if storage.resource == resource and storage.current > 0:
-			return storage
+	return request_handler.call(storages, resource, sub_resource)
 
+
+func same_resource_and_not_empty(request_storages: Array[ComponentStorage], request_resource: DataResource, _request_sub_resource: DataResource) -> ComponentStorage:
+	for request_storage in request_storages:
+		if request_storage.resource == request_resource and request_storage.current > 0:
+			return request_storage
 	return null
 
 

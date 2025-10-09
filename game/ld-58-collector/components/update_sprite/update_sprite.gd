@@ -7,5 +7,6 @@ extends ComponentLogicBlock
 
 
 func update(_only_return := false) -> int:
-	sprite.frame = int(storage.current)
+	if storage.current <= sprite.sprite_frames.get_frame_count(&"default"):
+		sprite.frame = int(storage.current)
 	return sprite.frame

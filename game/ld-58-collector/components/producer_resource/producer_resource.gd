@@ -19,7 +19,7 @@ signal started(ComponentProducerResource)
 ## Amount produced
 @export var amount := 1
 @export var storage: ComponentStorage
-@export var storage_manager: ComponentStorageManager
+@export var storage_container: ContainerStorage
 
 @onready var timer: Timer = $Timer
 
@@ -70,8 +70,8 @@ func _on_consumer_starved() -> void:
 
 
 func _on_timer_timeout() -> void:
-	if storage_manager:
-		storage = storage_manager.get_first_not_full()
+	if storage_container:
+		storage = storage_container.get_first_not_full()
 
 	if not storage:
 		can_produce = false

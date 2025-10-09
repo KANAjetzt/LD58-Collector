@@ -1,10 +1,11 @@
-class_name ComponentStorageManager
+class_name ComponentManagerStorage
 extends Node
 
 
 @export var storages: Array[ComponentStorage]
 @export var storage_parent: Node
 @export var visiblity_changed_logic_blocks: Array[ComponentLogicBlock]
+
 
 func _ready() -> void:
 	if storage_parent:
@@ -59,7 +60,3 @@ func _on_battery_visibility_changed(battery: BuildingStorageBattery) -> void:
 
 	if not battery.visible and storages.has(battery.storage):
 		storages.erase(battery.storage)
-
-
-func _on_battery_filled(battery: BuildingStorageBattery) -> void:
-	battery.filled.disconnect(_on_battery_filled)

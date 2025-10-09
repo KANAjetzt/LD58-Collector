@@ -1,6 +1,7 @@
 class_name ComponentLargerThen
 extends ComponentLogicBlock
 
+
 @export var get_nodes: Array[Node]
 @export var get_props: Array[String]
 @export var set_nodes: Array[Node]

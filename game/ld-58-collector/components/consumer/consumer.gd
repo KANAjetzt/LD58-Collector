@@ -11,8 +11,9 @@ signal starved
 @export var time := 1.0
 ## The Storage compantent where the consumables are stored
 @export var storage: ComponentStorage
-## Use Storage manager if more then one storage is used
-@export var storage_manager: ComponentStorageManager
+## Pick Container Storage to consume sub resources (energy instead of batteries)
+## Pick Container Storage in storage to consume the resource directly (batteries instead of energy)
+@export var container_storage: ContainerStorage
 
 
 @onready var timer: Timer = $Timer
@@ -28,8 +29,8 @@ func start() -> void:
 
 
 func consume() -> void:
-	if storage_manager:
-		var storage_pick := storage_manager.get_storage()
+	if container_storage:
+		var storage_pick := container_storage.get_first_not_empty()
 		if not storage_pick:
 			starved.emit()
 			return

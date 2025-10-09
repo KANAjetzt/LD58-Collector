@@ -3,12 +3,11 @@ extends Building
 
 
 @onready var sprite_selected: Sprite2D = %SpriteSelected
-@onready var not_null_storage_manager_storages: ComponentNotNull = %"NotNull-StorageManager-Storages"
+@onready var job_container_deliver_batteries_empty: ComponentJobContainer = %"JobContainer-Deliver-Batteries-Empty"
 
 
 func _ready() -> void:
 	target = %"Target-SolarPanel"
-	not_null_storage_manager_storages.update()
 
 
 func activate_target() -> Target:
@@ -23,3 +22,7 @@ func _on_responder_right_click_selected() -> void:
 func _on_responder_right_click_deselected() -> void:
 	sprite_selected.hide()
 	target.hide()
+
+
+func _on_target_solar_panel_unit_entered(unit: Unit) -> void:
+	job_container_deliver_batteries_empty.register(unit)

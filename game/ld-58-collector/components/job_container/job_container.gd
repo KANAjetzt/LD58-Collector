@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func register(register_unit: Unit) -> void:
-	if units.has(register_unit) or not active:
+	if units.has(register_unit) or not active or register_unit.job_manager.job:
 		return
 
 	units[register_unit] = 0

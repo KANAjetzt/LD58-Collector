@@ -10,7 +10,6 @@ extends Building
 
 func _ready() -> void:
 	target = %Target
-	deliver_manager = %DeliverManager
 
 	if producer_resource_battery.can_produce:
 		animated_sprite_2d.play()

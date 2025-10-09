@@ -24,6 +24,7 @@ func stop() -> void:
 		job_origin.unregister(parent)
 		get_child(0).queue_free()
 		job = null
+		job_origin = null
 		step_index = 0
 
 

@@ -5,18 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://bbdxfygep5a17" path="res://components/producer_resource/producer_resource.tscn" id="3_dvwp3"]
 [ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="4_853co"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="5_ggoyg"]
+[ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="5_teom5"]
 [ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="6_wlbpt"]
 [ext_resource type="PackedScene" uid="uid://d0oxht4w1r24p" path="res://buildings/storage_battery/storage_battery.tscn" id="7_853co"]
-[ext_resource type="PackedScene" uid="uid://dgao64vay21sj" path="res://components/storage_manager/storage_manager.tscn" id="7_ggoyg"]
 [ext_resource type="Resource" uid="uid://buhtl1nf8rrdn" path="res://resources/battery_empty/battery_empty_data.tres" id="8_1untv"]
 [ext_resource type="Resource" uid="uid://e5q16eqtud2x" path="res://resources/battery_full/battery_full_data.tres" id="9_23n1m"]
 [ext_resource type="PackedScene" uid="uid://u73ipdserymd" path="res://components/job_container/job_container.tscn" id="9_wlbpt"]
 [ext_resource type="PackedScene" uid="uid://bsv3tl5s64app" path="res://components/job_fly_to/job_fly_to.tscn" id="10_vjmiq"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="11_57wax"]
-[ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="11_idc8o"]
 [ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="13_f2kee"]
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="14_57wax"]
-[ext_resource type="PackedScene" uid="uid://cll3px46b35t6" path="res://components/logic_blocks/not_null.tscn" id="18_teom5"]
+[ext_resource type="PackedScene" uid="uid://bqdepki1kieq1" path="res://components/job_pick_up_battery_full/job_pick_up_battery_full.tscn" id="14_cwe84"]
+[ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="16_cwe84"]
+[ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="17_cwe84"]
 [ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="24_23n1m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0e3w"]
@@ -131,23 +132,26 @@ radius = 38.013157
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_55i60"]
 size = Vector2(61, 88)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1untv"]
-size = Vector2(61, 88)
-
 [node name="EnergySolarPanel" type="Node2D" node_paths=PackedStringArray("target", "jobs")]
 script = ExtResource("1_f0e3w")
 target = NodePath("Target-SolarPanel")
-jobs = [NodePath("StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries"), null]
+jobs = [NodePath("JobContainer-Deliver-Batteries-Empty")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ggoyg")
 autoplay = "default"
 frame_progress = 0.43331817
 
-[node name="ProducerResource-Energy" parent="." node_paths=PackedStringArray("storage_manager") instance=ExtResource("3_dvwp3")]
+[node name="ProducerResource-Energy" parent="." node_paths=PackedStringArray("storage_container") instance=ExtResource("3_dvwp3")]
 resource = ExtResource("4_853co")
 time = 3.0
-storage_manager = NodePath("../StorageManager-Energy")
+storage_container = NodePath("../StorageDepot-Battery/ContainerStorage")
+
+[node name="LargerThen-0-Battery-Empty" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("5_teom5")]
+get_nodes = [NodePath("../StorageDepot-Battery/ContainerStorage")]
+get_props = Array[String](["current"])
+set_nodes = [NodePath("../ProducerResource-Energy")]
+set_props = Array[String](["can_produce"])
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_ggoyg")]
 parent = NodePath("..")
@@ -165,245 +169,134 @@ unique_name_in_owner = true
 visible = false
 texture = ExtResource("11_57wax")
 
-[node name="StorageManager-Energy" parent="." node_paths=PackedStringArray("storage_parent", "visiblity_changed_logic_blocks") instance=ExtResource("7_ggoyg")]
-storage_parent = NodePath("../StorageDepot-Battery-Empty/ChildHider")
-visiblity_changed_logic_blocks = [NodePath("../NotNull-StorageManager-Storages")]
-
-[node name="StorageDepot-Battery-Empty" parent="." node_paths=PackedStringArray("jobs") instance=ExtResource("24_23n1m")]
+[node name="StorageDepot-Battery" parent="." node_paths=PackedStringArray("current_changend_logic_block") instance=ExtResource("24_23n1m")]
 position = Vector2(-74, 0)
-resource = ExtResource("8_1untv")
-jobs = [NodePath("JobContainer-Deliver"), NodePath("JobContainer-PickUp"), NodePath("JobContainer-Deliver-Batteries")]
+resource = ExtResource("16_cwe84")
+current_changend_logic_block = [NodePath("../LargerThen-0-Battery-Empty")]
+maximum = 20
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Empty/ResponderRightClick" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery/ResponderRightClick" index="0"]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_55i60")
 
-[node name="Storage" parent="StorageDepot-Battery-Empty" index="1"]
+[node name="ContainerStorage" parent="StorageDepot-Battery" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
+resource = ExtResource("16_cwe84")
 maximum = 20.0
+current_changed_logic_blocks = [NodePath("../../LargerThen-0-Battery-Empty")]
 
-[node name="StorageBattery" parent="StorageDepot-Battery-Empty/ChildHider" index="0" instance=ExtResource("7_853co")]
+[node name="StorageBattery" parent="StorageDepot-Battery/ContainerStorage" index="0" instance=ExtResource("7_853co")]
+visible = false
 position = Vector2(21, -34)
 
-[node name="StorageBattery2" parent="StorageDepot-Battery-Empty/ChildHider" index="1" instance=ExtResource("7_853co")]
+[node name="StorageBattery2" parent="StorageDepot-Battery/ContainerStorage" index="1" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(21, -17)
 
-[node name="StorageBattery3" parent="StorageDepot-Battery-Empty/ChildHider" index="2" instance=ExtResource("7_853co")]
+[node name="StorageBattery3" parent="StorageDepot-Battery/ContainerStorage" index="2" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(21, 0)
 
-[node name="StorageBattery4" parent="StorageDepot-Battery-Empty/ChildHider" index="3" instance=ExtResource("7_853co")]
+[node name="StorageBattery4" parent="StorageDepot-Battery/ContainerStorage" index="3" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(21, 17)
 
-[node name="StorageBattery5" parent="StorageDepot-Battery-Empty/ChildHider" index="4" instance=ExtResource("7_853co")]
+[node name="StorageBattery5" parent="StorageDepot-Battery/ContainerStorage" index="4" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(21, 34)
 
-[node name="StorageBattery6" parent="StorageDepot-Battery-Empty/ChildHider" index="5" instance=ExtResource("7_853co")]
+[node name="StorageBattery6" parent="StorageDepot-Battery/ContainerStorage" index="5" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, -34)
 
-[node name="StorageBattery7" parent="StorageDepot-Battery-Empty/ChildHider" index="6" instance=ExtResource("7_853co")]
+[node name="StorageBattery7" parent="StorageDepot-Battery/ContainerStorage" index="6" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, -17)
 
-[node name="StorageBattery8" parent="StorageDepot-Battery-Empty/ChildHider" index="7" instance=ExtResource("7_853co")]
+[node name="StorageBattery8" parent="StorageDepot-Battery/ContainerStorage" index="7" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, 0)
 
-[node name="StorageBattery9" parent="StorageDepot-Battery-Empty/ChildHider" index="8" instance=ExtResource("7_853co")]
+[node name="StorageBattery9" parent="StorageDepot-Battery/ContainerStorage" index="8" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, 17)
 
-[node name="StorageBattery10" parent="StorageDepot-Battery-Empty/ChildHider" index="9" instance=ExtResource("7_853co")]
+[node name="StorageBattery10" parent="StorageDepot-Battery/ContainerStorage" index="9" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(7, 34)
 
-[node name="StorageBattery11" parent="StorageDepot-Battery-Empty/ChildHider" index="10" instance=ExtResource("7_853co")]
+[node name="StorageBattery11" parent="StorageDepot-Battery/ContainerStorage" index="10" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-7, -34)
 
-[node name="StorageBattery12" parent="StorageDepot-Battery-Empty/ChildHider" index="11" instance=ExtResource("7_853co")]
+[node name="StorageBattery12" parent="StorageDepot-Battery/ContainerStorage" index="11" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-7, -17)
 
-[node name="StorageBattery13" parent="StorageDepot-Battery-Empty/ChildHider" index="12" instance=ExtResource("7_853co")]
+[node name="StorageBattery13" parent="StorageDepot-Battery/ContainerStorage" index="12" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-7, 0)
 
-[node name="StorageBattery14" parent="StorageDepot-Battery-Empty/ChildHider" index="13" instance=ExtResource("7_853co")]
+[node name="StorageBattery14" parent="StorageDepot-Battery/ContainerStorage" index="13" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-7, 17)
 
-[node name="StorageBattery15" parent="StorageDepot-Battery-Empty/ChildHider" index="14" instance=ExtResource("7_853co")]
+[node name="StorageBattery15" parent="StorageDepot-Battery/ContainerStorage" index="14" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-7, 34)
 
-[node name="StorageBattery16" parent="StorageDepot-Battery-Empty/ChildHider" index="15" instance=ExtResource("7_853co")]
+[node name="StorageBattery16" parent="StorageDepot-Battery/ContainerStorage" index="15" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-21, -34)
 
-[node name="StorageBattery17" parent="StorageDepot-Battery-Empty/ChildHider" index="16" instance=ExtResource("7_853co")]
+[node name="StorageBattery17" parent="StorageDepot-Battery/ContainerStorage" index="16" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-21, -17)
 
-[node name="StorageBattery18" parent="StorageDepot-Battery-Empty/ChildHider" index="17" instance=ExtResource("7_853co")]
+[node name="StorageBattery18" parent="StorageDepot-Battery/ContainerStorage" index="17" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-21, 0)
 
-[node name="StorageBattery19" parent="StorageDepot-Battery-Empty/ChildHider" index="18" instance=ExtResource("7_853co")]
+[node name="StorageBattery19" parent="StorageDepot-Battery/ContainerStorage" index="18" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-21, 17)
 
-[node name="StorageBattery20" parent="StorageDepot-Battery-Empty/ChildHider" index="19" instance=ExtResource("7_853co")]
+[node name="StorageBattery20" parent="StorageDepot-Battery/ContainerStorage" index="19" instance=ExtResource("7_853co")]
 visible = false
 position = Vector2(-21, 34)
 
-[node name="JobContainer-Deliver-Batteries" parent="StorageDepot-Battery-Empty" node_paths=PackedStringArray("building") instance=ExtResource("9_wlbpt")]
-building = NodePath("../..")
-
-[node name="JobFlyTo-BatteryFactory" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("10_vjmiq")]
-
-[node name="JobPickUp-Battery-Empty" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("11_idc8o")]
+[node name="JobDeliver" parent="StorageDepot-Battery/JobContainer-Deliver" index="0"]
 resource = ExtResource("8_1untv")
 
-[node name="JobWait" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("13_f2kee")]
-
-[node name="JobFlyTo-Self" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" node_paths=PackedStringArray("buildings") instance=ExtResource("10_vjmiq")]
-buildings = [NodePath("../..")]
-
-[node name="JobDeliver-Battery-Empty" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("14_57wax")]
-resource = ExtResource("8_1untv")
-
-[node name="JobWait2" parent="StorageDepot-Battery-Empty/JobContainer-Deliver-Batteries" instance=ExtResource("13_f2kee")]
-
-[node name="StorageDepot-Battery-Full" parent="." instance=ExtResource("24_23n1m")]
-position = Vector2(73, 0)
+[node name="JobPickUp" parent="StorageDepot-Battery/JobContainer-PickUp" index="0"]
 resource = ExtResource("9_23n1m")
-metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Full/ResponderRightClick" index="0"]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_1untv")
-
-[node name="Storage" parent="StorageDepot-Battery-Full" index="1"]
-maximum = 20.0
-
-[node name="StorageBattery" parent="StorageDepot-Battery-Full/ChildHider" index="0" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(21, -34)
-energy = 5
-
-[node name="StorageBattery2" parent="StorageDepot-Battery-Full/ChildHider" index="1" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(21, -17)
-energy = 5
-
-[node name="StorageBattery3" parent="StorageDepot-Battery-Full/ChildHider" index="2" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(21, 0)
-energy = 5
-
-[node name="StorageBattery4" parent="StorageDepot-Battery-Full/ChildHider" index="3" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(21, 17)
-energy = 5
-
-[node name="StorageBattery5" parent="StorageDepot-Battery-Full/ChildHider" index="4" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(21, 34)
-energy = 5
-
-[node name="StorageBattery6" parent="StorageDepot-Battery-Full/ChildHider" index="5" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, -34)
-energy = 5
-
-[node name="StorageBattery7" parent="StorageDepot-Battery-Full/ChildHider" index="6" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, -17)
-energy = 5
-
-[node name="StorageBattery8" parent="StorageDepot-Battery-Full/ChildHider" index="7" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, 0)
-energy = 5
-
-[node name="StorageBattery9" parent="StorageDepot-Battery-Full/ChildHider" index="8" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, 17)
-energy = 5
-
-[node name="StorageBattery10" parent="StorageDepot-Battery-Full/ChildHider" index="9" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(7, 34)
-energy = 5
-
-[node name="StorageBattery11" parent="StorageDepot-Battery-Full/ChildHider" index="10" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-7, -34)
-energy = 5
-
-[node name="StorageBattery12" parent="StorageDepot-Battery-Full/ChildHider" index="11" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-7, -17)
-energy = 5
-
-[node name="StorageBattery13" parent="StorageDepot-Battery-Full/ChildHider" index="12" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-7, 0)
-energy = 5
-
-[node name="StorageBattery14" parent="StorageDepot-Battery-Full/ChildHider" index="13" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-7, 17)
-energy = 5
-
-[node name="StorageBattery15" parent="StorageDepot-Battery-Full/ChildHider" index="14" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-7, 34)
-energy = 5
-
-[node name="StorageBattery16" parent="StorageDepot-Battery-Full/ChildHider" index="15" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-21, -34)
-energy = 5
-
-[node name="StorageBattery17" parent="StorageDepot-Battery-Full/ChildHider" index="16" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-21, -17)
-energy = 5
-
-[node name="StorageBattery18" parent="StorageDepot-Battery-Full/ChildHider" index="17" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-21, 0)
-energy = 5
-
-[node name="StorageBattery19" parent="StorageDepot-Battery-Full/ChildHider" index="18" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-21, 17)
-energy = 5
-
-[node name="StorageBattery20" parent="StorageDepot-Battery-Full/ChildHider" index="19" instance=ExtResource("7_853co")]
-visible = false
-position = Vector2(-21, 34)
-energy = 5
-
-[node name="JobContainer-PickUp" parent="StorageDepot-Battery-Full" index="8"]
+[node name="JobContainer-PickUp-Battery-Full" parent="StorageDepot-Battery" index="9"]
 active = true
 
-[node name="NotNull-StorageManager-Storages" parent="." node_paths=PackedStringArray("node", "set_nodes") instance=ExtResource("18_teom5")]
+[node name="JobPickUpBatteryFull" parent="StorageDepot-Battery" instance=ExtResource("14_cwe84")]
+
+[node name="JobContainer-Deliver-Batteries-Empty" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_wlbpt")]
 unique_name_in_owner = true
-node = NodePath("../StorageManager-Energy")
-call_func = "get_first_not_empty"
-set_nodes = [NodePath("../ProducerResource-Energy")]
-set_props = Array[String](["can_produce"])
+building = NodePath("..")
+
+[node name="JobFlyTo-BatteryFactory-Depo-Battery-Empty" parent="JobContainer-Deliver-Batteries-Empty" instance=ExtResource("10_vjmiq")]
+
+[node name="JobPickUp" parent="JobContainer-Deliver-Batteries-Empty" instance=ExtResource("17_cwe84")]
+resource = ExtResource("16_cwe84")
+
+[node name="JobWait" parent="JobContainer-Deliver-Batteries-Empty" instance=ExtResource("13_f2kee")]
+
+[node name="JobFlyTo-Self-Depot-Battery" parent="JobContainer-Deliver-Batteries-Empty" node_paths=PackedStringArray("buildings") instance=ExtResource("10_vjmiq")]
+buildings = [NodePath("../../StorageDepot-Battery")]
+
+[node name="JobDeliver-Battery-Empty" parent="JobContainer-Deliver-Batteries-Empty" instance=ExtResource("14_57wax")]
+resource = ExtResource("16_cwe84")
+
+[node name="JobWait2" parent="JobContainer-Deliver-Batteries-Empty" instance=ExtResource("13_f2kee")]
 
 [connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
 [connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]
-[connection signal="unit_entered" from="Target-SolarPanel" to="." method="_on_target_unit_entered"]
+[connection signal="unit_entered" from="Target-SolarPanel" to="." method="_on_target_solar_panel_unit_entered"]
 
-[editable path="StorageDepot-Battery-Empty"]
-[editable path="StorageDepot-Battery-Full"]
+[editable path="StorageDepot-Battery"]

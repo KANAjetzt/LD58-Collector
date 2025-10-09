@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cgprxmwaj80la"]
+
+[ext_resource type="Script" uid="uid://bl24b3w5v1j04" path="res://components/job_check_sub_resource/job_check_sub_resource.gd" id="1_q67ay"]
+
+[node name="JobCheckSubResource" type="Node"]
+script = ExtResource("1_q67ay")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://fqh24suhf8nh"]
+
+[ext_resource type="Script" uid="uid://dcikkc6ngdaii" path="res://components/manager_storage_energy/manager_storage_energy.gd" id="1_iwugt"]
+
+[node name="ManagerStorageEnergy" type="Node"]
+script = ExtResource("1_iwugt")

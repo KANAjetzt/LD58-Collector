@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://cc17njlkpowdc"]
+[gd_scene load_steps=15 format=3 uid="uid://cc17njlkpowdc"]
 
 [ext_resource type="Script" uid="uid://txr1bmfbsc1t" path="res://buildings/storage_depot/storage_depot.gd" id="1_eigxy"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="2_lr0dn"]
-[ext_resource type="PackedScene" uid="uid://g3ftjslcir1b" path="res://components/child_hider/child_hider.tscn" id="3_iypu3"]
-[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="4_p6rrd"]
 [ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="5_3tr2d"]
+[ext_resource type="PackedScene" uid="uid://ci8ttaqsx8jg4" path="res://components/container_storage/container_storage.tscn" id="5_el7ce"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="6_3tr2d"]
 [ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/manager_pick_up/manager_pick_up.tscn" id="7_15pvj"]
 [ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/manager_deliver/manager_deliver.tscn" id="8_sbnhw"]
@@ -12,24 +11,23 @@
 [ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="10_ucqgk"]
 [ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="11_el7ce"]
 [ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="12_bf7rd"]
+[ext_resource type="PackedScene" uid="uid://dg5md13f501u3" path="res://components/job_deliver_battery_full/job_deliver_battery_full.tscn" id="12_el7ce"]
+[ext_resource type="PackedScene" uid="uid://bqdepki1kieq1" path="res://components/job_pick_up_battery_full/job_pick_up_battery_full.tscn" id="13_bf7rd"]
+[ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="14_bf7rd"]
 
 [node name="StorageDepot" type="Node2D" node_paths=PackedStringArray("target", "pick_up_manager", "deliver_manager", "jobs")]
 script = ExtResource("1_eigxy")
 target = NodePath("Target")
 pick_up_manager = NodePath("ManagerPickUp")
 deliver_manager = NodePath("ManagerDeliver")
-jobs = [NodePath("JobContainer-Deliver"), NodePath("JobContainer-PickUp")]
+jobs = [NodePath("JobContainer-Deliver"), NodePath("JobContainer-Deliver-Battery-Full"), NodePath("JobContainer-PickUp"), NodePath("JobContainer-PickUp-Battery-Full")]
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_lr0dn")]
 parent = NodePath("..")
 
-[node name="Storage" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("4_p6rrd")]
+[node name="ContainerStorage" parent="." instance=ExtResource("5_el7ce")]
 unique_name_in_owner = true
 maximum = 1.0
-current_changed_logic_blocks = [NodePath("../ChildHider")]
-
-[node name="ChildHider" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("3_iypu3")]
-storage = NodePath("../Storage")
 
 [node name="Target" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("5_3tr2d")]
 unique_name_in_owner = true
@@ -42,10 +40,10 @@ visible = false
 texture = ExtResource("6_3tr2d")
 
 [node name="ManagerPickUp" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("7_15pvj")]
-storages = [NodePath("../Storage")]
+storages = [NodePath("../ContainerStorage")]
 
 [node name="ManagerDeliver" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("8_sbnhw")]
-storages = [NodePath("../Storage")]
+storages = [NodePath("../ContainerStorage")]
 
 [node name="JobContainer-Deliver" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_sbnhw")]
 active = false
@@ -57,6 +55,16 @@ unique_name_in_owner = true
 
 [node name="JobWait" parent="JobContainer-Deliver" instance=ExtResource("11_el7ce")]
 
+[node name="JobContainer-Deliver-Battery-Full" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_sbnhw")]
+active = false
+building = NodePath("..")
+loop = false
+
+[node name="JobDeliverBatteryFull" parent="JobContainer-Deliver-Battery-Full" instance=ExtResource("12_el7ce")]
+resource = ExtResource("14_bf7rd")
+
+[node name="JobWait" parent="JobContainer-Deliver-Battery-Full" instance=ExtResource("11_el7ce")]
+
 [node name="JobContainer-PickUp" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_sbnhw")]
 active = false
 building = NodePath("..")
@@ -66,6 +74,16 @@ loop = false
 unique_name_in_owner = true
 
 [node name="JobWait" parent="JobContainer-PickUp" instance=ExtResource("11_el7ce")]
+
+[node name="JobContainer-PickUp-Battery-Full" parent="." node_paths=PackedStringArray("building") instance=ExtResource("9_sbnhw")]
+active = false
+building = NodePath("..")
+loop = false
+
+[node name="JobPickUpBatteryFull" parent="JobContainer-PickUp-Battery-Full" instance=ExtResource("13_bf7rd")]
+resource = ExtResource("14_bf7rd")
+
+[node name="JobWait" parent="JobContainer-PickUp-Battery-Full" instance=ExtResource("11_el7ce")]
 
 [connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
 [connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]
