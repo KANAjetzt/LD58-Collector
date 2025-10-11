@@ -11,13 +11,14 @@ signal started(ComponentProducerResource)
 ## Resource consumed for production
 @export var consumer: ComponentConsumer
 ## Resource produced
-@export var resource: Resource
+@export var resource: DataResource
 ## Time until produced
 @export var time := 5.0
 ## Resource check interval
 @export var time_resource_check := 1.0
 ## Amount produced
 @export var amount := 1
+@export var amount_sub_resource := 0
 @export var storage: ComponentStorage
 @export var storage_container: ContainerStorage
 
@@ -70,6 +71,9 @@ func _on_consumer_starved() -> void:
 
 
 func _on_timer_timeout() -> void:
+	if not can_produce:
+		return
+
 	if storage_container:
 		storage = storage_container.get_first_not_full()
 
@@ -81,6 +85,7 @@ func _on_timer_timeout() -> void:
 		storage.current = storage.maximum
 	else:
 		storage.current += amount
+
 
 	#print("produced %sx %s" % [amount, resource.display_name])
 	produced.emit(resource)

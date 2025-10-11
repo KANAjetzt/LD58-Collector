@@ -31,7 +31,7 @@ func handle_sub_resource(requested_storage: ComponentStorage, requested_sub_reso
 		return null
 
 	if requested_storage.resource.sub_resource == requested_sub_resource:
-		return requested_storage.get_first()
+		return requested_storage.get_first_empty()
 
 	return null
 

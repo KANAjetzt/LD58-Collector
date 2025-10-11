@@ -1,10 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://b7svtartmof6"]
+[gd_scene load_steps=36 format=3 uid="uid://b7svtartmof6"]
 
 [ext_resource type="Script" uid="uid://dv46kjcts0sx" path="res://buildings/defense_laser/defense_laser.gd" id="1_2tinl"]
 [ext_resource type="Texture2D" uid="uid://scrb3apshvo8" path="res://buildings/defense_laser/defense_laser.png" id="2_gkyw8"]
 [ext_resource type="Resource" uid="uid://e5q16eqtud2x" path="res://resources/battery_full/battery_full_data.tres" id="4_ohcke"]
 [ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="5_87bwa"]
-[ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="5_frd3s"]
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="5_r7tif"]
 [ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="6_frd3s"]
 [ext_resource type="PackedScene" uid="uid://d0oxht4w1r24p" path="res://buildings/storage_battery/storage_battery.tscn" id="7_algq6"]
@@ -191,9 +190,8 @@ position = Vector2(6.5, 0)
 shape = SubResource("RectangleShape2D_55u65")
 
 [node name="ContainerStorage" parent="StorageDepot-Battery-Full" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
-sub_resource = ExtResource("5_frd3s")
 resource = ExtResource("6_frd3s")
-maximum = 15.0
+maximum = 15
 current_changed_logic_blocks = [NodePath("../../CheckWin")]
 
 [node name="StorageBattery" parent="StorageDepot-Battery-Full/ContainerStorage" index="0" instance=ExtResource("7_algq6")]
@@ -264,7 +262,7 @@ shape = SubResource("RectangleShape2D_k66jk")
 
 [node name="ContainerStorage" parent="StorageDepot-Ore" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
 resource = ExtResource("5_r7tif")
-maximum = 20.0
+maximum = 20
 current_changed_logic_blocks = [NodePath("../../CheckWin"), NodePath("../../UpdateSprite")]
 
 [node name="Sprite2D" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="0"]

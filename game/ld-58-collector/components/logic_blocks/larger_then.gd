@@ -9,7 +9,7 @@ extends ComponentLogicBlock
 ## If larger then boundary value set props to set_value
 @export var set_value := true
 ## Boundary value
-@export var boundary := 0.0
+@export var boundary := 0
 ## Can be used to use a node prop instead of a fixed boundary
 @export var boundary_node: Node
 @export var boundary_prop: String

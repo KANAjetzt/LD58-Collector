@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0oxht4w1r24p"]
+[gd_scene load_steps=14 format=3 uid="uid://d0oxht4w1r24p"]
 
 [ext_resource type="Texture2D" uid="uid://dyudthxsw3he1" path="res://buildings/storage_battery/storage_battery.png" id="1_ix1ga"]
 [ext_resource type="Script" uid="uid://byfknuqgk5afg" path="res://buildings/storage_battery/storage_battery.gd" id="1_vg3aw"]
 [ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="3_x1epi"]
 [ext_resource type="PackedScene" uid="uid://biqi68nnmmn3y" path="res://components/update_sprite/update_sprite.tscn" id="5_amido"]
 [ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="5_vg3aw"]
+[ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="6_vg3aw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ii07a"]
 atlas = ExtResource("1_ix1ga")
@@ -66,9 +67,16 @@ frame = 5
 
 [node name="Storage-Energy" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("3_x1epi")]
 resource = ExtResource("5_vg3aw")
-maximum = 5.0
-current_changed_logic_blocks = [NodePath("../UpdateSprite")]
+maximum = 5
+current_changed_logic_blocks = [NodePath("../UpdateSprite"), NodePath("../LargerThen")]
 
 [node name="UpdateSprite" parent="." node_paths=PackedStringArray("sprite", "storage") instance=ExtResource("5_amido")]
 sprite = NodePath("../AnimatedSprite2D")
 storage = NodePath("../Storage-Energy")
+
+[node name="LargerThen" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("6_vg3aw")]
+get_nodes = [NodePath("../Storage-Energy")]
+get_props = Array[String](["current"])
+set_nodes = [NodePath("..")]
+set_props = Array[String](["visible"])
+deactivated = true
