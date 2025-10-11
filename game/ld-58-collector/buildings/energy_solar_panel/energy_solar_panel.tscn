@@ -262,6 +262,8 @@ resource = ExtResource("8_1untv")
 
 [node name="JobPickUp" parent="StorageDepot-Battery/JobContainer-PickUp" index="0"]
 resource = ExtResource("9_23n1m")
+prioritize_not_full = false
+prioritize_full = true
 
 [connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
 [connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]

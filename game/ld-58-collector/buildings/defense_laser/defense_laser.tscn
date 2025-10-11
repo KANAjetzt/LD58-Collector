@@ -245,6 +245,9 @@ position = Vector2(7, 0)
 [node name="SpriteSelected" parent="StorageDepot-Battery-Full" index="3"]
 position = Vector2(7, 0)
 
+[node name="JobContainer-Deliver" parent="StorageDepot-Battery-Full" index="6"]
+active = true
+
 [node name="JobDeliver" parent="StorageDepot-Battery-Full/JobContainer-Deliver" index="0"]
 resource = ExtResource("8_5geap")
 

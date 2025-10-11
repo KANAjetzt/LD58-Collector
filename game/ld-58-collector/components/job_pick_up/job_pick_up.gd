@@ -7,8 +7,9 @@ signal completed
 
 @export var resource: DataResource
 @export_group("Sub Resources (currently only Battery Energy)")
-## Only pick up empty sub_resources(aka. batteries)
 @export var prioritize_not_full := true
+@export var prioritize_full := false
+## Only pick up empty sub_resources(aka. batteries)
 @export var only_empty := false
 
 
@@ -44,6 +45,8 @@ func start() -> void:
 				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_empty)
 			elif prioritize_not_full:
 				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_not_full)
+			elif prioritize_full:
+				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_full)
 			else:
 				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_not_empty)
 
@@ -64,7 +67,7 @@ func start() -> void:
 				unit.deliver_manager.deliver(unit_storage)
 
 		# If sub resource available
-		if building_sub_storage:
+		if building_sub_storage and unit_storage:
 			# Deliver resource to unit
 			unit.deliver_manager.deliver(unit_storage)
 			# Request sub resource delivery to unit
@@ -113,5 +116,16 @@ func _request_sub_resource_not_full(requested_storage: ComponentStorage, request
 
 	if requested_storage.resource.sub_resource == requested_sub_resource:
 		return requested_storage.get_first_not_full()
+
+	return null
+
+
+func _request_sub_resource_full(requested_storage: ComponentStorage, requested_sub_resource: DataResource) -> ComponentStorage:
+	if requested_sub_resource and requested_storage is not ContainerStorage:
+		push_error("Sub resource requested but requested storage is not a ContainerStorage.")
+		return null
+
+	if requested_storage.resource.sub_resource == requested_sub_resource:
+		return requested_storage.get_first_full()
 
 	return null
