@@ -157,7 +157,7 @@ texture = ExtResource("6_fq0ln")
 position = Vector2(-35, 9)
 texture = ExtResource("6_fq0ln")
 
-[node name="JobContainer-PickUp" parent="StorageDepot-Ore" index="8"]
+[node name="JobContainer-PickUp" parent="StorageDepot-Ore" index="7"]
 active = true
 
 [node name="JobPickUp" parent="StorageDepot-Ore/JobContainer-PickUp" index="0"]

@@ -34,14 +34,15 @@ func _on_global_building_selected(building: Building) -> void:
 
 func _on_responder_left_click_deselected() -> void:
 	# Loop if the first and the last target are the same
-	if is_drone_selected and route.size() > 1 and route[0] == route[-1]:
-		is_loop = true
-	else:
-		is_loop = false
+	if not is_started:
+		if is_drone_selected and route.size() > 1 and route[0] == route[-1]:
+			is_loop = true
+		else:
+			is_loop = false
 
-	if not route.is_empty():
-		is_started = true
-		drone.target = route[0]
+		if not route.is_empty():
+			is_started = true
+			drone.target = route[0]
 
 	is_drone_selected = false
 

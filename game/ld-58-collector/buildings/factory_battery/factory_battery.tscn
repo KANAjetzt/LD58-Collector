@@ -472,6 +472,9 @@ position = Vector2(0, 9)
 [node name="SpriteSelected" parent="StorageDepot-Battery-Empty" index="3"]
 position = Vector2(0, 9)
 
+[node name="JobContainer-PickUp" parent="StorageDepot-Battery-Empty" index="7"]
+active = true
+
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("16_xrili")]
 parent = NodePath("..")
 

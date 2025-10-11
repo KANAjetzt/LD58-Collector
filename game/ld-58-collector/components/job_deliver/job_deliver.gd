@@ -6,7 +6,9 @@ signal completed
 
 
 @export var resource: DataResource
-
+@export_group("Sub Resources (currently only Battery Energy)")
+## Only deliver full sub_resources(aka. batteries)
+@export var only_full := false
 
 func start() -> void:
 	var parent = get_parent()
@@ -30,7 +32,10 @@ func start() -> void:
 		unit_storage = unit.pick_up_manager.request(resource)
 		# If sub resource also request sub resource from unit storage
 		if unit_storage and resource.sub_resource:
-			unit_sub_storage = unit.pick_up_manager.request_sub_resource(unit_storage, resource.sub_resource)
+			if only_full:
+				unit_sub_storage = unit.pick_up_manager.request_sub_resource(unit_storage, resource.sub_resource, _request_sub_resource_full)
+			else:
+				unit_sub_storage = unit.pick_up_manager.request_sub_resource(unit_storage, resource.sub_resource)
 
 		# If requested resource in unit storage
 		if unit_storage:
@@ -54,3 +59,14 @@ func start() -> void:
 				building.deliver_manager.deliver(building_sub_storage, amount)
 
 	completed.emit()
+
+
+func _request_sub_resource_full(requested_storage: ComponentStorage, requested_sub_resource: DataResource) -> ComponentStorage:
+	if requested_sub_resource and requested_storage is not ContainerStorage:
+		push_error("Sub resource requested but requested storage is not a ContainerStorage.")
+		return null
+
+	if requested_storage.resource.sub_resource == requested_sub_resource:
+		return requested_storage.get_first_full_only()
+
+	return null
