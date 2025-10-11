@@ -16,10 +16,10 @@ func start() -> void:
 		return
 
 	var unit: Unit = parent.unit
-	var building: Building = unit.target.parent
+	var building: Building = unit.target.get("parent")
 
 	# Check if building can handle pick up
-	if building.pick_up_manager:
+	if building and building.get("pick_up_manager"):
 		# Request pick up from building
 		var building_storage := building.pick_up_manager.request(resource, null, get_first_empty_battery)
 		# If resource available

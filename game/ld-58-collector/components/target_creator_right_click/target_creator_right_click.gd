@@ -7,7 +7,10 @@ extends Node2D
 
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("action") and Global.units_selected.size() > 0:
+	if (
+		Input.is_action_just_pressed("action") and
+		Global.units_selected.size() > 0
+	):
 		var unit: UnitDrone = Global.units_selected.keys()[0]
 
 		var params := PhysicsPointQueryParameters2D.new()
@@ -15,7 +18,9 @@ func _process(_delta: float) -> void:
 		params.position = get_global_mouse_position()
 		var result := get_world_2d().direct_space_state.intersect_point(params)
 
+		# If no area has been hit create a new target
 		if result.size() == 0:
+			unit.route_planer.clear()
 			var new_target: Target = target_scene.instantiate()
 			new_target.global_position = get_global_mouse_position()
 			if target_parent.get_child_count() > 0:
@@ -27,11 +32,17 @@ func _process(_delta: float) -> void:
 			)
 			unit.target = new_target
 			unit.job_manager.stop()
+		# If an area has been hit check if it is a building and set the target
 		else:
 			var first_result_collider = result[0].collider
 			if first_result_collider.get("parent"):
 				if first_result_collider.parent is Building:
 					var building: Building = result[0].collider.parent
+					Global.emit_building_selected(building)
+
+					if Input.is_action_pressed("modifier"):
+						return
+
 					# If you are here and building is null you have to set the parent on the "ResponderRightClick" Node
 					# on the building you just clicked
 					unit.target = building.activate_target()

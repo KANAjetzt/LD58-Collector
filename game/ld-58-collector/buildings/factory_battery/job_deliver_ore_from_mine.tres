@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="DataJob" load_steps=2 format=3 uid="uid://ldnns7ydixna"]
-
-[ext_resource type="Script" uid="uid://bry8urlfi6x4m" path="res://components/job_container/_job_data.gd" id="1_ovw61"]
-
-[resource]
-script = ExtResource("1_ovw61")
-id = "job_deliver_ore_from_mine"
-display_name = "Deliver Ore from Mine"
-metadata/_custom_type_script = "uid://bry8urlfi6x4m"

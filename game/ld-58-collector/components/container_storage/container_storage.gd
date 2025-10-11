@@ -39,7 +39,7 @@ func _ready() -> void:
 
 
 func update_storages_from_childs() -> void:
-	if get_child_count() > current:
+	if get_child_count() >= current:
 		for i in range(current):
 			var child: Node = get_child(i)
 			if not child:
@@ -51,6 +51,13 @@ func update_storages_from_childs() -> void:
 
 			if storage:
 				storages[child] = storage
+
+
+func get_first() -> ComponentStorage:
+	if storages.is_empty():
+		return null
+	else:
+		return storages.values()[0]
 
 
 func get_first_not_empty() -> ComponentStorage:

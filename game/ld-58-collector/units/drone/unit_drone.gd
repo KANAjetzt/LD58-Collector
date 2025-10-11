@@ -4,6 +4,7 @@ extends Unit
 
 @onready var movement: ComponentMovement = $Movement
 @onready var sprite_selected: Sprite2D = $SpriteSelected
+@onready var route_planer: ComponentRoutePlaner = %RoutePlaner
 
 
 func _ready() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://xi2yax00lupo"]
+[gd_scene load_steps=77 format=3 uid="uid://xi2yax00lupo"]
 
 [ext_resource type="Script" uid="uid://dngva5uxnr670" path="res://buildings/factory_drone/factory_drone.gd" id="1_8qync"]
 [ext_resource type="Texture2D" uid="uid://wjsi1mculi7r" path="res://buildings/factory_drone/factory_drone.png" id="1_dgwce"]
@@ -10,12 +10,8 @@
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="5_mdbdu"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="6_ppv50"]
 [ext_resource type="Resource" uid="uid://dwrh6ythq8856" path="res://units/drone/unit_drone_data.tres" id="8_6ly06"]
+[ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="11_bx871"]
 [ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="11_df5oo"]
-[ext_resource type="PackedScene" uid="uid://u73ipdserymd" path="res://components/job_container/job_container.tscn" id="12_bx871"]
-[ext_resource type="PackedScene" uid="uid://bsv3tl5s64app" path="res://components/job_fly_to/job_fly_to.tscn" id="13_ppv50"]
-[ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="14_ljgfa"]
-[ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="15_hu1bj"]
-[ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="16_ppv50"]
 [ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="18_0fnsb"]
 [ext_resource type="Texture2D" uid="uid://nf62olgi0s1b" path="res://resources/ore/icon_ore.png" id="19_0fnsb"]
 [ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="19_xfbg5"]
@@ -439,7 +435,7 @@ size = Vector2(66, 66)
 [node name="FactoryDrone" type="Node2D" node_paths=PackedStringArray("target", "jobs")]
 script = ExtResource("1_8qync")
 target = NodePath("Target")
-jobs = [NodePath("JobContainer-Deliver-Ore")]
+jobs = [null]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
@@ -471,8 +467,6 @@ set_props = Array[String](["can_produce"])
 [node name="StorageDepot-Ore" parent="." instance=ExtResource("18_0fnsb")]
 position = Vector2(-82, 0)
 resource = ExtResource("5_mdbdu")
-current = 7
-maximum = 10
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Ore/ResponderRightClick" index="0"]
@@ -524,18 +518,12 @@ texture = ExtResource("19_0fnsb")
 position = Vector2(-35, 9)
 texture = ExtResource("19_0fnsb")
 
-[node name="JobContainer-PickUp" parent="StorageDepot-Ore" index="8"]
-active = true
-
 [node name="JobPickUp" parent="StorageDepot-Ore/JobContainer-PickUp" index="0"]
 resource = ExtResource("5_mdbdu")
 
-[node name="StorageDepot-Battery-Energy" parent="." node_paths=PackedStringArray("current_changend_logic_block") instance=ExtResource("18_0fnsb")]
+[node name="StorageDepot-Battery-Energy" parent="." instance=ExtResource("18_0fnsb")]
 position = Vector2(68, 25)
 resource = ExtResource("19_xfbg5")
-current_changend_logic_block = [NodePath("../LargerThen-0-Energy")]
-current = 2
-maximum = 5
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Energy/ResponderRightClick" index="0"]
@@ -543,6 +531,8 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_xfbg5")
 
 [node name="ContainerStorage" parent="StorageDepot-Battery-Energy" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
+sub_resource = ExtResource("11_bx871")
+resource = ExtResource("19_xfbg5")
 current = 2.0
 maximum = 5.0
 current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
@@ -563,9 +553,6 @@ position = Vector2(-13, 0)
 [node name="StorageBattery5" parent="StorageDepot-Battery-Energy/ContainerStorage" index="4" instance=ExtResource("2_edn5b")]
 position = Vector2(-26, 0)
 
-[node name="JobContainer-Deliver-Battery-Full" parent="StorageDepot-Battery-Energy" index="7"]
-active = true
-
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_ppv50")]
 parent = NodePath("..")
 
@@ -581,25 +568,6 @@ parent = NodePath("..")
 unique_name_in_owner = true
 visible = false
 texture = ExtResource("3_opopk")
-
-[node name="JobContainer-Deliver-Ore" parent="." node_paths=PackedStringArray("building") instance=ExtResource("12_bx871")]
-unique_name_in_owner = true
-building = NodePath("..")
-
-[node name="JobFlyTo-Mine" parent="JobContainer-Deliver-Ore" instance=ExtResource("13_ppv50")]
-
-[node name="JobPickUp-Ore" parent="JobContainer-Deliver-Ore" instance=ExtResource("14_ljgfa")]
-resource = ExtResource("5_mdbdu")
-
-[node name="JobWait" parent="JobContainer-Deliver-Ore" instance=ExtResource("15_hu1bj")]
-
-[node name="JobFlyTo-Depot-Ore" parent="JobContainer-Deliver-Ore" node_paths=PackedStringArray("buildings") instance=ExtResource("13_ppv50")]
-buildings = [NodePath("../../StorageDepot-Ore")]
-
-[node name="JobDeliver" parent="JobContainer-Deliver-Ore" instance=ExtResource("16_ppv50")]
-resource = ExtResource("5_mdbdu")
-
-[node name="JobWait2" parent="JobContainer-Deliver-Ore" instance=ExtResource("15_hu1bj")]
 
 [connection signal="started" from="ProducerUnit-Drone" to="." method="_on_producer_unit_started"]
 [connection signal="stoped" from="ProducerUnit-Drone" to="." method="_on_producer_unit_stoped"]
