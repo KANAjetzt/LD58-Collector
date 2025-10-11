@@ -6,6 +6,10 @@ signal completed
 
 
 @export var resource: DataResource
+@export_group("Sub Resources (currently only Battery Energy)")
+## Only pick up empty sub_resources(aka. batteries)
+@export var prioritize_not_full := true
+@export var only_empty := false
 
 
 func start() -> void:
@@ -36,14 +40,24 @@ func start() -> void:
 		var building_sub_storage: ComponentStorage
 		var unit_storage: ComponentStorage
 		if resource.sub_resource:
-			building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource)
+			if only_empty:
+				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_empty)
+			elif prioritize_not_full:
+				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_not_full)
+			else:
+				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_not_empty)
+
+		# If sub resource was requested but is not available return
+		if resource.sub_resource and not building_sub_storage:
+			completed.emit()
+			return
 
 		# If base resource available
 		if building_storage:
 			# Request delivery to unit
 			unit_storage = unit.deliver_manager.request(resource)
 			# If space availabel on unit storage
-			if unit_storage:
+			if unit_storage and not building_sub_storage:
 				# Pick up resource from building
 				building.pick_up_manager.pick_up(building_storage)
 				# Deliver to unit
@@ -51,13 +65,53 @@ func start() -> void:
 
 		# If sub resource available
 		if building_sub_storage:
-			# Rquest delivery to unit
+			# Deliver resource to unit
+			unit.deliver_manager.deliver(unit_storage)
+			# Request sub resource delivery to unit
 			var unit_sub_storage := unit.deliver_manager.request_sub_resource(unit_storage, resource.sub_resource)
 			# If space availabel on unit sub storage
 			if unit_sub_storage:
-				# Pick up resource from building
+				# Pick up sub resource from building
 				var amount := building.pick_up_manager.pick_up(building_sub_storage, building_sub_storage.current)
-				# Deliver to unit
-				unit.deliver_manager.deliver(unit_sub_storage, amount)
+				building_sub_storage.get_parent().hide()
+				print("ComponentJobPickUp: Picked up %s %s from %s" % [amount, resource.sub_resource.display_name, building.name])
+				# Pick up resource from building
+				building.pick_up_manager.pick_up(building_storage)
+				# Deliver sub resource to unit
+				var amount_delivery := unit.deliver_manager.deliver(unit_sub_storage, amount)
+				print("ComponentJobPickUp: Delivered %s %s to %s" % [amount_delivery, resource.sub_resource.display_name, unit.name])
 
 	completed.emit()
+
+
+func _request_sub_resource_empty(requested_storage: ComponentStorage, requested_sub_resource: DataResource) -> ComponentStorage:
+	if requested_sub_resource and requested_storage is not ContainerStorage:
+		push_error("Sub resource requested but requested storage is not a ContainerStorage.")
+		return null
+
+	if requested_storage.resource.sub_resource == requested_sub_resource:
+		return requested_storage.get_first_empty()
+
+	return null
+
+
+func _request_sub_resource_not_empty(requested_storage: ComponentStorage, requested_sub_resource: DataResource) -> ComponentStorage:
+	if requested_sub_resource and requested_storage is not ContainerStorage:
+		push_error("Sub resource requested but requested storage is not a ContainerStorage.")
+		return null
+
+	if requested_storage.resource.sub_resource == requested_sub_resource:
+		return requested_storage.get_first_not_empty()
+
+	return null
+
+
+func _request_sub_resource_not_full(requested_storage: ComponentStorage, requested_sub_resource: DataResource) -> ComponentStorage:
+	if requested_sub_resource and requested_storage is not ContainerStorage:
+		push_error("Sub resource requested but requested storage is not a ContainerStorage.")
+		return null
+
+	if requested_storage.resource.sub_resource == requested_sub_resource:
+		return requested_storage.get_first_not_full()
+
+	return null

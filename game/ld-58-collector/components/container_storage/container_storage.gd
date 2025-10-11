@@ -7,7 +7,7 @@ extends ComponentStorage
 @export var toggle_visiblity := true
 
 var storages: Dictionary[Node, ComponentStorage]
-var current_accummulated := 0
+var current_accummulated: int = 0
 
 # ༼ つ ◕_◕ ༽つ That's really terrible - I have to fix that at some point. ༼ つ ◕_◕ ༽つ
 class ComponentUpdateCurrentAccummulated:
@@ -32,10 +32,15 @@ class ComponentUpdateCurrentAccummulated:
 
 
 func _ready() -> void:
+	update()
+
+
+func update() -> void:
 	update_storages_from_childs()
 	update_visiblity()
 	update_current_accummulated()
 	propagate_logic()
+	update_logic_blocks()
 
 
 func update_storages_from_childs() -> void:
@@ -107,17 +112,25 @@ func get_first_full() -> ComponentStorage:
 
 
 func update_visiblity() -> void:
-	var childs_visible := 0
+	var childs_visible := []
+	var childs_hidden := []
 
-	for child: Node2D in get_children():
+	for child in get_children():
 		if child.visible:
-			childs_visible += 1
+			childs_visible.push_back(child)
+		else:
+			childs_hidden.push_back(child)
 
-		if childs_visible > current:
-			child.hide()
-		if childs_visible < current and not child.visible:
-			child.show()
-			childs_visible += 1
+	if childs_visible.is_empty() and childs_hidden.is_empty():
+		return
+
+	if not childs_visible.size() == current:
+		var difference := childs_visible.size() - current
+		for i in range(abs(difference)):
+			if difference > 0:
+				childs_visible[i].hide()
+			else:
+				childs_hidden[i].show()
 
 
 func update_current_accummulated() -> void:
@@ -141,9 +154,9 @@ func propagate_logic() -> void:
 
 		child_storage.current_changed_logic_blocks.append_array(current_changed_logic_blocks)
 
-		child_storage.current_changed_logic_blocks.push_front(ComponentUpdateCurrentAccummulated.new(self))
-
-		print(get_parent().name, " ", child_storage.current_changed_logic_blocks)
+		var component_update_current_accummulated := ComponentUpdateCurrentAccummulated.new(self)
+		child_storage.add_child(component_update_current_accummulated)
+		child_storage.current_changed_logic_blocks.push_front(component_update_current_accummulated)
 
 
 func set_current(new_value) -> void:

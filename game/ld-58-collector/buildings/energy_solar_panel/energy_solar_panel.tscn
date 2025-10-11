@@ -173,9 +173,8 @@ position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_55i60")
 
 [node name="ContainerStorage" parent="StorageDepot-Battery" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
-sub_resource = ExtResource("4_853co")
 resource = ExtResource("16_cwe84")
-maximum = 20.0
+maximum = 20
 current_changed_logic_blocks = [NodePath("../../LargerThen-0-Battery")]
 
 [node name="StorageBattery" parent="StorageDepot-Battery/ContainerStorage" index="0" instance=ExtResource("7_853co")]

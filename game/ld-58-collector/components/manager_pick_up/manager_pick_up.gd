@@ -31,13 +31,23 @@ func handle_sub_resource(requested_storage: ComponentStorage, requested_sub_reso
 		return null
 
 	if requested_storage.resource.sub_resource == requested_sub_resource:
-		return requested_storage.get_first()
+		return requested_storage.get_first_not_empty()
 
 	return null
 
 
 # Return picked up amount
 func pick_up(storage: ComponentStorage, amount := 1) -> int:
+	if storage.current - amount > 0:
+		storage.current -= amount
+		return amount
+	else:
+		var left_over := storage.current
+		storage.current = 0
+		return left_over
+
+
+func pick_up_sub_resource(storage: ContainerStorage, amount) -> int:
 	if storage.current - amount > 0:
 		storage.current -= amount
 		return amount

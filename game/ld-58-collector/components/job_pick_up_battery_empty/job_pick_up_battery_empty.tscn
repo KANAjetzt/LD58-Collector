@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfohsuwh73yj2"]
-
-[ext_resource type="Script" uid="uid://bhtawtug71qth" path="res://components/job_pick_up_battery_empty/job_pick_up_battery_empty.gd" id="1_iyl5y"]
-[ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="2_rxrxs"]
-
-[node name="JobPickUpBatteryEmpty" type="Node"]
-script = ExtResource("1_iyl5y")
-resource = ExtResource("2_rxrxs")

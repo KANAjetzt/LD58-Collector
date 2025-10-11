@@ -114,7 +114,7 @@ storages = [NodePath("../ContainerStorage-Ore"), NodePath("../ContainerStorage-B
 
 [node name="ContainerStorage-Ore" parent="." instance=ExtResource("15_h3ekp")]
 resource = ExtResource("16_pku36")
-maximum = 1.0
+maximum = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="ContainerStorage-Ore"]
 visible = false
@@ -124,7 +124,7 @@ texture = ExtResource("17_i8c08")
 [node name="ContainerStorage-Battery" parent="." instance=ExtResource("15_h3ekp")]
 position = Vector2(9, 23)
 resource = ExtResource("12_pku36")
-maximum = 1.0
+maximum = 1
 
 [node name="StorageBattery" parent="ContainerStorage-Battery" instance=ExtResource("17_pku36")]
 visible = false

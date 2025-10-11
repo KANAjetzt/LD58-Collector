@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://xi2yax00lupo"]
+[gd_scene load_steps=76 format=3 uid="uid://xi2yax00lupo"]
 
 [ext_resource type="Script" uid="uid://dngva5uxnr670" path="res://buildings/factory_drone/factory_drone.gd" id="1_8qync"]
 [ext_resource type="Texture2D" uid="uid://wjsi1mculi7r" path="res://buildings/factory_drone/factory_drone.png" id="1_dgwce"]
@@ -10,7 +10,6 @@
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="5_mdbdu"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="6_ppv50"]
 [ext_resource type="Resource" uid="uid://dwrh6ythq8856" path="res://units/drone/unit_drone_data.tres" id="8_6ly06"]
-[ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="11_bx871"]
 [ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="11_df5oo"]
 [ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="18_0fnsb"]
 [ext_resource type="Texture2D" uid="uid://nf62olgi0s1b" path="res://resources/ore/icon_ore.png" id="19_0fnsb"]
@@ -450,7 +449,7 @@ unit = ExtResource("8_6ly06")
 time = 10.0
 
 [node name="ConsumerOre" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("3_l4iv5")]
-amount = 4.0
+amount = 4
 use_time = false
 storage = NodePath("../StorageDepot-Ore/ContainerStorage")
 
@@ -475,8 +474,8 @@ shape = SubResource("RectangleShape2D_lr3q7")
 
 [node name="ContainerStorage" parent="StorageDepot-Ore" index="1"]
 resource = ExtResource("5_mdbdu")
-current = 7.0
-maximum = 10.0
+current = 5
+maximum = 10
 
 [node name="Sprite2D" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="0"]
 position = Vector2(35, -8)
@@ -499,22 +498,27 @@ position = Vector2(-35, -8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D6" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="5"]
+visible = false
 position = Vector2(35, 9)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D7" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="6"]
+visible = false
 position = Vector2(18, 9)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D8" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="7"]
+visible = false
 position = Vector2(1, 9)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D9" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="8"]
+visible = false
 position = Vector2(-17, 9)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D10" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="9"]
+visible = false
 position = Vector2(-35, 9)
 texture = ExtResource("19_0fnsb")
 
@@ -531,10 +535,9 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_xfbg5")
 
 [node name="ContainerStorage" parent="StorageDepot-Battery-Energy" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
-sub_resource = ExtResource("11_bx871")
 resource = ExtResource("19_xfbg5")
-current = 2.0
-maximum = 5.0
+current = 2
+maximum = 5
 current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
 
 [node name="StorageBattery" parent="StorageDepot-Battery-Energy/ContainerStorage" index="0" instance=ExtResource("2_edn5b")]
@@ -546,11 +549,14 @@ position = Vector2(13, 0)
 energy = 5
 
 [node name="StorageBattery3" parent="StorageDepot-Battery-Energy/ContainerStorage" index="2" instance=ExtResource("2_edn5b")]
+visible = false
 
 [node name="StorageBattery4" parent="StorageDepot-Battery-Energy/ContainerStorage" index="3" instance=ExtResource("2_edn5b")]
+visible = false
 position = Vector2(-13, 0)
 
 [node name="StorageBattery5" parent="StorageDepot-Battery-Energy/ContainerStorage" index="4" instance=ExtResource("2_edn5b")]
+visible = false
 position = Vector2(-26, 0)
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_ppv50")]
