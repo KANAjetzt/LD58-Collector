@@ -2,51 +2,43 @@ class_name BuildingStorageDepot
 extends Building
 
 
-@export var resource: DataResource :
-	set(new_value):
-		resource = new_value
-		if container_storage:
-			container_storage.resource = resource
-@export var current_changend_logic_block: Array[ComponentLogicBlock] :
-	set(new_value):
-		current_changend_logic_block = new_value
-		if container_storage:
-			container_storage.current_changend_logic_block = current_changend_logic_block
-@export var current: int = 0 :
-	set(new_value):
-		current = new_value
-		if container_storage:
-			container_storage.current = current
-@export var maximum: int = 1 :
-	set(new_value):
-		maximum = new_value
-		if container_storage:
-			container_storage.maximum = maximum
+@export var deactivate_jobs := false
+@export var resource: DataResource
 
 @onready var container_storage: ContainerStorage = %ContainerStorage
 @onready var job_deliver: ComponentJobDeliver = %JobDeliver
 @onready var job_pick_up: ComponentJobPickUp = %JobPickUp
 @onready var sprite_selected: Sprite2D = %SpriteSelected
+@onready var job_container_deliver: ComponentJobContainer = %"JobContainer-Deliver"
+@onready var job_container_pick_up: ComponentJobContainer = %"JobContainer-PickUp"
 
 
 func _ready() -> void:
+	target = %Target
+	container_storage.resource = resource
 	job_deliver.resource = resource
 	job_pick_up.resource = resource
 
-	if container_storage:
-		container_storage.resource = resource
-		container_storage.current_changed_logic_blocks = current_changend_logic_block
-		container_storage.current = current
-		container_storage.maximum = maximum
 
-	target = %Target
-
-
-func _on_target_unit_entered(unit: Unit) -> void:
+func pick_job(unit: Unit) -> void:
 	for job in jobs:
 		if job.active:
 			job.register(unit)
 			return
+
+	# If no jobs where activated manually
+
+	# Check if the unit stores the resource the depot stores then active the delivere job
+	if unit.pick_up_manager.request(container_storage.resource):
+		job_container_deliver.register(unit, true)
+	# If the unit doesn't have the resource in store that the depot stores activate the pickup job
+	else:
+		job_container_pick_up.register(unit, true)
+
+
+func _on_target_unit_entered(unit: Unit) -> void:
+	if not deactivate_jobs:
+		pick_job(unit)
 
 
 func _on_responder_right_click_selected() -> void:

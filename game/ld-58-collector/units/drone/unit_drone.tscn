@@ -1,11 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://375n7l30emlp"]
+[gd_scene load_steps=25 format=3 uid="uid://375n7l30emlp"]
 
 [ext_resource type="Texture2D" uid="uid://rjqfi70f34vu" path="res://units/drone/unit_drone.png" id="1_5px8r"]
 [ext_resource type="Texture2D" uid="uid://cde25113y2t35" path="res://units/drone/unit_drone_shadow.png" id="1_vshxr"]
 [ext_resource type="Script" uid="uid://dqrqghwqgulbk" path="res://units/drone/unit_drone.gd" id="1_y8dcp"]
-[ext_resource type="PackedScene" uid="uid://baloahf6avhwm" path="res://components/storage/storage.tscn" id="2_6oocx"]
 [ext_resource type="PackedScene" uid="uid://cic1nuihtlp2d" path="res://components/manager_job/manager_job.tscn" id="2_cquy1"]
 [ext_resource type="PackedScene" uid="uid://dh3ge2qbc2h4a" path="res://components/movement/movement.tscn" id="2_vas5m"]
+[ext_resource type="Script" uid="uid://copmg4g52tk5s" path="res://units/drone/route_planer.gd" id="3_h3ekp"]
 [ext_resource type="PackedScene" uid="uid://fxwqsdfn7ypk" path="res://components/responder_left_click/responder_left_click.tscn" id="4_t8oav"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="4_wyfff"]
 [ext_resource type="PackedScene" uid="uid://bw6cnmf8gno7h" path="res://components/shake/shake.tscn" id="7_nv2oy"]
@@ -13,9 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://dunmai780p5l6" path="res://components/manager_pick_up/manager_pick_up.tscn" id="11_ixspc"]
 [ext_resource type="PackedScene" uid="uid://bpo4pk5sdq32v" path="res://components/manager_deliver/manager_deliver.tscn" id="12_m23cb"]
 [ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="12_pku36"]
-[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="13_pku36"]
+[ext_resource type="PackedScene" uid="uid://ci8ttaqsx8jg4" path="res://components/container_storage/container_storage.tscn" id="15_h3ekp"]
+[ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="16_pku36"]
 [ext_resource type="Texture2D" uid="uid://nf62olgi0s1b" path="res://resources/ore/icon_ore.png" id="17_i8c08"]
-[ext_resource type="PackedScene" uid="uid://dry8n7r82sdip" path="res://components/logic_update_resource_visualizer/logic_update_resource_visualizer.tscn" id="17_ts6au"]
+[ext_resource type="PackedScene" uid="uid://d0oxht4w1r24p" path="res://buildings/storage_battery/storage_battery.tscn" id="17_pku36"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vshxr"]
 atlas = ExtResource("1_5px8r")
@@ -53,11 +54,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_pku36"]
+radius = 21.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_wyfff"]
 radius = 29.068884
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6oocx"]
-radius = 20.024984
 
 [node name="UnitDrone" type="Node2D"]
 script = ExtResource("1_y8dcp")
@@ -65,6 +66,11 @@ script = ExtResource("1_y8dcp")
 [node name="JobManager" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_cquy1")]
 unique_name_in_owner = true
 parent = NodePath("..")
+
+[node name="RoutePlaner" type="Node" parent="." node_paths=PackedStringArray("drone")]
+unique_name_in_owner = true
+script = ExtResource("3_h3ekp")
+drone = NodePath("..")
 
 [node name="Movement" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_vas5m")]
 parent = NodePath("..")
@@ -83,6 +89,12 @@ speed_scale = 5.0
 visible = false
 texture = ExtResource("4_wyfff")
 
+[node name="ZoneUnit" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("9_qfe8r")]
+parent = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneUnit"]
+shape = SubResource("CircleShape2D_pku36")
+
 [node name="ResponderLeftClick" parent="." instance=ExtResource("4_t8oav")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ResponderLeftClick"]
@@ -92,48 +104,35 @@ shape = SubResource("CircleShape2D_wyfff")
 target = NodePath("../AnimatedSprite2D")
 strength = 1
 
-[node name="ZoneUnit" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("9_qfe8r")]
-parent = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoneUnit"]
-shape = SubResource("CircleShape2D_6oocx")
-
-[node name="Storage-Battery" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("2_6oocx")]
-resource = ExtResource("12_pku36")
-maximum = 1.0
-current_changed_logic_blocks = [NodePath("../ResourceVisualizer-Battery")]
-
-[node name="Storage-Ore" parent="." node_paths=PackedStringArray("current_changed_logic_blocks") instance=ExtResource("2_6oocx")]
-resource = ExtResource("13_pku36")
-maximum = 1.0
-current_changed_logic_blocks = [NodePath("../ResourceVisualizer-Ore")]
-
 [node name="PickUpManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("11_ixspc")]
 unique_name_in_owner = true
-storages = [NodePath("../Storage-Ore"), NodePath("../Storage-Battery")]
+storages = [NodePath("../ContainerStorage-Ore"), NodePath("../ContainerStorage-Battery")]
 
 [node name="DeliverManager" parent="." node_paths=PackedStringArray("storages") instance=ExtResource("12_m23cb")]
 unique_name_in_owner = true
-storages = [NodePath("../Storage-Ore"), NodePath("../Storage-Battery")]
+storages = [NodePath("../ContainerStorage-Ore"), NodePath("../ContainerStorage-Battery")]
 
-[node name="ResourceVisualizer-Ore" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("17_ts6au")]
+[node name="ContainerStorage-Ore" parent="." instance=ExtResource("15_h3ekp")]
+resource = ExtResource("16_pku36")
+maximum = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ContainerStorage-Ore"]
+visible = false
 position = Vector2(-8, 23)
-storage = NodePath("../Storage-Ore")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="ResourceVisualizer-Ore"]
-visible = false
 texture = ExtResource("17_i8c08")
 
-[node name="ResourceVisualizer-Battery" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("17_ts6au")]
+[node name="ContainerStorage-Battery" parent="." instance=ExtResource("15_h3ekp")]
 position = Vector2(9, 23)
-storage = NodePath("../Storage-Battery")
-metadata/_edit_group_ = true
+resource = ExtResource("12_pku36")
+maximum = 1.0
 
-[node name="Sprite2D" type="Sprite2D" parent="ResourceVisualizer-Battery"]
+[node name="StorageBattery" parent="ContainerStorage-Battery" instance=ExtResource("17_pku36")]
 visible = false
-texture = ExtResource("17_i8c08")
 
 [connection signal="new_target" from="." to="." method="_on_new_target"]
+[connection signal="new_target" from="." to="RoutePlaner" method="_on_unit_drone_new_target"]
+[connection signal="jop_stoped" from="JobManager" to="RoutePlaner" method="_on_job_manager_jop_stoped"]
 [connection signal="deselected" from="ResponderLeftClick" to="." method="_on_responder_left_click_deselected"]
+[connection signal="deselected" from="ResponderLeftClick" to="RoutePlaner" method="_on_responder_left_click_deselected"]
 [connection signal="selected" from="ResponderLeftClick" to="." method="_on_responder_left_click_selected"]
+[connection signal="selected" from="ResponderLeftClick" to="RoutePlaner" method="_on_responder_left_click_selected"]

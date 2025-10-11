@@ -16,10 +16,11 @@ func start() -> void:
 		return
 
 	var unit: Unit = parent.unit
-	var building: Building = unit.target.parent
+	var target: Target = unit.get("target") if is_instance_valid(unit.get("target")) else null
+	var building: Building = target.get("parent") if target else null
 
 	# Check if building can handle deliveries
-	if building.deliver_manager:
+	if building and building.get("deliver_manager"):
 		# Request pick up from unit store
 		var unit_storage := unit.pick_up_manager.request(resource)
 		# If resource available

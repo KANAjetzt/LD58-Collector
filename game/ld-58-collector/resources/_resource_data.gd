@@ -7,3 +7,4 @@ extends Resource
 ## Can be used to display the building name in game
 @export var display_name = ""
 @export var sprite: Texture
+@export var sub_resource: DataResource

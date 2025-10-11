@@ -4,7 +4,7 @@ extends Node
 signal consumed
 signal starved
 
-@export var amount := 1.0
+@export var amount := 1
 ## Set to false if only produce once
 @export var use_time := true
 ## Time interval for consumption

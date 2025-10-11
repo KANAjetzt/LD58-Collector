@@ -5,7 +5,6 @@ extends Building
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var producer_resource_battery: ComponentProducerResource = $"ProducerResource-Battery"
 @onready var sprite_selected: Sprite2D = $SpriteSelected
-@onready var job_container_deliver_ore: ComponentJobContainer = %"JobContainer-Deliver-Ore"
 
 
 func _ready() -> void:
@@ -41,7 +40,3 @@ func _on_responder_right_click_deselected() -> void:
 	Global.buildings_selected.erase(self)
 	sprite_selected.hide()
 	target.hide()
-
-
-func _on_target_unit_entered(unit: Unit) -> void:
-	job_container_deliver_ore.register(unit)
