@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://xi2yax00lupo"]
+[gd_scene load_steps=78 format=3 uid="uid://xi2yax00lupo"]
 
 [ext_resource type="Script" uid="uid://dngva5uxnr670" path="res://buildings/factory_drone/factory_drone.gd" id="1_8qync"]
 [ext_resource type="Texture2D" uid="uid://wjsi1mculi7r" path="res://buildings/factory_drone/factory_drone.png" id="1_dgwce"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="6_ppv50"]
 [ext_resource type="Resource" uid="uid://dwrh6ythq8856" path="res://units/drone/unit_drone_data.tres" id="8_6ly06"]
 [ext_resource type="PackedScene" uid="uid://b51tq7ww2g5bm" path="res://components/logic_blocks/larger_then.tscn" id="11_df5oo"]
+[ext_resource type="Texture2D" uid="uid://dte68bx6q87kb" path="res://map/sprite_sign_ore.png" id="15_ppv50"]
+[ext_resource type="Texture2D" uid="uid://cv1lbews6t48x" path="res://map/sprite_sign_battery_full.png" id="16_ljgfa"]
 [ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="18_0fnsb"]
 [ext_resource type="Texture2D" uid="uid://nf62olgi0s1b" path="res://resources/ore/icon_ore.png" id="19_0fnsb"]
 [ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="19_xfbg5"]
@@ -589,6 +591,14 @@ parent = NodePath("..")
 unique_name_in_owner = true
 visible = false
 texture = ExtResource("3_opopk")
+
+[node name="SpriteSignOre" type="Sprite2D" parent="."]
+position = Vector2(-137, 41)
+texture = ExtResource("15_ppv50")
+
+[node name="SpriteSignBatteryFull" type="Sprite2D" parent="."]
+position = Vector2(140, 42)
+texture = ExtResource("16_ljgfa")
 
 [connection signal="started" from="ProducerUnit-Drone" to="." method="_on_producer_unit_started"]
 [connection signal="stoped" from="ProducerUnit-Drone" to="." method="_on_producer_unit_stoped"]

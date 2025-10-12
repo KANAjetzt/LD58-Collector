@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b7svtartmof6"]
+[gd_scene load_steps=38 format=3 uid="uid://b7svtartmof6"]
 
 [ext_resource type="Script" uid="uid://dv46kjcts0sx" path="res://buildings/defense_laser/defense_laser.gd" id="1_2tinl"]
 [ext_resource type="Texture2D" uid="uid://scrb3apshvo8" path="res://buildings/defense_laser/defense_laser.png" id="2_gkyw8"]
@@ -11,6 +11,8 @@
 [ext_resource type="Resource" uid="uid://buhtl1nf8rrdn" path="res://resources/battery_empty/battery_empty_data.tres" id="8_5geap"]
 [ext_resource type="PackedScene" uid="uid://biqi68nnmmn3y" path="res://components/update_sprite/update_sprite.tscn" id="9_dw2ix"]
 [ext_resource type="Script" uid="uid://dduyi3obmcf4" path="res://buildings/defense_laser/check_win.gd" id="11_87bwa"]
+[ext_resource type="Texture2D" uid="uid://cv1lbews6t48x" path="res://map/sprite_sign_battery_full.png" id="12_algq6"]
+[ext_resource type="Texture2D" uid="uid://dte68bx6q87kb" path="res://map/sprite_sign_ore.png" id="13_5geap"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7wdt"]
 atlas = ExtResource("2_gkyw8")
@@ -364,6 +366,14 @@ storage = NodePath("../StorageDepot-Ore/ContainerStorage")
 [node name="CheckWin" type="Node" parent="." node_paths=PackedStringArray("storages")]
 script = ExtResource("11_87bwa")
 storages = [NodePath("../StorageDepot-Battery-Full/ContainerStorage"), NodePath("../StorageDepot-Ore/ContainerStorage")]
+
+[node name="SpriteSignBatteryFull" type="Sprite2D" parent="."]
+position = Vector2(43, 153)
+texture = ExtResource("12_algq6")
+
+[node name="SpriteSignOre" type="Sprite2D" parent="."]
+position = Vector2(153, 55)
+texture = ExtResource("13_5geap")
 
 [editable path="StorageDepot-Battery-Full"]
 [editable path="StorageDepot-Ore"]

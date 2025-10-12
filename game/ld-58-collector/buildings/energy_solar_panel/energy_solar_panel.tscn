@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dagsvneqbku2s"]
+[gd_scene load_steps=32 format=3 uid="uid://dagsvneqbku2s"]
 
 [ext_resource type="Texture2D" uid="uid://bv001dsmv312m" path="res://buildings/energy_solar_panel/energy_solar_panel.png" id="1_86kne"]
 [ext_resource type="Script" uid="uid://bdrjyddtv2ev3" path="res://buildings/energy_solar_panel/energy_solar_panel.gd" id="1_f0e3w"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://buhtl1nf8rrdn" path="res://resources/battery_empty/battery_empty_data.tres" id="8_1untv"]
 [ext_resource type="Resource" uid="uid://e5q16eqtud2x" path="res://resources/battery_full/battery_full_data.tres" id="9_23n1m"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="11_57wax"]
+[ext_resource type="Texture2D" uid="uid://fs13kbu3lthr" path="res://map/sprite_sign_battery_empty.png" id="14_idc8o"]
 [ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="16_cwe84"]
 [ext_resource type="PackedScene" uid="uid://cc17njlkpowdc" path="res://buildings/storage_depot/storage_depot.tscn" id="24_23n1m"]
 
@@ -243,6 +244,10 @@ resource = ExtResource("8_1untv")
 resource = ExtResource("9_23n1m")
 prioritize_not_full = false
 only_full = true
+
+[node name="SpriteSignBatteryEmpty" type="Sprite2D" parent="."]
+position = Vector2(-119, 56)
+texture = ExtResource("14_idc8o")
 
 [connection signal="deselected" from="ResponderRightClick" to="." method="_on_responder_right_click_deselected"]
 [connection signal="selected" from="ResponderRightClick" to="." method="_on_responder_right_click_selected"]

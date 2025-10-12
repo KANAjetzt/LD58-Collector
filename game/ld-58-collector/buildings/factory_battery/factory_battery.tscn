@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cnaqe82pb7sjl"]
+[gd_scene load_steps=58 format=3 uid="uid://cnaqe82pb7sjl"]
 
 [ext_resource type="Texture2D" uid="uid://bxwcpbgw673dv" path="res://buildings/factory_battery/factory_battery.png" id="1_qdvem"]
 [ext_resource type="Script" uid="uid://dg4qkvvkutb6i" path="res://buildings/factory_battery/factory_battery.gd" id="1_wwyyl"]
@@ -11,6 +11,8 @@
 [ext_resource type="Resource" uid="uid://bjxbjmqhrt0lv" path="res://resources/battery/resource_battery_data.tres" id="10_mfpbj"]
 [ext_resource type="PackedScene" uid="uid://cvh41kanodruy" path="res://components/consumer/consumer.tscn" id="10_unfgd"]
 [ext_resource type="Resource" uid="uid://bvwt7d3u2i6nj" path="res://resources/ore/resource_ore_data.tres" id="11_xc5vc"]
+[ext_resource type="Texture2D" uid="uid://dte68bx6q87kb" path="res://map/sprite_sign_ore.png" id="12_cgbae"]
+[ext_resource type="Texture2D" uid="uid://cv1lbews6t48x" path="res://map/sprite_sign_battery_full.png" id="13_rsmfr"]
 [ext_resource type="PackedScene" uid="uid://cksrrkckd0iy5" path="res://components/target/target.tscn" id="15_qd8o0"]
 [ext_resource type="PackedScene" uid="uid://4jihncq630xx" path="res://components/responder_right_click/responder_right_click.tscn" id="16_xrili"]
 [ext_resource type="Texture2D" uid="uid://nf62olgi0s1b" path="res://resources/ore/icon_ore.png" id="22_6ec64"]
@@ -501,6 +503,14 @@ parent = NodePath("..")
 position = Vector2(0, -5)
 rotation = 1.5707941
 shape = SubResource("CapsuleShape2D_3g4l0")
+
+[node name="SpriteSignOre" type="Sprite2D" parent="."]
+position = Vector2(137, 70)
+texture = ExtResource("12_cgbae")
+
+[node name="SpriteSignBatteryFull" type="Sprite2D" parent="."]
+position = Vector2(140, 20)
+texture = ExtResource("13_rsmfr")
 
 [node name="SpriteSelected" type="Sprite2D" parent="."]
 visible = false
