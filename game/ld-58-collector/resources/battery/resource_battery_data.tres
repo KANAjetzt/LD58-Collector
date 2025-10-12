@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="DataResource" load_steps=3 format=3 uid="uid://bjxbjmqhrt0lv"]
+[gd_resource type="Resource" script_class="DataResource" load_steps=4 format=3 uid="uid://bjxbjmqhrt0lv"]
 
 [ext_resource type="Script" uid="uid://iubhn0eug404" path="res://resources/_resource_data.gd" id="1_yafcd"]
 [ext_resource type="Texture2D" uid="uid://n68vnt7006qq" path="res://resources/battery_full/icon_battery_full.png" id="2_ik02n"]
+[ext_resource type="Resource" uid="uid://crspjph6bv4v3" path="res://resources/energy/resource_energy_data.tres" id="3_f87e7"]
 
 [resource]
 script = ExtResource("1_yafcd")
 id = "resource_battery"
 display_name = "Battery"
 sprite = ExtResource("2_ik02n")
+sub_resource = ExtResource("3_f87e7")
 metadata/_custom_type_script = "uid://iubhn0eug404"

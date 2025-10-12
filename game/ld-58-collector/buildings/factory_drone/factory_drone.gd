@@ -1,15 +1,16 @@
 class_name BuildingFactoryDrone
 extends Building
 
+@export var spawn_point: Node2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var producer_unit_drone: ComponentProducerUnit = %"ProducerUnit-Drone"
-@onready var job_container_deliver_ore: ComponentJobContainer = %"JobContainer-Deliver-Ore"
 @onready var sprite_selected: Sprite2D = %SpriteSelected
 
 
 func _ready() -> void:
 	target = %Target
+	producer_unit_drone.spawn_point = spawn_point
 
 	if producer_unit_drone.can_produce:
 		animated_sprite_2d.play()
@@ -41,7 +42,3 @@ func _on_responder_right_click_deselected() -> void:
 	#Global.buildings_selected.erase(self)
 	sprite_selected.hide()
 	target.hide()
-
-
-func _on_target_unit_entered(unit: Unit) -> void:
-	job_container_deliver_ore.register(unit)

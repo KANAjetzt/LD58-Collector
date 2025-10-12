@@ -95,19 +95,27 @@ frame_progress = 0.2053204
 resource = ExtResource("4_5v2gv")
 storage = NodePath("../StorageDepot-Ore/ContainerStorage")
 
+[node name="SmallerThen-max-Ore" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("7_fq0ln")]
+get_nodes = [NodePath("../StorageDepot-Ore/ContainerStorage")]
+get_props = Array[String](["current"])
+set_nodes = [NodePath("../ProducerResource-Ore")]
+set_props = Array[String](["can_produce"])
+boundary_node = NodePath("../StorageDepot-Ore/ContainerStorage")
+boundary_prop = "maximum"
+
 [node name="StorageDepot-Ore" parent="." instance=ExtResource("5_uswbn")]
 position = Vector2(-82, 0)
 resource = ExtResource("4_5v2gv")
-maximum = 10
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Ore/ResponderRightClick" index="0"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_f6bnh")
 
-[node name="ContainerStorage" parent="StorageDepot-Ore" index="1"]
+[node name="ContainerStorage" parent="StorageDepot-Ore" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
 resource = ExtResource("4_5v2gv")
 maximum = 10.0
+current_changed_logic_blocks = [NodePath("../../SmallerThen-max-Ore")]
 
 [node name="Sprite2D" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="0"]
 position = Vector2(35, -8)
@@ -149,19 +157,11 @@ texture = ExtResource("6_fq0ln")
 position = Vector2(-35, 9)
 texture = ExtResource("6_fq0ln")
 
-[node name="JobContainer-PickUp" parent="StorageDepot-Ore" index="8"]
+[node name="JobContainer-PickUp" parent="StorageDepot-Ore" index="7"]
 active = true
 
 [node name="JobPickUp" parent="StorageDepot-Ore/JobContainer-PickUp" index="0"]
 resource = ExtResource("4_5v2gv")
-
-[node name="SmallerThen-max-Ore" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes", "boundary_node") instance=ExtResource("7_fq0ln")]
-get_nodes = [NodePath("../StorageDepot-Ore/ContainerStorage")]
-get_props = Array[String](["current"])
-set_nodes = [NodePath("../ProducerResource-Ore")]
-set_props = Array[String](["can_produce"])
-boundary_node = NodePath("../StorageDepot-Ore/ContainerStorage")
-boundary_prop = "maximum"
 
 [connection signal="started" from="ProducerResource-Ore" to="." method="_on_producer_resource_started"]
 [connection signal="stoped" from="ProducerResource-Ore" to="." method="_on_producer_resource_stoped"]

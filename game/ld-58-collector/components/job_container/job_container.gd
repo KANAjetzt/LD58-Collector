@@ -3,7 +3,6 @@ extends Node
 
 
 @export var active := true
-@export var data: DataJob
 @export var building: Building
 @export var loop := true
 
@@ -16,8 +15,11 @@ func _ready() -> void:
 	steps = get_children()
 
 
-func register(register_unit: Unit) -> void:
-	if units.has(register_unit) or not active or register_unit.job_manager.job:
+func register(register_unit: Unit, ignore_active_state := false) -> void:
+	if not active and not ignore_active_state:
+		return
+
+	if units.has(register_unit) or register_unit.job_manager.job:
 		return
 
 	units[register_unit] = 0
