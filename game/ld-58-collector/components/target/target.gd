@@ -13,5 +13,6 @@ func clear() -> void:
 
 func _on_area_2d_area_entered(area: ComponentZoneUnit) -> void:
 	var unit := area.parent
-	unit.signal_target_reached(self)
+	if unit.target == self:
+		unit.signal_target_reached(self)
 	unit_entered.emit(unit)

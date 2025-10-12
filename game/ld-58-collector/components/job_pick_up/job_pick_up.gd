@@ -11,6 +11,7 @@ signal completed
 @export var prioritize_full := false
 ## Only pick up empty sub_resources(aka. batteries)
 @export var only_empty := false
+@export var only_full := false
 
 
 func start() -> void:
@@ -47,6 +48,8 @@ func start() -> void:
 				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_not_full)
 			elif prioritize_full:
 				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_full)
+			elif only_full:
+				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_full_only)
 			else:
 				building_sub_storage = building.pick_up_manager.request_sub_resource(building_storage, resource.sub_resource, _request_sub_resource_not_empty)
 
@@ -127,5 +130,16 @@ func _request_sub_resource_full(requested_storage: ComponentStorage, requested_s
 
 	if requested_storage.resource.sub_resource == requested_sub_resource:
 		return requested_storage.get_first_full()
+
+	return null
+
+
+func _request_sub_resource_full_only(requested_storage: ComponentStorage, requested_sub_resource: DataResource) -> ComponentStorage:
+	if requested_sub_resource and requested_storage is not ContainerStorage:
+		push_error("Sub resource requested but requested storage is not a ContainerStorage.")
+		return null
+
+	if requested_storage.resource.sub_resource == requested_sub_resource:
+		return requested_storage.get_first_full_only()
 
 	return null

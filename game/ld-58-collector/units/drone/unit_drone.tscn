@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dqrqghwqgulbk" path="res://units/drone/unit_drone.gd" id="1_y8dcp"]
 [ext_resource type="PackedScene" uid="uid://cic1nuihtlp2d" path="res://components/manager_job/manager_job.tscn" id="2_cquy1"]
 [ext_resource type="PackedScene" uid="uid://dh3ge2qbc2h4a" path="res://components/movement/movement.tscn" id="2_vas5m"]
-[ext_resource type="Script" uid="uid://copmg4g52tk5s" path="res://units/drone/route_planer.gd" id="3_h3ekp"]
+[ext_resource type="PackedScene" uid="uid://by4d02j1t8ctl" path="res://units/drone/route_planer.tscn" id="3_pku36"]
 [ext_resource type="PackedScene" uid="uid://fxwqsdfn7ypk" path="res://components/responder_left_click/responder_left_click.tscn" id="4_t8oav"]
 [ext_resource type="Texture2D" uid="uid://b834ibr454c4j" path="res://units/Selected.png" id="4_wyfff"]
 [ext_resource type="PackedScene" uid="uid://bw6cnmf8gno7h" path="res://components/shake/shake.tscn" id="7_nv2oy"]
@@ -67,9 +67,8 @@ script = ExtResource("1_y8dcp")
 unique_name_in_owner = true
 parent = NodePath("..")
 
-[node name="RoutePlaner" type="Node" parent="." node_paths=PackedStringArray("drone")]
+[node name="RoutePlaner" parent="." node_paths=PackedStringArray("drone") instance=ExtResource("3_pku36")]
 unique_name_in_owner = true
-script = ExtResource("3_h3ekp")
 drone = NodePath("..")
 
 [node name="Movement" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("2_vas5m")]
@@ -130,7 +129,6 @@ maximum = 1
 visible = false
 
 [connection signal="new_target" from="." to="." method="_on_new_target"]
-[connection signal="new_target" from="." to="RoutePlaner" method="_on_unit_drone_new_target"]
 [connection signal="jop_stoped" from="JobManager" to="RoutePlaner" method="_on_job_manager_jop_stoped"]
 [connection signal="deselected" from="ResponderLeftClick" to="." method="_on_responder_left_click_deselected"]
 [connection signal="deselected" from="ResponderLeftClick" to="RoutePlaner" method="_on_responder_left_click_deselected"]

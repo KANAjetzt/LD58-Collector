@@ -270,13 +270,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qd8o0"]
-size = Vector2(92, 38)
+size = Vector2(80, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjbvl"]
-size = Vector2(68, 21)
+size = Vector2(80, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1v2e"]
-size = Vector2(68, 37)
+size = Vector2(64, 33)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3g4l0"]
 radius = 32.0
@@ -321,12 +321,14 @@ use_time = false
 storage = NodePath("../StorageDepot-Ore/ContainerStorage")
 
 [node name="StorageDepot-Ore" parent="." instance=ExtResource("22_n1v2e")]
-position = Vector2(73, 51)
+position = Vector2(90, 47)
 resource = ExtResource("11_xc5vc")
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Ore/ResponderRightClick" index="0"]
-position = Vector2(0, 1)
+position = Vector2(-2, 1)
 shape = SubResource("RectangleShape2D_qd8o0")
+metadata/_edit_group_ = true
 
 [node name="ContainerStorage" parent="StorageDepot-Ore" index="1"]
 resource = ExtResource("11_xc5vc")
@@ -338,64 +340,64 @@ position = Vector2(-34, -8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D2" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="1"]
-position = Vector2(-17, -8)
+position = Vector2(-18, -8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D3" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="2"]
-position = Vector2(0, -8)
+position = Vector2(-2, -8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D4" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="3"]
 visible = false
-position = Vector2(17, -8)
+position = Vector2(14, -8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D5" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="4"]
 visible = false
-position = Vector2(34, -8)
+position = Vector2(30, -8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D6" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="5"]
 visible = false
-position = Vector2(-34, 9)
+position = Vector2(-34, 8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D7" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="6"]
 visible = false
-position = Vector2(-17, 9)
+position = Vector2(-18, 8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D8" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="7"]
 visible = false
-position = Vector2(0, 9)
+position = Vector2(-2, 8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D9" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="8"]
 visible = false
-position = Vector2(17, 9)
+position = Vector2(14, 8)
 texture = ExtResource("22_6ec64")
 
 [node name="Sprite2D10" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="9"]
 visible = false
-position = Vector2(34, 9)
+position = Vector2(30, 8)
 texture = ExtResource("22_6ec64")
 
 [node name="Target" parent="StorageDepot-Ore" index="2"]
-position = Vector2(0, 19)
+position = Vector2(0, 2)
 
 [node name="SpriteSelected" parent="StorageDepot-Ore" index="3"]
-position = Vector2(0, 19)
+position = Vector2(0, 2)
 
 [node name="JobDeliver" parent="StorageDepot-Ore/JobContainer-Deliver" index="0"]
 resource = ExtResource("11_xc5vc")
 
 [node name="StorageDepot-Battery-Energy" parent="." instance=ExtResource("22_n1v2e")]
-position = Vector2(61, 16)
+position = Vector2(95, 8)
 resource = ExtResource("10_mfpbj")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Energy/ResponderRightClick" index="0"]
-position = Vector2(0, 0.5)
+position = Vector2(-7, 0)
 shape = SubResource("RectangleShape2D_fjbvl")
 
 [node name="ContainerStorage" parent="StorageDepot-Battery-Energy" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
@@ -405,26 +407,33 @@ maximum = 5
 current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
 
 [node name="StorageBattery" parent="StorageDepot-Battery-Energy/ContainerStorage" index="0" instance=ExtResource("6_jk5go")]
-position = Vector2(26, 0)
+position = Vector2(-39, 0)
 energy = 5
 
 [node name="StorageBattery2" parent="StorageDepot-Battery-Energy/ContainerStorage" index="1" instance=ExtResource("6_jk5go")]
-position = Vector2(13, 0)
+position = Vector2(-23, 0)
 energy = 5
 
 [node name="StorageBattery3" parent="StorageDepot-Battery-Energy/ContainerStorage" index="2" instance=ExtResource("6_jk5go")]
+position = Vector2(-7, 0)
 energy = 5
 
 [node name="StorageBattery4" parent="StorageDepot-Battery-Energy/ContainerStorage" index="3" instance=ExtResource("6_jk5go")]
 visible = false
-position = Vector2(-13, 0)
+position = Vector2(9, 0)
 
 [node name="StorageBattery5" parent="StorageDepot-Battery-Energy/ContainerStorage" index="4" instance=ExtResource("6_jk5go")]
 visible = false
-position = Vector2(-26, 0)
+position = Vector2(25, 0)
+
+[node name="Target" parent="StorageDepot-Battery-Energy" index="2"]
+position = Vector2(-13, 0)
+
+[node name="SpriteSelected" parent="StorageDepot-Battery-Energy" index="3"]
+position = Vector2(-13, 0)
 
 [node name="StorageDepot-Battery-Empty" parent="." instance=ExtResource("22_n1v2e")]
-position = Vector2(-64, 0)
+position = Vector2(-80, -8)
 resource = ExtResource("10_mfpbj")
 metadata/_edit_group_ = true
 
@@ -438,32 +447,42 @@ maximum = 10
 current_changed_logic_blocks = [NodePath("../../And-Production-Requirement")]
 
 [node name="StorageBattery" parent="StorageDepot-Battery-Empty/ContainerStorage" index="0" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(26, 0)
 
 [node name="StorageBattery2" parent="StorageDepot-Battery-Empty/ContainerStorage" index="1" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(13, 0)
 
 [node name="StorageBattery3" parent="StorageDepot-Battery-Empty/ContainerStorage" index="2" instance=ExtResource("6_jk5go")]
+visible = false
 
 [node name="StorageBattery4" parent="StorageDepot-Battery-Empty/ContainerStorage" index="3" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(-13, 0)
 
 [node name="StorageBattery5" parent="StorageDepot-Battery-Empty/ContainerStorage" index="4" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(-26, 0)
 
 [node name="StorageBattery6" parent="StorageDepot-Battery-Empty/ContainerStorage" index="5" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(26, 17)
 
 [node name="StorageBattery7" parent="StorageDepot-Battery-Empty/ContainerStorage" index="6" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(13, 17)
 
 [node name="StorageBattery8" parent="StorageDepot-Battery-Empty/ContainerStorage" index="7" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(0, 17)
 
 [node name="StorageBattery9" parent="StorageDepot-Battery-Empty/ContainerStorage" index="8" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(-13, 17)
 
 [node name="StorageBattery10" parent="StorageDepot-Battery-Empty/ContainerStorage" index="9" instance=ExtResource("6_jk5go")]
+visible = false
 position = Vector2(-26, 17)
 
 [node name="Target" parent="StorageDepot-Battery-Empty" index="2"]

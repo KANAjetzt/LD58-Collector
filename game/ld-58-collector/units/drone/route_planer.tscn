@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://by4d02j1t8ctl"]
+
+[ext_resource type="Script" uid="uid://copmg4g52tk5s" path="res://units/drone/route_planer.gd" id="1_8c2u8"]
+[ext_resource type="Texture2D" uid="uid://dvqtm4jqo26bs" path="res://map/Line.png" id="2_dgh34"]
+
+[node name="RoutePlaner" type="Node"]
+script = ExtResource("1_8c2u8")
+
+[node name="Line2D" type="Line2D" parent="."]
+modulate = Color(0.7396623, 0.7396623, 0.7396623, 1)
+texture_repeat = 2
+width = 5.0
+texture = ExtResource("2_dgh34")
+texture_mode = 1

@@ -423,10 +423,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lr3q7"]
-size = Vector2(92, 37)
+size = Vector2(84, 52)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xfbg5"]
-size = Vector2(68, 21)
+size = Vector2(84, 19.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ljgfa"]
 size = Vector2(66, 66)
@@ -446,15 +446,15 @@ frame_progress = 0.82084256
 unique_name_in_owner = true
 consumer = NodePath("../ConsumerOre")
 unit = ExtResource("8_6ly06")
-time = 10.0
+time = 8.0
 
 [node name="ConsumerOre" parent="." node_paths=PackedStringArray("storage") instance=ExtResource("3_l4iv5")]
-amount = 4
+amount = 9
 use_time = false
 storage = NodePath("../StorageDepot-Ore/ContainerStorage")
 
 [node name="ConsumerEnergy" parent="." node_paths=PackedStringArray("container_storage") instance=ExtResource("3_l4iv5")]
-time = 8.0
+time = 15.0
 container_storage = NodePath("../StorageDepot-Battery-Energy/ContainerStorage")
 
 [node name="LargerThen-0-Energy" parent="." node_paths=PackedStringArray("get_nodes", "set_nodes") instance=ExtResource("11_df5oo")]
@@ -469,69 +469,83 @@ resource = ExtResource("5_mdbdu")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Ore/ResponderRightClick" index="0"]
-position = Vector2(0, 0.5)
+position = Vector2(-6, 8)
 shape = SubResource("RectangleShape2D_lr3q7")
 
 [node name="ContainerStorage" parent="StorageDepot-Ore" index="1"]
 resource = ExtResource("5_mdbdu")
-current = 5
-maximum = 10
+current = 15
+maximum = 15
 
 [node name="Sprite2D" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="0"]
-position = Vector2(35, -8)
+position = Vector2(26, -8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D2" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="1"]
-position = Vector2(18, -8)
+position = Vector2(10, -8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D3" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="2"]
-position = Vector2(1, -8)
+position = Vector2(-6, -8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D4" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="3"]
-position = Vector2(-17, -8)
+position = Vector2(-22, -8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D5" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="4"]
-position = Vector2(-35, -8)
+position = Vector2(-38, -8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D6" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="5"]
-visible = false
-position = Vector2(35, 9)
+position = Vector2(26, 8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D7" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="6"]
-visible = false
-position = Vector2(18, 9)
+position = Vector2(10, 8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D8" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="7"]
-visible = false
-position = Vector2(1, 9)
+position = Vector2(-6, 8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D9" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="8"]
-visible = false
-position = Vector2(-17, 9)
+position = Vector2(-22, 8)
 texture = ExtResource("19_0fnsb")
 
 [node name="Sprite2D10" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="9"]
-visible = false
-position = Vector2(-35, 9)
+position = Vector2(-38, 8)
+texture = ExtResource("19_0fnsb")
+
+[node name="Sprite2D11" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="10"]
+position = Vector2(26, 24)
+texture = ExtResource("19_0fnsb")
+
+[node name="Sprite2D12" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="11"]
+position = Vector2(10, 24)
+texture = ExtResource("19_0fnsb")
+
+[node name="Sprite2D13" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="12"]
+position = Vector2(-6, 24)
+texture = ExtResource("19_0fnsb")
+
+[node name="Sprite2D14" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="13"]
+position = Vector2(-22, 24)
+texture = ExtResource("19_0fnsb")
+
+[node name="Sprite2D15" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="14"]
+position = Vector2(-38, 24)
 texture = ExtResource("19_0fnsb")
 
 [node name="JobPickUp" parent="StorageDepot-Ore/JobContainer-PickUp" index="0"]
 resource = ExtResource("5_mdbdu")
 
 [node name="StorageDepot-Battery-Energy" parent="." instance=ExtResource("18_0fnsb")]
-position = Vector2(68, 25)
+position = Vector2(83, 25)
 resource = ExtResource("19_xfbg5")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Energy/ResponderRightClick" index="0"]
-position = Vector2(0, 0.5)
+position = Vector2(5, -0.75)
 shape = SubResource("RectangleShape2D_xfbg5")
 
 [node name="ContainerStorage" parent="StorageDepot-Battery-Energy" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
@@ -541,23 +555,24 @@ maximum = 5
 current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
 
 [node name="StorageBattery" parent="StorageDepot-Battery-Energy/ContainerStorage" index="0" instance=ExtResource("2_edn5b")]
-position = Vector2(26, 0)
+position = Vector2(-27, -1)
 energy = 5
 
 [node name="StorageBattery2" parent="StorageDepot-Battery-Energy/ContainerStorage" index="1" instance=ExtResource("2_edn5b")]
-position = Vector2(13, 0)
+position = Vector2(-11, -1)
 energy = 5
 
 [node name="StorageBattery3" parent="StorageDepot-Battery-Energy/ContainerStorage" index="2" instance=ExtResource("2_edn5b")]
 visible = false
+position = Vector2(5, -1)
 
 [node name="StorageBattery4" parent="StorageDepot-Battery-Energy/ContainerStorage" index="3" instance=ExtResource("2_edn5b")]
 visible = false
-position = Vector2(-13, 0)
+position = Vector2(21, -1)
 
 [node name="StorageBattery5" parent="StorageDepot-Battery-Energy/ContainerStorage" index="4" instance=ExtResource("2_edn5b")]
 visible = false
-position = Vector2(-26, 0)
+position = Vector2(37, -1)
 
 [node name="ResponderRightClick" parent="." node_paths=PackedStringArray("parent") instance=ExtResource("6_ppv50")]
 parent = NodePath("..")
