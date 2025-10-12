@@ -80,7 +80,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f6bnh"]
-size = Vector2(92, 37)
+size = Vector2(84, 52)
 
 [node name="Mine" type="Node2D"]
 script = ExtResource("1_5v2gv")
@@ -104,58 +104,83 @@ boundary_node = NodePath("../StorageDepot-Ore/ContainerStorage")
 boundary_prop = "maximum"
 
 [node name="StorageDepot-Ore" parent="." instance=ExtResource("5_uswbn")]
-position = Vector2(-82, 0)
+position = Vector2(-17, 67)
 resource = ExtResource("4_5v2gv")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Ore/ResponderRightClick" index="0"]
-position = Vector2(0, 0.5)
+position = Vector2(-7, 5)
 shape = SubResource("RectangleShape2D_f6bnh")
 
 [node name="ContainerStorage" parent="StorageDepot-Ore" index="1" node_paths=PackedStringArray("current_changed_logic_blocks")]
 resource = ExtResource("4_5v2gv")
-maximum = 10.0
+maximum = 15
 current_changed_logic_blocks = [NodePath("../../SmallerThen-max-Ore")]
 
 [node name="Sprite2D" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="0"]
-position = Vector2(35, -8)
+position = Vector2(25, -12)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D2" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="1"]
-position = Vector2(18, -8)
+position = Vector2(9, -12)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D3" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="2"]
-position = Vector2(1, -8)
+position = Vector2(-7, -12)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D4" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="3"]
-position = Vector2(-17, -8)
+position = Vector2(-23, -12)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D5" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="4"]
-position = Vector2(-35, -8)
+position = Vector2(-39, -12)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D6" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="5"]
-position = Vector2(35, 9)
+position = Vector2(25, 5)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D7" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="6"]
-position = Vector2(18, 9)
+position = Vector2(9, 5)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D8" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="7"]
-position = Vector2(1, 9)
+position = Vector2(-7, 5)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D9" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="8"]
-position = Vector2(-17, 9)
+position = Vector2(-23, 5)
 texture = ExtResource("6_fq0ln")
 
 [node name="Sprite2D10" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="9"]
-position = Vector2(-35, 9)
+position = Vector2(-39, 5)
 texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D11" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="10"]
+position = Vector2(25, 21)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D12" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="11"]
+position = Vector2(9, 21)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D13" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="12"]
+position = Vector2(-7, 21)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D14" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="13"]
+position = Vector2(-23, 21)
+texture = ExtResource("6_fq0ln")
+
+[node name="Sprite2D15" type="Sprite2D" parent="StorageDepot-Ore/ContainerStorage" index="14"]
+position = Vector2(-39, 21)
+texture = ExtResource("6_fq0ln")
+
+[node name="Target" parent="StorageDepot-Ore" index="2"]
+position = Vector2(-7, -3)
+
+[node name="SpriteSelected" parent="StorageDepot-Ore" index="3"]
+position = Vector2(-7, -3)
 
 [node name="JobContainer-PickUp" parent="StorageDepot-Ore" index="7"]
 active = true

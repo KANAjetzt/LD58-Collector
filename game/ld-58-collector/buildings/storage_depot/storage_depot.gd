@@ -37,7 +37,7 @@ func pick_job(unit: Unit) -> void:
 
 
 func _on_target_unit_entered(unit: Unit) -> void:
-	if not deactivate_jobs:
+	if unit.target == target and not deactivate_jobs:
 		pick_job(unit)
 
 
