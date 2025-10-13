@@ -586,7 +586,6 @@ current_changed_logic_blocks = [NodePath("../../LargerThen-0-Energy")]
 
 [node name="StorageBattery" parent="StorageDepot-Battery-Energy/ContainerStorage" index="0" instance=ExtResource("2_edn5b")]
 position = Vector2(-27, -1)
-energy = 5
 
 [node name="StorageBattery2" parent="StorageDepot-Battery-Energy/ContainerStorage" index="1" instance=ExtResource("2_edn5b")]
 position = Vector2(-11, -1)
