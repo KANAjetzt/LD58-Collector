@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=4 uid="uid://4v05avyp0n8s"]
+[gd_scene load_steps=75 format=4 uid="uid://4v05avyp0n8s"]
 
 [ext_resource type="PackedScene" uid="uid://xi2yax00lupo" path="res://buildings/factory_drone/factory_drone.tscn" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cingsqpvv46yu" path="res://main.gd" id="1_4c57u"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://d0t33gwrkqiy1" path="res://components/target_creator_right_click/target_creator_right_click.tscn" id="11_efxa6"]
 [ext_resource type="Script" uid="uid://b8jt8iarii044" path="res://timer_label.gd" id="12_dg77c"]
 [ext_resource type="Texture2D" uid="uid://828oyr8qi2mj" path="res://map/sprite_lose_animation.png" id="12_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://375n7l30emlp" path="res://units/drone/unit_drone.tscn" id="13_074og"]
 [ext_resource type="Texture2D" uid="uid://cmm2884ropxc5" path="res://map/sprite_win_animation.png" id="13_w48qg"]
 [ext_resource type="PackedScene" uid="uid://b7svtartmof6" path="res://buildings/defense_laser/defense_laser.tscn" id="15_vivmo"]
 [ext_resource type="AudioStream" uid="uid://btgxq6eb33yao" path="res://sound/music/starsound.ogg" id="17_yaehf"]
@@ -702,14 +701,6 @@ buildings = [NodePath("../../../../Mine/StorageDepot-Ore")]
 
 [node name="Drones" type="Node2D" parent="."]
 position = Vector2(200, -100)
-
-[node name="UnitDrone" parent="Drones" instance=ExtResource("13_074og")]
-
-[node name="UnitDrone2" parent="Drones" instance=ExtResource("13_074og")]
-
-[node name="UnitDrone3" parent="Drones" instance=ExtResource("13_074og")]
-
-[node name="UnitDrone4" parent="Drones" instance=ExtResource("13_074og")]
 
 [node name="TargetCreatorRightClick" parent="." node_paths=PackedStringArray("target_parent") instance=ExtResource("11_efxa6")]
 target_parent = NodePath("../Targets")
