@@ -4,13 +4,13 @@ extends Unit
 
 @onready var movement: ComponentMovement = $Movement
 @onready var sprite_selected: Sprite2D = $SpriteSelected
-@onready var route_planer: ComponentRoutePlaner = %RoutePlaner
 
 
 func _ready() -> void:
 	job_manager = %JobManager
 	pick_up_manager = %PickUpManager
 	deliver_manager = %DeliverManager
+	route_planer = %RoutePlaner
 
 
 func select() -> void:

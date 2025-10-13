@@ -101,6 +101,16 @@ func get_first_empty() -> ComponentStorage:
 	return get_first()
 
 
+func get_first_empty_only() -> ComponentStorage:
+	var storages_values := storages.values()
+
+	for storage in storages_values:
+		if storage.current == 0:
+			return storage
+
+	return null
+
+
 func get_first_full() -> ComponentStorage:
 	var storages_values := storages.values()
 

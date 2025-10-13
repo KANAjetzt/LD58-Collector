@@ -15,6 +15,7 @@ var target: Target:
 var job_manager: ComponentManagerJob
 var pick_up_manager: ComponentManagerPickUp
 var deliver_manager: ComponentManagerDeliver
+var route_planer: ComponentRoutePlaner
 
 
 func signal_target_reached(target_reached: Target) -> void:

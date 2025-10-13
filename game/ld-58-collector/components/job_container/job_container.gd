@@ -5,6 +5,7 @@ extends Node
 @export var active := true
 @export var building: Building
 @export var loop := true
+@export var is_route_job := false
 
 var units: Dictionary[Unit, int]
 var steps: Array[Node]
