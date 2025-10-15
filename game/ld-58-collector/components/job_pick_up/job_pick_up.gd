@@ -96,7 +96,7 @@ func _request_sub_resource_empty(requested_storage: ComponentStorage, requested_
 		return null
 
 	if requested_storage.resource.sub_resource == requested_sub_resource:
-		return requested_storage.get_first_empty()
+		return requested_storage.get_first_empty_only()
 
 	return null
 

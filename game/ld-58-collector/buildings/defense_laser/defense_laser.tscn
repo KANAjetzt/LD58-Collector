@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b7svtartmof6"]
+[gd_scene load_steps=44 format=3 uid="uid://b7svtartmof6"]
 
 [ext_resource type="Script" uid="uid://dv46kjcts0sx" path="res://buildings/defense_laser/defense_laser.gd" id="1_2tinl"]
 [ext_resource type="Texture2D" uid="uid://scrb3apshvo8" path="res://buildings/defense_laser/defense_laser.png" id="2_gkyw8"]
@@ -9,10 +9,16 @@
 [ext_resource type="PackedScene" uid="uid://d0oxht4w1r24p" path="res://buildings/storage_battery/storage_battery.tscn" id="7_algq6"]
 [ext_resource type="Texture2D" uid="uid://nf62olgi0s1b" path="res://resources/ore/icon_ore.png" id="7_dw2ix"]
 [ext_resource type="Resource" uid="uid://buhtl1nf8rrdn" path="res://resources/battery_empty/battery_empty_data.tres" id="8_5geap"]
+[ext_resource type="PackedScene" uid="uid://u73ipdserymd" path="res://components/job_container/job_container.tscn" id="8_05k8p"]
 [ext_resource type="PackedScene" uid="uid://biqi68nnmmn3y" path="res://components/update_sprite/update_sprite.tscn" id="9_dw2ix"]
+[ext_resource type="PackedScene" uid="uid://bsv3tl5s64app" path="res://components/job_fly_to/job_fly_to.tscn" id="9_gd2ty"]
+[ext_resource type="PackedScene" uid="uid://ihjpqtgehaut" path="res://components/job_pick_up/job_pick_up.tscn" id="10_66gun"]
+[ext_resource type="PackedScene" uid="uid://xrjkmid5vvcu" path="res://components/job_deliver/job_deliver.tscn" id="11_4tvav"]
 [ext_resource type="Script" uid="uid://dduyi3obmcf4" path="res://buildings/defense_laser/check_win.gd" id="11_87bwa"]
 [ext_resource type="Texture2D" uid="uid://cv1lbews6t48x" path="res://map/sprite_sign_battery_full.png" id="12_algq6"]
 [ext_resource type="Texture2D" uid="uid://dte68bx6q87kb" path="res://map/sprite_sign_ore.png" id="13_5geap"]
+[ext_resource type="Script" uid="uid://ckcu7mte4syou" path="res://components/job_container/job_container.gd" id="14_66gun"]
+[ext_resource type="PackedScene" uid="uid://rfjsfxc11yb2" path="res://components/job_wait/job_wait.tscn" id="15_4tvav"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7wdt"]
 atlas = ExtResource("2_gkyw8")
@@ -182,9 +188,10 @@ script = ExtResource("1_2tinl")
 sprite_frames = SubResource("SpriteFrames_msfkf")
 flip_h = true
 
-[node name="StorageDepot-Battery-Full" parent="." instance=ExtResource("5_87bwa")]
+[node name="StorageDepot-Battery-Full" parent="." node_paths=PackedStringArray("jobs") instance=ExtResource("5_87bwa")]
 position = Vector2(2, 107)
 resource = ExtResource("6_frd3s")
+jobs = [NodePath("JobContainer-Deliver"), NodePath("JobContainer-PickUp"), NodePath("JobContainer-Deliver-Batteries-Full")]
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Battery-Full/ResponderRightClick" index="0"]
@@ -247,18 +254,37 @@ position = Vector2(7, 0)
 [node name="SpriteSelected" parent="StorageDepot-Battery-Full" index="3"]
 position = Vector2(7, 0)
 
-[node name="JobContainer-Deliver" parent="StorageDepot-Battery-Full" index="6"]
-active = true
-
 [node name="JobDeliver" parent="StorageDepot-Battery-Full/JobContainer-Deliver" index="0"]
 resource = ExtResource("8_5geap")
 
 [node name="JobPickUp" parent="StorageDepot-Battery-Full/JobContainer-PickUp" index="0"]
 resource = ExtResource("4_ohcke")
 
-[node name="StorageDepot-Ore" parent="." instance=ExtResource("5_87bwa")]
+[node name="JobContainer-Deliver-Batteries-Full" parent="StorageDepot-Battery-Full" node_paths=PackedStringArray("building") instance=ExtResource("8_05k8p")]
+building = NodePath("..")
+
+[node name="JobFlyTo-Solarpanel" parent="StorageDepot-Battery-Full/JobContainer-Deliver-Batteries-Full" instance=ExtResource("9_gd2ty")]
+
+[node name="JobPickUp-Battery-Full" parent="StorageDepot-Battery-Full/JobContainer-Deliver-Batteries-Full" instance=ExtResource("10_66gun")]
+resource = ExtResource("6_frd3s")
+prioritize_not_full = false
+only_full = true
+
+[node name="JobWait" parent="StorageDepot-Battery-Full/JobContainer-Deliver-Batteries-Full" instance=ExtResource("15_4tvav")]
+
+[node name="JobFlyTo-Self" parent="StorageDepot-Battery-Full/JobContainer-Deliver-Batteries-Full" node_paths=PackedStringArray("buildings") instance=ExtResource("9_gd2ty")]
+buildings = [NodePath("../..")]
+
+[node name="JobDeliver-Battery-Full" parent="StorageDepot-Battery-Full/JobContainer-Deliver-Batteries-Full" instance=ExtResource("11_4tvav")]
+resource = ExtResource("6_frd3s")
+only_full = true
+
+[node name="JobWait2" parent="StorageDepot-Battery-Full/JobContainer-Deliver-Batteries-Full" instance=ExtResource("15_4tvav")]
+
+[node name="StorageDepot-Ore" parent="." node_paths=PackedStringArray("jobs") instance=ExtResource("5_87bwa")]
 position = Vector2(106, 0)
 resource = ExtResource("5_r7tif")
+jobs = [NodePath("JobContainer-Deliver"), NodePath("JobContainer-PickUp"), NodePath("JobContainer-DeliverOre")]
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StorageDepot-Ore/ResponderRightClick" index="0"]
@@ -358,6 +384,26 @@ position = Vector2(0, 19)
 
 [node name="JobDeliver" parent="StorageDepot-Ore/JobContainer-Deliver" index="0"]
 resource = ExtResource("5_r7tif")
+
+[node name="JobContainer-DeliverOre" type="Node" parent="StorageDepot-Ore" node_paths=PackedStringArray("building")]
+script = ExtResource("14_66gun")
+building = NodePath("..")
+metadata/_custom_type_script = "uid://ckcu7mte4syou"
+
+[node name="JobFlyTo-OreMine-OreDepot" parent="StorageDepot-Ore/JobContainer-DeliverOre" instance=ExtResource("9_gd2ty")]
+
+[node name="JobPickUp-Ore" parent="StorageDepot-Ore/JobContainer-DeliverOre" instance=ExtResource("10_66gun")]
+resource = ExtResource("5_r7tif")
+
+[node name="JobWait" parent="StorageDepot-Ore/JobContainer-DeliverOre" instance=ExtResource("15_4tvav")]
+
+[node name="JobFlyTo-Self" parent="StorageDepot-Ore/JobContainer-DeliverOre" node_paths=PackedStringArray("buildings") instance=ExtResource("9_gd2ty")]
+buildings = [NodePath("../..")]
+
+[node name="JobDeliver" parent="StorageDepot-Ore/JobContainer-DeliverOre" instance=ExtResource("11_4tvav")]
+resource = ExtResource("5_r7tif")
+
+[node name="JobWait2" parent="StorageDepot-Ore/JobContainer-DeliverOre" instance=ExtResource("15_4tvav")]
 
 [node name="UpdateSprite" parent="." node_paths=PackedStringArray("sprite", "storage") instance=ExtResource("9_dw2ix")]
 sprite = NodePath("../AnimatedSprite2D")

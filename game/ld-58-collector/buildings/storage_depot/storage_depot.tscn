@@ -46,6 +46,7 @@ unique_name_in_owner = true
 active = false
 building = NodePath("..")
 loop = false
+is_route_job = true
 
 [node name="JobDeliver" parent="JobContainer-Deliver" instance=ExtResource("10_ucqgk")]
 unique_name_in_owner = true
@@ -57,6 +58,7 @@ unique_name_in_owner = true
 active = false
 building = NodePath("..")
 loop = false
+is_route_job = true
 
 [node name="JobPickUp" parent="JobContainer-PickUp" instance=ExtResource("12_bf7rd")]
 unique_name_in_owner = true

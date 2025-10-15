@@ -21,19 +21,20 @@ func _ready() -> void:
 
 
 func pick_job(unit: Unit) -> void:
+	if unit.route_planer and not unit.route_planer.route.is_empty():
+		# Check if the unit stores the resource the depot stores then active the delivere job
+		if unit.pick_up_manager.request(container_storage.resource):
+			job_container_deliver.register(unit, true)
+		# If the unit doesn't have the resource in store that the depot stores activate the pickup job
+		else:
+			job_container_pick_up.register(unit, true)
+
+		return
+
 	for job in jobs:
 		if job.active:
 			job.register(unit)
 			return
-
-	# If no jobs where activated manually
-
-	# Check if the unit stores the resource the depot stores then active the delivere job
-	if unit.pick_up_manager.request(container_storage.resource):
-		job_container_deliver.register(unit, true)
-	# If the unit doesn't have the resource in store that the depot stores activate the pickup job
-	else:
-		job_container_pick_up.register(unit, true)
 
 
 func _on_target_unit_entered(unit: Unit) -> void:

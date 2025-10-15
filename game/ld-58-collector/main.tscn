@@ -665,17 +665,42 @@ metadata/_edit_group_ = true
 position = Vector2(239, -145)
 spawn_point = NodePath("../Drones")
 
+[node name="JobFlyTo-OreMine-OreDepot" parent="FactoryDrone/StorageDepot-Ore/FactoryDroneJobDeliverOre" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../Mine/StorageDepot-Ore")]
+
+[node name="JobFlyTo-Solar-Panel" parent="FactoryDrone/StorageDepot-Battery-Energy/JobContainer-Deliver-Batteries" index="2" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../EnergySolarPanel/StorageDepot-Battery")]
+
 [node name="FactoryBattery" parent="." instance=ExtResource("3_7mycd")]
 position = Vector2(-32, 448)
+
+[node name="JobFlyTo-OreMine-OreDepot" parent="FactoryBattery/StorageDepot-Ore/JobContainer-DeliverOre" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../Mine/StorageDepot-Ore")]
+
+[node name="JobFlyTo-Solar-Panel" parent="FactoryBattery/StorageDepot-Battery-Energy/JobContainer-Deliver-Batteries" index="2" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../EnergySolarPanel/StorageDepot-Battery")]
+
+[node name="JobFlyTo-Solarpanel" parent="FactoryBattery/StorageDepot-Battery-Empty/JobContainer-PickUp-Batteries-Empty" index="2" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../EnergySolarPanel/StorageDepot-Battery")]
 
 [node name="EnergySolarPanel" parent="." node_paths=PackedStringArray("jobs") instance=ExtResource("4_272bh")]
 position = Vector2(416, 208)
 jobs = [null, null]
 
+[node name="JobFlyTo-FactoryBattery-Depot-Battery-Empty" parent="EnergySolarPanel/StorageDepot-Battery/JobContainer-Deliver-Batteries-Empty" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../FactoryBattery/StorageDepot-Battery-Empty")]
+
 [node name="BuildingDefenseLaser" parent="." instance=ExtResource("15_vivmo")]
 position = Vector2(-128, 80)
 
+[node name="JobFlyTo-Solarpanel" parent="BuildingDefenseLaser/StorageDepot-Battery-Full/JobContainer-Deliver-Batteries-Full" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../EnergySolarPanel/StorageDepot-Battery")]
+
+[node name="JobFlyTo-OreMine-OreDepot" parent="BuildingDefenseLaser/StorageDepot-Ore/JobContainer-DeliverOre" index="0" node_paths=PackedStringArray("buildings")]
+buildings = [NodePath("../../../../Mine/StorageDepot-Ore")]
+
 [node name="Drones" type="Node2D" parent="."]
+position = Vector2(200, -100)
 
 [node name="TargetCreatorRightClick" parent="." node_paths=PackedStringArray("target_parent") instance=ExtResource("11_efxa6")]
 target_parent = NodePath("../Targets")
@@ -738,3 +763,18 @@ libraries = {
 }
 
 [connection signal="timeout" from="CanvasLayer/TimerLabel/Timer" to="." method="_on_timer_timeout"]
+
+[editable path="Mine"]
+[editable path="Mine/StorageDepot-Ore"]
+[editable path="FactoryDrone"]
+[editable path="FactoryDrone/StorageDepot-Ore"]
+[editable path="FactoryDrone/StorageDepot-Battery-Energy"]
+[editable path="FactoryBattery"]
+[editable path="FactoryBattery/StorageDepot-Ore"]
+[editable path="FactoryBattery/StorageDepot-Battery-Energy"]
+[editable path="FactoryBattery/StorageDepot-Battery-Empty"]
+[editable path="EnergySolarPanel"]
+[editable path="EnergySolarPanel/StorageDepot-Battery"]
+[editable path="BuildingDefenseLaser"]
+[editable path="BuildingDefenseLaser/StorageDepot-Battery-Full"]
+[editable path="BuildingDefenseLaser/StorageDepot-Ore"]

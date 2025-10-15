@@ -57,6 +57,11 @@ func update_storages_from_childs() -> void:
 			if storage:
 				storages[child] = storage
 
+	# I know - I know - the entire component needs a refactor.
+	if storages.size() > current:
+		for i in range(storages.size() - current):
+			storages.erase(storages.keys()[0])
+
 
 func get_first() -> ComponentStorage:
 	if storages.is_empty():
@@ -99,6 +104,16 @@ func get_first_empty() -> ComponentStorage:
 			return storage
 
 	return get_first()
+
+
+func get_first_empty_only() -> ComponentStorage:
+	var storages_values := storages.values()
+
+	for storage in storages_values:
+		if storage.current == 0:
+			return storage
+
+	return null
 
 
 func get_first_full() -> ComponentStorage:
