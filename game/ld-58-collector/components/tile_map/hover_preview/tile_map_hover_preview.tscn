@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxle55hmip8e2"]
+
+[ext_resource type="Script" uid="uid://ju3i4q2go21" path="res://components/tile_map/hover_preview/tile_map_hover_preview.gd" id="1_ybeos"]
+
+[node name="TileMapHoverPreview" type="Node"]
+script = ExtResource("1_ybeos")
