@@ -6,10 +6,16 @@ extends Node
 	set(new_value):
 		tile_map = new_value
 		tile_set = tile_map.tile_set
+@export var custom_mouse_cursor: Texture
 
 var tile_set: TileSet
-
 var last_cell: Vector2i
+
+
+func _ready() -> void:
+	if custom_mouse_cursor:
+		Input.set_custom_mouse_cursor(custom_mouse_cursor)
+
 
 func _process(_delta: float) -> void:
 	var map_cords := tile_map.local_to_map(tile_map.get_local_mouse_position())
