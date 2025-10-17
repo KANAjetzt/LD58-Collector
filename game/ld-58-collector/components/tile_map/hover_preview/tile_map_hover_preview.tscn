@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxle55hmip8e2"]
+[gd_scene load_steps=2 format=3 uid="uid://bxle55hmip8e2"]
 
 [ext_resource type="Script" uid="uid://ju3i4q2go21" path="res://components/tile_map/hover_preview/tile_map_hover_preview.gd" id="1_ybeos"]
-[ext_resource type="Texture2D" uid="uid://kthmektwuvxf" path="res://components/target/Target.png" id="2_ka8b2"]
 
 [node name="TileMapHoverPreview" type="Node"]
 script = ExtResource("1_ybeos")
-custom_mouse_cursor = ExtResource("2_ka8b2")

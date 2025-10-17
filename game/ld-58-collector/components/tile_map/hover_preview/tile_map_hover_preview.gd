@@ -7,6 +7,8 @@ extends Node
 		tile_map = new_value
 		tile_set = tile_map.tile_set
 @export var custom_mouse_cursor: Texture
+## Center of 32x32 image
+@export var custom_image_hotspot := Vector2(16, 16)
 
 var tile_set: TileSet
 var last_cell: Vector2i
@@ -14,7 +16,7 @@ var last_cell: Vector2i
 
 func _ready() -> void:
 	if custom_mouse_cursor:
-		Input.set_custom_mouse_cursor(custom_mouse_cursor)
+		Input.set_custom_mouse_cursor(custom_mouse_cursor, Input.CURSOR_ARROW, custom_image_hotspot)
 
 
 func _process(_delta: float) -> void:
