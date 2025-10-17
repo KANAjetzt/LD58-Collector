@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbuhq5pj0ehj6"]
+
+[ext_resource type="Script" uid="uid://cu6wudy8qm0pb" path="res://components/tile_map/placer/tile_map_placer.gd" id="1_tb1ve"]
+
+[node name="TileMapPlacer" type="Node"]
+script = ExtResource("1_tb1ve")
